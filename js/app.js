@@ -352,17 +352,17 @@ function renderPrizesInfo() {
 // ---- API status indicator ----
 async function checkApiStatus() {
   const indicator = document.getElementById('api-status');
-  if (!API.hasKey()) {
-    indicator.textContent = '● No API key';
-    indicator.className = 'text-xs px-2 py-1 rounded-full bg-amber-900/50 text-amber-400';
-    return;
-  }
   try {
-    await apiFetch(`/competitions/${CONFIG.COMPETITION_CODE}`);
-    indicator.textContent = '● Live data';
-    indicator.className = 'text-xs px-2 py-1 rounded-full bg-green-900/50 text-green-400';
+    const { matches } = await API.getMatches();
+    if (matches && matches.length > 0) {
+      indicator.textContent = '● Live data';
+      indicator.className = 'text-xs px-2 py-1 rounded-full bg-green-900/50 text-green-400';
+    } else {
+      indicator.textContent = '● No data yet';
+      indicator.className = 'text-xs px-2 py-1 rounded-full bg-slate-800 text-slate-400';
+    }
   } catch (e) {
-    indicator.textContent = '● API error';
+    indicator.textContent = '● Offline';
     indicator.className = 'text-xs px-2 py-1 rounded-full bg-red-900/50 text-red-400';
   }
 }
