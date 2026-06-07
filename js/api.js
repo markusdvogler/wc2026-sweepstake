@@ -1,49 +1,50 @@
-// football-data.org API wrapper with caching
-const CACHE_TTL = 5 * 60 * 1000; // 5 minutes
+// football-data.org API wrapper
+// - On localhost: proxies through serve.ps1 to avoid CORS
+// - On GitHub Pages: reads from data/*.json files updated by GitHub Actions every 15 min
+
+const CACHE_TTL = 5 * 60 * 1000;
 const cache = {};
+const isLocal = location.hostname === 'localhost' || location.hostname === '127.0.0.1';
 
 async function apiFetch(path) {
-  const key = path;
   const now = Date.now();
-  if (cache[key] && now - cache[key].ts < CACHE_TTL) return cache[key].data;
-
-  // Route through local proxy to avoid CORS; falls back to direct call when deployed
-  const isLocal = location.hostname === 'localhost' || location.hostname === '127.0.0.1';
-  const url = isLocal
-    ? `/proxy${path}`
-    : `${CONFIG.API_BASE}${path}`;
-
-  const headers = isLocal ? {} : { 'X-Auth-Token': CONFIG.API_KEY };
-  const res = await fetch(url, { headers });
-
+  if (cache[path] && now - cache[path].ts < CACHE_TTL) return cache[path].data;
+  const res = await fetch(`/proxy${path}`, { headers: {} });
   if (!res.ok) throw new Error(`API error ${res.status}`);
   const data = await res.json();
-  cache[key] = { data, ts: now };
+  cache[path] = { data, ts: now };
+  return data;
+}
+
+async function staticFetch(file) {
+  const now = Date.now();
+  if (cache[file] && now - cache[file].ts < CACHE_TTL) return cache[file].data;
+  const res = await fetch(file);
+  if (!res.ok) throw new Error(`File error ${res.status}`);
+  const data = await res.json();
+  cache[file] = { data, ts: now };
   return data;
 }
 
 const API = {
   hasKey() {
-    return CONFIG.API_KEY && CONFIG.API_KEY !== 'YOUR_API_KEY_HERE';
+    return isLocal
+      ? CONFIG.API_KEY && CONFIG.API_KEY !== 'YOUR_API_KEY_HERE'
+      : true; // GitHub Pages always has data files
   },
 
   async getMatches() {
-    return apiFetch(`/competitions/${CONFIG.COMPETITION_CODE}/matches`);
+    return isLocal
+      ? apiFetch(`/competitions/${CONFIG.COMPETITION_CODE}/matches`)
+      : staticFetch('data/matches.json');
   },
 
   async getStandings() {
-    return apiFetch(`/competitions/${CONFIG.COMPETITION_CODE}/standings`);
+    return isLocal
+      ? apiFetch(`/competitions/${CONFIG.COMPETITION_CODE}/standings`)
+      : staticFetch('data/standings.json');
   },
 
-  async getScorers() {
-    return apiFetch(`/competitions/${CONFIG.COMPETITION_CODE}/scorers?limit=20`);
-  },
-
-  async getTeamMatches(teamId) {
-    return apiFetch(`/competitions/${CONFIG.COMPETITION_CODE}/matches?team=${teamId}`);
-  },
-
-  // Build aggregated stats from all match data
   async getTeamStats() {
     const { matches } = await this.getMatches();
     const stats = {};
@@ -83,11 +84,9 @@ const API = {
 
       if (hs === 0 && as === 0) { stats[h.id].zeroZeroMatches++; stats[a.id].zeroZeroMatches++; }
 
-      // Biggest defeat
       if (hs > as) stats[a.id].biggestDefeat = Math.max(stats[a.id].biggestDefeat, hs - as);
       if (as > hs) stats[h.id].biggestDefeat = Math.max(stats[h.id].biggestDefeat, as - hs);
 
-      // Bookings and goals from match events
       if (m.goals) {
         for (const g of m.goals) {
           const tid = g.team?.id;

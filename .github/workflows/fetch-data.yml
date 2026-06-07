@@ -1,0 +1,33 @@
+name: Fetch World Cup Data
+
+on:
+  schedule:
+    - cron: '*/15 * * * *'   # every 15 minutes
+  workflow_dispatch:           # also allows manual trigger from GitHub UI
+
+jobs:
+  fetch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Fetch matches
+        run: |
+          curl -s -f \
+            -H "X-Auth-Token: ${{ secrets.FOOTBALL_API_KEY }}" \
+            "https://api.football-data.org/v4/competitions/WC/matches" \
+            > data/matches.json
+
+      - name: Fetch standings
+        run: |
+          curl -s -f \
+            -H "X-Auth-Token: ${{ secrets.FOOTBALL_API_KEY }}" \
+            "https://api.football-data.org/v4/competitions/WC/standings" \
+            > data/standings.json
+
+      - name: Commit and push if data changed
+        run: |
+          git config user.email "action@github.com"
+          git config user.name "GitHub Action"
+          git add data/
+          git diff --staged --quiet || (git commit -m "Update match data [skip ci]" && git push)
