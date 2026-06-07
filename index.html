@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FIFA World Cup 2026 Sweepstake</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            fifa: { blue: '#1a3d6e', green: '#4ade80', gold: '#f59e0b' }
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+    * { font-family: 'Inter', sans-serif; }
+    .tab-active { border-bottom: 3px solid #4ade80; color: white; }
+    .tab-inactive { color: #94a3b8; }
+    .prize-card:hover { transform: translateY(-2px); transition: transform 0.2s; }
+    .fade-in { animation: fadeIn 0.4s ease-in; }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+    .spinner { border: 3px solid rgba(255,255,255,0.1); border-top-color: #4ade80; border-radius: 50%; width: 32px; height: 32px; animation: spin 0.8s linear infinite; }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    .ranking-badge { display: inline-flex; align-items: center; justify-content: center; width: 28px; height: 28px; border-radius: 50%; font-size: 11px; font-weight: 700; }
+    .rank-top3 { background: linear-gradient(135deg, #f59e0b, #fbbf24); color: #1a1a1a; }
+    .rank-top10 { background: linear-gradient(135deg, #1a3d6e, #2563eb); color: white; }
+    .rank-rest { background: #334155; color: #94a3b8; }
+  </style>
+</head>
+<body class="bg-slate-900 text-white min-h-screen">
+
+  <!-- Header -->
+  <header class="bg-gradient-to-r from-slate-900 via-blue-950 to-slate-900 border-b border-slate-700 sticky top-0 z-50">
+    <div class="max-w-7xl mx-auto px-4 py-4 flex items-center justify-between">
+      <div class="flex items-center gap-3">
+        <div class="text-3xl">⚽</div>
+        <div>
+          <h1 class="text-xl font-bold text-white leading-tight">World Cup 2026 Sweepstake</h1>
+          <p class="text-xs text-slate-400">June 11 – July 19, 2026</p>
+        </div>
+      </div>
+      <div id="api-status" class="text-xs px-2 py-1 rounded-full bg-slate-800 text-slate-400">
+        ● Connecting...
+      </div>
+    </div>
+    <!-- Nav tabs -->
+    <div class="max-w-7xl mx-auto px-4">
+      <nav class="flex gap-1 overflow-x-auto">
+        <button onclick="showTab('participants')" id="tab-participants" class="tab-btn px-4 py-3 text-sm font-medium whitespace-nowrap tab-active">
+          👥 Participants
+        </button>
+        <button onclick="showTab('prizes')" id="tab-prizes" class="tab-btn px-4 py-3 text-sm font-medium whitespace-nowrap tab-inactive">
+          🏆 Prize Tracker
+        </button>
+        <button onclick="showTab('matches')" id="tab-matches" class="tab-btn px-4 py-3 text-sm font-medium whitespace-nowrap tab-inactive">
+          📅 Matches
+        </button>
+        <button onclick="showTab('standings')" id="tab-standings" class="tab-btn px-4 py-3 text-sm font-medium whitespace-nowrap tab-inactive">
+          📊 Standings
+        </button>
+        <button onclick="showTab('prizes-info')" id="tab-prizes-info" class="tab-btn px-4 py-3 text-sm font-medium whitespace-nowrap tab-inactive">
+          ℹ️ Prize Rules
+        </button>
+      </nav>
+    </div>
+  </header>
+
+  <main class="max-w-7xl mx-auto px-4 py-6">
+
+    <!-- PARTICIPANTS TAB -->
+    <div id="view-participants" class="fade-in">
+      <div class="flex items-center justify-between mb-6">
+        <div>
+          <h2 class="text-2xl font-bold">Participants & Teams</h2>
+          <p class="text-slate-400 text-sm mt-1">48 participants · Draw on Tuesday 9 June 2026</p>
+        </div>
+        <div class="flex gap-2">
+          <input id="search-participants" type="text" placeholder="Search name or team..."
+            class="bg-slate-800 border border-slate-600 rounded-lg px-3 py-2 text-sm text-white placeholder-slate-500 w-48 focus:outline-none focus:border-blue-400">
+          <a href="admin.html" class="bg-slate-700 hover:bg-slate-600 text-sm px-3 py-2 rounded-lg text-slate-300 transition-colors">
+            ⚙️ Admin
+          </a>
+        </div>
+      </div>
+
+      <div id="draw-banner" class="bg-gradient-to-r from-blue-900 to-blue-800 border border-blue-600 rounded-xl p-4 mb-6 flex items-center gap-3">
+        <div class="text-2xl">🎰</div>
+        <div>
+          <p class="font-semibold text-blue-100">Draw happening Tuesday 9 June at 9:00 – 2nd floor kitchen</p>
+          <p class="text-blue-300 text-sm">Team assignments will appear here once the draw is complete. Each participant pays 5 CHF.</p>
+        </div>
+      </div>
+
+      <div id="participants-loading" class="flex justify-center py-12">
+        <div class="spinner"></div>
+      </div>
+      <div id="participants-empty" class="hidden text-center py-16 text-slate-500">
+        <div class="text-6xl mb-4">🎰</div>
+        <p class="text-lg font-medium text-slate-400">No participants yet</p>
+        <p class="text-sm mt-2">The draw hasn't happened yet. Check back after Tuesday 9 June!</p>
+      </div>
+      <div id="participants-table" class="hidden">
+        <div class="bg-slate-800 rounded-xl overflow-hidden border border-slate-700">
+          <table class="w-full text-sm">
+            <thead>
+              <tr class="bg-slate-750 border-b border-slate-700 text-slate-400 text-xs uppercase tracking-wider">
+                <th class="text-left px-4 py-3">#</th>
+                <th class="text-left px-4 py-3">Participant</th>
+                <th class="text-left px-4 py-3">Team</th>
+                <th class="text-center px-4 py-3">FIFA Rank</th>
+                <th class="text-center px-4 py-3">Confederation</th>
+                <th class="text-right px-4 py-3">Prize Potential</th>
+              </tr>
+            </thead>
+            <tbody id="participants-tbody"></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- PRIZE TRACKER TAB -->
+    <div id="view-prizes" class="hidden fade-in">
+      <div class="mb-6">
+        <h2 class="text-2xl font-bold">Prize Tracker</h2>
+        <p class="text-slate-400 text-sm mt-1">Live leaders for each group stage prize (5 CHF each)</p>
+      </div>
+
+      <div id="prizes-loading" class="flex justify-center py-12">
+        <div class="spinner"></div>
+      </div>
+      <div id="prizes-grid" class="hidden grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4"></div>
+      <div id="prizes-no-api" class="hidden">
+        <div class="bg-amber-900/30 border border-amber-600 rounded-xl p-6 text-center">
+          <div class="text-4xl mb-3">🔑</div>
+          <h3 class="font-semibold text-amber-300 mb-2">API Key Required for Live Data</h3>
+          <p class="text-amber-400/80 text-sm mb-4">To show live prize standings, add your football-data.org API key to <code class="bg-slate-800 px-1 rounded">config.js</code>.</p>
+          <a href="https://www.football-data.org/client/register" target="_blank"
+             class="inline-block bg-amber-600 hover:bg-amber-500 text-white px-4 py-2 rounded-lg text-sm transition-colors">
+            Get Free API Key →
+          </a>
+        </div>
+        <!-- Static prize cards (no data) -->
+        <div id="prizes-static-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mt-6"></div>
+      </div>
+    </div>
+
+    <!-- MATCHES TAB -->
+    <div id="view-matches" class="hidden fade-in">
+      <div class="flex items-center justify-between mb-6">
+        <div>
+          <h2 class="text-2xl font-bold">Match Results</h2>
+          <p class="text-slate-400 text-sm mt-1">Group stage · Round of 32 · Knockouts</p>
+        </div>
+        <select id="match-filter" class="bg-slate-800 border border-slate-600 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-blue-400">
+          <option value="all">All Stages</option>
+          <option value="GROUP_STAGE">Group Stage</option>
+          <option value="LAST_32">Round of 32</option>
+          <option value="LAST_16">Round of 16</option>
+          <option value="QUARTER_FINALS">Quarter Finals</option>
+          <option value="SEMI_FINALS">Semi Finals</option>
+          <option value="FINAL">Final</option>
+        </select>
+      </div>
+      <div id="matches-loading" class="flex justify-center py-12"><div class="spinner"></div></div>
+      <div id="matches-no-api" class="hidden bg-amber-900/30 border border-amber-600 rounded-xl p-6 text-center">
+        <div class="text-4xl mb-3">🔑</div>
+        <h3 class="font-semibold text-amber-300 mb-2">API Key Required</h3>
+        <p class="text-sm text-amber-400/80">Add your API key to config.js to see live match data.</p>
+      </div>
+      <div id="matches-content" class="hidden space-y-3"></div>
+    </div>
+
+    <!-- STANDINGS TAB -->
+    <div id="view-standings" class="hidden fade-in">
+      <div class="mb-6">
+        <h2 class="text-2xl font-bold">Group Standings</h2>
+        <p class="text-slate-400 text-sm mt-1">Top 2 per group advance to Round of 32, plus 8 best 3rd-place teams</p>
+      </div>
+      <div id="standings-loading" class="flex justify-center py-12"><div class="spinner"></div></div>
+      <div id="standings-no-api" class="hidden bg-amber-900/30 border border-amber-600 rounded-xl p-6 text-center">
+        <div class="text-4xl mb-3">🔑</div>
+        <h3 class="font-semibold text-amber-300 mb-2">API Key Required</h3>
+        <p class="text-sm text-amber-400/80">Add your API key to config.js to see live standings.</p>
+      </div>
+      <div id="standings-content" class="hidden grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4"></div>
+    </div>
+
+    <!-- PRIZE RULES TAB -->
+    <div id="view-prizes-info" class="hidden fade-in">
+      <div class="mb-6">
+        <h2 class="text-2xl font-bold">Prize Rules</h2>
+        <p class="text-slate-400 text-sm mt-1">Full prize structure for the sweepstake</p>
+      </div>
+      <div class="space-y-4 max-w-2xl">
+        <div class="bg-gradient-to-r from-amber-900/40 to-yellow-900/20 border border-amber-700 rounded-xl p-5">
+          <h3 class="font-bold text-amber-300 text-lg mb-3">Main Prizes (after Final, 19 July)</h3>
+          <div class="space-y-2">
+            <div class="flex items-center justify-between">
+              <span class="flex items-center gap-2"><span class="text-2xl">🥇</span> Winner</span>
+              <span class="font-bold text-amber-400 text-lg">80 CHF</span>
+            </div>
+            <div class="flex items-center justify-between">
+              <span class="flex items-center gap-2"><span class="text-2xl">🥈</span> 2nd place</span>
+              <span class="font-bold text-amber-400 text-lg">60 CHF</span>
+            </div>
+            <div class="flex items-center justify-between">
+              <span class="flex items-center gap-2"><span class="text-2xl">🥉</span> 3rd place</span>
+              <span class="font-bold text-amber-400 text-lg">40 CHF</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="bg-slate-800 border border-slate-700 rounded-xl p-5">
+          <h3 class="font-bold text-green-400 text-lg mb-3">Group Stage Prizes (5 CHF each)</h3>
+          <div class="space-y-2 text-sm">
+            <div id="prizes-info-list"></div>
+          </div>
+        </div>
+
+        <div class="bg-slate-800/50 border border-slate-700 rounded-xl p-4 text-sm text-slate-400">
+          <p>Prize giving will take place after the Final (19 July 2026). Total prize pool from 48 × 5 CHF = <strong class="text-white">240 CHF</strong>. Group stage prizes: 12 × 5 CHF = <strong class="text-white">60 CHF</strong>. Final prizes: 180 CHF.</p>
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+  <script src="config.js"></script>
+  <script src="js/api.js"></script>
+  <script src="js/prizes.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>

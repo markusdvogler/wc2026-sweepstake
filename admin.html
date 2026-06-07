@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin – WC2026 Sweepstake</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+    * { font-family: 'Inter', sans-serif; }
+  </style>
+</head>
+<body class="bg-slate-900 text-white min-h-screen">
+
+  <!-- Login screen -->
+  <div id="login-screen" class="flex items-center justify-center min-h-screen">
+    <div class="bg-slate-800 border border-slate-700 rounded-2xl p-8 w-full max-w-sm">
+      <div class="text-center mb-6">
+        <div class="text-4xl mb-3">⚙️</div>
+        <h1 class="text-xl font-bold">Admin Access</h1>
+        <p class="text-slate-400 text-sm mt-1">World Cup 2026 Sweepstake</p>
+      </div>
+      <input id="pwd-input" type="password" placeholder="Enter admin password"
+        class="w-full bg-slate-700 border border-slate-600 rounded-lg px-4 py-3 text-white placeholder-slate-500 mb-4 focus:outline-none focus:border-blue-400"
+        onkeydown="if(event.key==='Enter') login()">
+      <button onclick="login()" class="w-full bg-blue-600 hover:bg-blue-500 text-white font-semibold py-3 rounded-lg transition-colors">
+        Sign In
+      </button>
+      <p id="login-error" class="text-red-400 text-sm text-center mt-3 hidden">Incorrect password</p>
+    </div>
+  </div>
+
+  <!-- Admin UI -->
+  <div id="admin-ui" class="hidden max-w-4xl mx-auto px-4 py-8">
+    <div class="flex items-center justify-between mb-8">
+      <div>
+        <h1 class="text-2xl font-bold">Sweepstake Admin</h1>
+        <p class="text-slate-400 text-sm">Assign teams to participants after the draw</p>
+      </div>
+      <a href="index.html" class="bg-slate-700 hover:bg-slate-600 px-4 py-2 rounded-lg text-sm transition-colors">← Back to App</a>
+    </div>
+
+    <!-- Quick Add section -->
+    <div class="bg-slate-800 border border-slate-700 rounded-xl p-6 mb-6">
+      <h2 class="font-semibold mb-4 text-lg">Add Participant</h2>
+      <div class="flex gap-3 flex-wrap">
+        <input id="new-name" type="text" placeholder="Participant name"
+          class="flex-1 min-w-48 bg-slate-700 border border-slate-600 rounded-lg px-3 py-2 text-white placeholder-slate-500 focus:outline-none focus:border-blue-400">
+        <select id="new-team"
+          class="flex-1 min-w-48 bg-slate-700 border border-slate-600 rounded-lg px-3 py-2 text-white focus:outline-none focus:border-blue-400">
+          <option value="">Select team...</option>
+        </select>
+        <button onclick="addParticipant()" class="bg-green-600 hover:bg-green-500 px-4 py-2 rounded-lg font-medium transition-colors whitespace-nowrap">
+          + Add
+        </button>
+      </div>
+    </div>
+
+    <!-- Bulk import -->
+    <div class="bg-slate-800 border border-slate-700 rounded-xl p-6 mb-6">
+      <h2 class="font-semibold mb-2">Bulk Import</h2>
+      <p class="text-slate-400 text-sm mb-3">Paste one entry per line: <code class="bg-slate-700 px-1 rounded">Name, Team</code></p>
+      <textarea id="bulk-input" rows="6" placeholder="John Smith, Brazil&#10;Jane Doe, Germany&#10;..."
+        class="w-full bg-slate-700 border border-slate-600 rounded-lg px-3 py-2 text-white placeholder-slate-500 font-mono text-sm focus:outline-none focus:border-blue-400 resize-none"></textarea>
+      <button onclick="bulkImport()" class="mt-3 bg-blue-600 hover:bg-blue-500 px-4 py-2 rounded-lg text-sm font-medium transition-colors">
+        Import
+      </button>
+      <span id="bulk-status" class="ml-3 text-sm text-green-400 hidden"></span>
+    </div>
+
+    <!-- Participant list -->
+    <div class="bg-slate-800 border border-slate-700 rounded-xl p-6 mb-6">
+      <div class="flex items-center justify-between mb-4">
+        <h2 class="font-semibold text-lg">Participants (<span id="count">0</span>/48)</h2>
+        <button onclick="clearAll()" class="text-red-400 hover:text-red-300 text-sm transition-colors">Clear all</button>
+      </div>
+      <div id="admin-list" class="space-y-2"></div>
+    </div>
+
+    <!-- Save / export -->
+    <div class="bg-slate-800 border border-slate-700 rounded-xl p-6">
+      <h2 class="font-semibold mb-3">Save Changes</h2>
+      <p class="text-slate-400 text-sm mb-4">Download the updated <code class="bg-slate-700 px-1 rounded">participants.json</code> and replace the file in the app folder.</p>
+      <button onclick="downloadJSON()" class="bg-green-600 hover:bg-green-500 px-6 py-3 rounded-lg font-semibold transition-colors">
+        ⬇ Download participants.json
+      </button>
+      <p class="text-xs text-slate-500 mt-3">After downloading, replace the participants.json file in the app folder and refresh the main page.</p>
+    </div>
+  </div>
+
+  <script src="config.js"></script>
+  <script>
+    const FLAG_ISO2 = {
+      ARG:'ar', FRA:'fr', ESP:'es', ENG:'gb-eng', BRA:'br', BEL:'be',
+      NED:'nl', POR:'pt', COL:'co', GER:'de', URU:'uy', JPN:'jp',
+      CRO:'hr', MAR:'ma', SEN:'sn', SUI:'ch', KOR:'kr', ECU:'ec',
+      AUT:'at', TUR:'tr', AUS:'au', NOR:'no', SWE:'se', IRN:'ir',
+      CIV:'ci', EGY:'eg', ALG:'dz', PAN:'pa', IRQ:'iq', SCO:'gb-sct',
+      GHA:'gh', PAR:'py', TUN:'tn', USA:'us', MEX:'mx', CAN:'ca',
+      RSA:'za', KSA:'sa', QAT:'qa', CZE:'cz', NZL:'nz', BIH:'ba',
+      JOR:'jo', UZB:'uz', COD:'cd', CPV:'cv', HAI:'ht', CUW:'cw'
+    };
+    let participants = [];
+    let teams = [];
+
+    function login() {
+      const pwd = document.getElementById('pwd-input').value;
+      if (pwd === CONFIG.ADMIN_PASSWORD) {
+        document.getElementById('login-screen').classList.add('hidden');
+        document.getElementById('admin-ui').classList.remove('hidden');
+        initAdmin();
+      } else {
+        document.getElementById('login-error').classList.remove('hidden');
+      }
+    }
+
+    async function initAdmin() {
+      const [pRes, tRes] = await Promise.all([
+        fetch('participants.json'),
+        fetch('teams.json')
+      ]);
+      const pData = await pRes.json();
+      const tData = await tRes.json();
+      participants = pData.participants || [];
+      teams = tData.teams || [];
+
+      // Populate team dropdown
+      const sel = document.getElementById('new-team');
+      for (const t of teams) {
+        const opt = document.createElement('option');
+        opt.value = t.code;
+        opt.textContent = `${t.name} (Rank #${t.fifaRanking})`;
+        sel.appendChild(opt);
+      }
+
+      renderList();
+    }
+
+    function addParticipant() {
+      const name = document.getElementById('new-name').value.trim();
+      const teamCode = document.getElementById('new-team').value;
+      if (!name || !teamCode) { alert('Please enter a name and select a team.'); return; }
+      const team = teams.find(t => t.code === teamCode);
+      if (!team) return;
+      if (participants.find(p => p.teamCode === teamCode)) {
+        alert(`${team.name} is already assigned to someone!`);
+        return;
+      }
+      participants.push({ name, team: team.name, teamCode: team.code });
+      document.getElementById('new-name').value = '';
+      document.getElementById('new-team').value = '';
+      renderList();
+    }
+
+    function bulkImport() {
+      const lines = document.getElementById('bulk-input').value.trim().split('\n');
+      let added = 0, skipped = 0;
+      for (const line of lines) {
+        const [rawName, rawTeam] = line.split(',').map(s => s.trim());
+        if (!rawName || !rawTeam) continue;
+        const team = teams.find(t =>
+          t.name.toLowerCase() === rawTeam.toLowerCase() ||
+          t.code.toLowerCase() === rawTeam.toLowerCase()
+        );
+        if (!team) { skipped++; continue; }
+        if (participants.find(p => p.teamCode === team.code)) { skipped++; continue; }
+        participants.push({ name: rawName, team: team.name, teamCode: team.code });
+        added++;
+      }
+      const status = document.getElementById('bulk-status');
+      status.textContent = `Added ${added}, skipped ${skipped}`;
+      status.classList.remove('hidden');
+      setTimeout(() => status.classList.add('hidden'), 3000);
+      document.getElementById('bulk-input').value = '';
+      renderList();
+    }
+
+    function removeParticipant(i) {
+      participants.splice(i, 1);
+      renderList();
+    }
+
+    function clearAll() {
+      if (confirm('Remove all participants?')) { participants = []; renderList(); }
+    }
+
+    function renderList() {
+      document.getElementById('count').textContent = participants.length;
+      const usedTeams = new Set(participants.map(p => p.teamCode));
+      const sel = document.getElementById('new-team');
+      for (const opt of sel.options) {
+        if (opt.value) opt.disabled = usedTeams.has(opt.value);
+      }
+
+      const container = document.getElementById('admin-list');
+      if (participants.length === 0) {
+        container.innerHTML = '<p class="text-slate-500 text-sm text-center py-4">No participants yet</p>';
+        return;
+      }
+      container.innerHTML = participants.map((p, i) => {
+        const team = teams.find(t => t.code === p.teamCode);
+        return `
+          <div class="flex items-center gap-3 bg-slate-700/50 rounded-lg px-4 py-2">
+            <span class="text-slate-400 text-sm w-6">${i + 1}</span>
+            <img src="https://flagcdn.com/w20/${FLAG_ISO2[team?.code] ?? 'un'}.png" width="20" class="rounded-sm" onerror="this.style.display='none'">
+            <span class="flex-1 font-medium">${p.name}</span>
+            <span class="text-slate-400 text-sm">${p.team}</span>
+            <span class="text-slate-500 text-xs">Rank #${team?.fifaRanking ?? '?'}</span>
+            <button onclick="removeParticipant(${i})" class="text-red-500 hover:text-red-400 ml-2 text-lg leading-none transition-colors">×</button>
+          </div>`;
+      }).join('');
+    }
+
+    function downloadJSON() {
+      const json = JSON.stringify({ participants }, null, 2);
+      const blob = new Blob([json], { type: 'application/json' });
+      const a = document.createElement('a');
+      a.href = URL.createObjectURL(blob);
+      a.download = 'participants.json';
+      a.click();
+    }
+  </script>
+</body>
+</html>
