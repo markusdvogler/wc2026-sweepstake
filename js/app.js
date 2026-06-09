@@ -77,12 +77,16 @@ async function loadParticipants() {
 
 function renderParticipants(filter = '') {
   document.getElementById('participants-loading').classList.add('hidden');
+
+  // Sort alphabetically by name
+  const sorted = [...participants].sort((a, b) => a.name.localeCompare(b.name));
+
   const list = filter
-    ? participants.filter(p =>
+    ? sorted.filter(p =>
         p.name.toLowerCase().includes(filter.toLowerCase()) ||
         (p.team || '').toLowerCase().includes(filter.toLowerCase())
       )
-    : participants;
+    : sorted;
 
   if (participants.length === 0) {
     document.getElementById('participants-empty').classList.remove('hidden');
@@ -98,7 +102,6 @@ function renderParticipants(filter = '') {
   tbody.innerHTML = list.map((p, i) => {
     const team = teamsData.find(t => t.name === p.team || t.code === p.teamCode);
     const rank = team?.fifaRanking ?? '?';
-    const conf = team?.confederation ?? '';
     return `
       <tr class="border-t border-slate-700/50 hover:bg-slate-750/50 transition-colors">
         <td class="px-4 py-3 text-slate-500 text-xs">${i + 1}</td>
@@ -111,10 +114,6 @@ function renderParticipants(filter = '') {
         </td>
         <td class="px-4 py-3 text-center">
           <span class="ranking-badge ${rankBadgeClass(rank)}">${rank}</span>
-        </td>
-        <td class="px-4 py-3 text-center text-slate-400 text-xs">${conf}</td>
-        <td class="px-4 py-3 text-right">
-          <span class="text-xs text-slate-500">Group + Final</span>
         </td>
       </tr>`;
   }).join('');
