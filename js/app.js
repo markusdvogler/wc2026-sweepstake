@@ -1,5 +1,6 @@
 let participants = [];
 let teamsData = [];
+let participantSort = 'alpha'; // 'alpha' or 'rank'
 let teamStats = {};
 let allMatches = [];
 let standingsData = [];
@@ -76,11 +77,25 @@ async function loadParticipants() {
   renderParticipants();
 }
 
+function toggleSort() {
+  participantSort = participantSort === 'alpha' ? 'rank' : 'alpha';
+  document.getElementById('sort-toggle').textContent =
+    participantSort === 'alpha' ? 'Sort: A–Z' : 'Sort: FIFA Rank';
+  renderParticipants(document.getElementById('search-participants').value);
+}
+
 function renderParticipants(filter = '') {
   document.getElementById('participants-loading').classList.add('hidden');
 
-  // Sort alphabetically by name
-  const sorted = [...participants].sort((a, b) => a.name.localeCompare(b.name));
+  // Sort by selected mode
+  const sorted = [...participants].sort((a, b) => {
+    if (participantSort === 'rank') {
+      const tA = teamsData.find(t => t.name === a.team || t.code === a.teamCode);
+      const tB = teamsData.find(t => t.name === b.team || t.code === b.teamCode);
+      return (tA?.fifaRanking ?? 999) - (tB?.fifaRanking ?? 999);
+    }
+    return a.name.localeCompare(b.name);
+  });
 
   const list = filter
     ? sorted.filter(p =>
