@@ -131,32 +131,33 @@ def find_world_cup_league(data):
 
     WC_KEYWORDS = ('world cup', 'worldcup', 'fifa world', 'coupe du monde', 'copa mundial')
 
-    # First pass: look for WC keywords + 2026
+    def is_world_cup(name):
+        """True if name looks like the FIFA World Cup (not Club World Cup)."""
+        return any(kw in name for kw in WC_KEYWORDS) and 'club' not in name
+
+    # Print all leagues for visibility
+    print(f'  Total leagues found: {len(leagues)}')
+    for item in leagues:
+        n, lid = extract_name_and_id(item)
+        print(f'    id={lid}  name={n}')
+
+    # First pass: WC keywords (no "club") + 2026 in raw item
     for item in leagues:
         name, lid = extract_name_and_id(item)
-        if any(kw in name for kw in WC_KEYWORDS) and lid is not None:
+        if is_world_cup(name) and lid is not None:
             item_str = json.dumps(item).lower()
             if '2026' in item_str:
                 print(f'  Found: "{name}" → ID={lid}')
                 return lid
 
-    # Second pass: any WC keyword
+    # Second pass: WC keywords (no "club"), any year
     for item in leagues:
         name, lid = extract_name_and_id(item)
-        if any(kw in name for kw in WC_KEYWORDS) and lid is not None:
+        if is_world_cup(name) and lid is not None:
             print(f'  Found: "{name}" → ID={lid}')
             return lid
 
-    # Debug output — print ALL leagues so we can manually pick the right ID
     print('  WARNING: Could not auto-detect FIFA World Cup league.')
-    print(f'  Total leagues found: {len(leagues)}')
-    if leagues:
-        print('  All leagues (id → name):')
-        for item in leagues:
-            name, lid = extract_name_and_id(item)
-            print(f'    id={lid}  name={name}')
-    else:
-        print('  Raw response sample:', str(resp)[:400])
     return None
 
 def get_matches(league_id):
