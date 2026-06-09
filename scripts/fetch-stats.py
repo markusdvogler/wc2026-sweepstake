@@ -1,46 +1,39 @@
 """
-Fetches match statistics from Free API Live Football Data (RapidAPI/Creativesdev).
-Endpoints used:
-  /football-get-all-leagues
-  /football-get-all-matches-by-league?leagueid={id}
-  /football-get-match-all-stats?eventid={id}
-  /football-get-match-detail?eventid={id}
+Fetches WC 2026 match statistics from Free API Live Football Data (RapidAPI).
 
-Saves aggregated per-team stats to data/team-stats.json (incremental).
+Strategy: fetch all football matches for today + yesterday by date, filter for
+WC 2026 (leagueId 914609), then for each newly-finished match pull full-time
+stats and event details.
+
+Runs hourly via .github/workflows/fetch-stats.yml to stay within the
+100 requests/day free-tier limit.
 """
 import json, os, sys, time
 import urllib.request, urllib.parse
-from datetime import datetime, timezone
+from datetime import datetime, timezone, timedelta
 
-API_KEY           = os.environ.get('RAPIDAPI_KEY', '')
-BASE_URL          = 'https://free-api-live-football-data.p.rapidapi.com'
-HOST              = 'free-api-live-football-data.p.rapidapi.com'
-WORLD_CUP_LEAGUE  = 914609   # confirmed: FIFA World Cup 2026 leagueId from match data
+API_KEY          = os.environ.get('RAPIDAPI_KEY', '')
+BASE_URL         = 'https://free-api-live-football-data.p.rapidapi.com'
+HOST             = 'free-api-live-football-data.p.rapidapi.com'
+WORLD_CUP_LEAGUE = 914609   # FIFA World Cup 2026 – confirmed from live API data
 
-# Map API team names -> canonical names in our teams.json
+# Map API team names → canonical names used in teams.json
 NAME_MAP = {
-    'Korea Republic':          'South Korea',
-    'Republic of Korea':       'South Korea',
-    'IR Iran':                 'Iran',
-    'Cape Verde':              'Cape Verde Islands',
-    "Cote d'Ivoire":           'Ivory Coast',
-    "Côte d'Ivoire":           'Ivory Coast',
-    'Ivory Coast':             'Ivory Coast',
-    'Bosnia':                  'Bosnia-Herzegovina',
-    'Bosnia and Herzegovina':  'Bosnia-Herzegovina',
-    'Turkiye':                 'Turkey',
-    'Türkiye':                 'Turkey',
-    'USA':                     'United States',
-    'United States of America':'United States',
-    'DR Congo':                'Congo DR',
+    'Korea Republic':           'South Korea',
+    'Republic of Korea':        'South Korea',
+    'IR Iran':                  'Iran',
+    'Cape Verde':               'Cape Verde Islands',
+    "Cote d'Ivoire":            'Ivory Coast',
+    "Côte d'Ivoire":            'Ivory Coast',
+    'Bosnia':                   'Bosnia-Herzegovina',
+    'Bosnia and Herzegovina':   'Bosnia-Herzegovina',
+    'Turkiye':                  'Turkey',
+    'Türkiye':                  'Turkey',
+    'USA':                      'United States',
+    'United States of America': 'United States',
+    'DR Congo':                 'Congo DR',
     'Democratic Republic of Congo': 'Congo DR',
-    'Curacao':                 'Curaçao',
-    'New Zealand':             'New Zealand',
-}
-
-FINISHED_STATUSES = {
-    'finished', 'ft', 'aet', 'pen', 'ap',
-    'after extra time', 'after penalties', 'full-time', 'full time'
+    'Curacao':                  'Curaçao',
 }
 
 def normalize(name):
@@ -65,65 +58,29 @@ def ensure_team(teams, name):
             'fouls': 0, 'ownGoals': 0, 'lateGoals': 0
         }
 
-def find_world_cup_league(data):
-    """Return the FIFA World Cup league ID (hardcoded, confirmed ID=77)."""
-    print(f'Using FIFA World Cup league ID: {WORLD_CUP_LEAGUE}')
-    return WORLD_CUP_LEAGUE
-
-def get_matches(league_id):
-    """Fetch all fixtures for the given league ID.
-    Confirmed response structure: {status, response: {matches: [...]}}
+def get_matches_for_date(date_str):
     """
-    resp = api_get('/football-get-all-matches-by-league', {'leagueid': league_id})
-    if isinstance(resp, list):
-        return resp
+    Fetch all matches on date_str (YYYYMMDD), return only finished WC ones.
+    Confirmed response: {status, response: {matches: [...]}}
+    Confirmed match structure: {id, leagueId, home: {name, longName}, away: {...},
+                                 status: {finished: bool, started: bool, ...}}
+    """
+    resp = api_get('/football-get-matches-by-date', {'date': date_str})
+    all_matches = []
     if isinstance(resp, dict):
         inner = resp.get('response', {})
         if isinstance(inner, dict):
-            # Confirmed key: 'matches'
-            for key in ('matches', 'events', 'fixtures', 'items', 'data'):
-                if key in inner and isinstance(inner[key], list):
-                    return inner[key]
+            all_matches = inner.get('matches', [])
         elif isinstance(inner, list):
-            return inner
-    return []
+            all_matches = inner
+    elif isinstance(resp, list):
+        all_matches = resp
 
-def get_event_id(match):
-    """Extract the event/match ID from a match record."""
-    return (match.get('id') or match.get('eventId') or match.get('event_id') or
-            match.get('fixture', {}).get('id'))
-
-def get_status(match):
-    """Extract and normalise the match status.
-    This API uses: status: {finished: bool, started: bool, cancelled: bool}
-    """
-    raw = match.get('status', {})
-    if isinstance(raw, dict):
-        if raw.get('finished'):
-            return 'finished'
-        if raw.get('cancelled'):
-            return 'cancelled'
-        return 'upcoming'
-    # Fallback for string-style status
-    return str(raw).strip().lower()
-
-def get_team_names(match):
-    """Return (home_name, away_name) from a match record."""
-    # Pattern A: homeTeam / awayTeam objects with name
-    if 'homeTeam' in match and isinstance(match['homeTeam'], dict):
-        home = match['homeTeam'].get('name', '')
-        away = match.get('awayTeam', {}).get('name', '')
-        return home, away
-    # Pattern B: home / away objects (confirmed structure for this API)
-    if 'home' in match and isinstance(match['home'], dict):
-        home = match['home'].get('longName') or match['home'].get('name', '')
-        away_obj = match.get('away', {})
-        away = away_obj.get('longName') or away_obj.get('name', '')
-        return home, away
-    # Pattern C: flat strings
-    home = match.get('homeName') or match.get('home_team') or match.get('homeTeamName', '')
-    away = match.get('awayName') or match.get('away_team') or match.get('awayTeamName', '')
-    return home, away
+    wc = [m for m in all_matches
+          if m.get('leagueId') == WORLD_CUP_LEAGUE
+          and isinstance(m.get('status'), dict)
+          and m['status'].get('finished')]
+    return wc
 
 def parse_int(val):
     try:
@@ -133,90 +90,82 @@ def parse_int(val):
 
 def process_stats(teams, home, away, resp):
     """
-    Extract fouls, yellow cards, red cards from /football-get-match-all-stats.
-    The response is typically a list of two objects (one per team) or a dict
-    with 'home'/'away' keys, each containing a list of stat entries.
+    Extract fouls, yellow/red cards from /football-get-match-all-stats.
+    Handles two common response shapes:
+      A) list of {team: {name}, statistics: [{name, value}]}
+      B) {home: {statistics: [...]}, away: {...}}  (or wrapped in response.*)
     """
-    def apply_stats(tname, stat_list):
+    def apply(tname, stat_list):
         ensure_team(teams, tname)
-        if not isinstance(stat_list, list):
-            return
-        for s in stat_list:
+        for s in (stat_list or []):
             if not isinstance(s, dict):
                 continue
-            key  = str(s.get('name') or s.get('type') or s.get('key') or '').lower()
-            val  = parse_int(s.get('value') or s.get('count') or s.get('stat') or 0)
+            key = str(s.get('name') or s.get('type') or s.get('key') or '').lower()
+            val = parse_int(s.get('value') or s.get('count') or 0)
             if 'yellow' in key:
                 teams[tname]['yellowCards'] += val
-            elif 'red card' in key or key == 'red cards':
+            elif 'red card' in key or key in ('red cards', 'red'):
                 teams[tname]['redCards'] += val
             elif 'foul' in key:
                 teams[tname]['fouls'] += val
 
-    # Pattern A: list of {team: {name}, statistics: [...]}
-    if isinstance(resp, list):
-        for item in resp:
+    # Unwrap a possible outer dict
+    data = resp
+    if isinstance(resp, dict):
+        for wrap in ('response', 'data', 'result'):
+            if wrap in resp:
+                data = resp[wrap]
+                break
+
+    # Shape A: list of per-team objects
+    if isinstance(data, list):
+        for item in data:
             if not isinstance(item, dict):
                 continue
-            tname_raw = (item.get('team', {}).get('name') or
-                         item.get('teamName') or item.get('name', ''))
-            tname = normalize(str(tname_raw))
-            stats = item.get('statistics') or item.get('stats') or []
-            apply_stats(tname, stats)
+            traw = (item.get('team', {}).get('name') if isinstance(item.get('team'), dict)
+                    else item.get('teamName') or item.get('name', ''))
+            apply(normalize(str(traw)), item.get('statistics') or item.get('stats') or [])
         return
 
-    if not isinstance(resp, dict):
-        return
-
-    # Pattern B: {home: {stats: [...]}, away: {stats: [...]}}
-    for key, tname in (('home', home), ('away', away)):
-        if key in resp and isinstance(resp[key], dict):
-            stat_list = resp[key].get('statistics') or resp[key].get('stats') or []
-            apply_stats(tname, stat_list)
-
-    # Pattern C: wrapped in response/data key
-    for wrap_key in ('response', 'data', 'result'):
-        if wrap_key in resp and isinstance(resp[wrap_key], list):
-            for item in resp[wrap_key]:
-                if not isinstance(item, dict):
-                    continue
-                tname_raw = (item.get('team', {}).get('name') or
-                             item.get('teamName') or item.get('name', ''))
-                tname = normalize(str(tname_raw))
-                stats = item.get('statistics') or item.get('stats') or []
-                apply_stats(tname, stats)
-            return
+    # Shape B: {home: {...}, away: {...}}
+    if isinstance(data, dict):
+        for key, tname in (('home', home), ('away', away)):
+            if key in data and isinstance(data[key], dict):
+                apply(tname, data[key].get('statistics') or data[key].get('stats') or [])
 
 def process_events(teams, home, away, resp):
     """
-    Extract own goals and late goals (minute >= 85) from /football-get-match-detail.
+    Extract own goals and late goals (≥85 min) from /football-get-match-detail.
     """
     incidents = []
-    if isinstance(resp, list):
-        incidents = resp
-    elif isinstance(resp, dict):
-        for key in ('incidents', 'events', 'goals', 'timeline', 'data', 'response'):
-            if key in resp and isinstance(resp[key], list):
-                incidents = resp[key]
+    data = resp
+    if isinstance(resp, dict):
+        for wrap in ('response', 'data', 'result'):
+            if wrap in resp:
+                data = resp[wrap]
+                break
+    if isinstance(data, list):
+        incidents = data
+    elif isinstance(data, dict):
+        for key in ('incidents', 'events', 'goals', 'timeline'):
+            if key in data and isinstance(data[key], list):
+                incidents = data[key]
                 break
 
     for inc in incidents:
         if not isinstance(inc, dict):
             continue
-
-        # Determine event type
         etype  = str(inc.get('type') or inc.get('incidentType') or '').lower()
-        detail = str(inc.get('detail') or inc.get('incidentClass') or inc.get('description') or '').lower()
-
+        detail = str(inc.get('detail') or inc.get('incidentClass') or '').lower()
         if 'goal' not in etype and 'goal' not in detail:
             continue
 
-        # Determine owning team
+        # Determine team
         is_home = inc.get('isHome')
-        team_raw = (inc.get('team', {}).get('name') if isinstance(inc.get('team'), dict)
-                    else inc.get('teamName') or inc.get('team', ''))
-        if team_raw:
-            tname = normalize(str(team_raw))
+        traw    = (inc.get('team', {}).get('name') if isinstance(inc.get('team'), dict)
+                   else inc.get('teamName') or inc.get('team', ''))
+        if traw:
+            tname = normalize(str(traw))
         elif is_home is True:
             tname = home
         elif is_home is False:
@@ -226,27 +175,25 @@ def process_events(teams, home, away, resp):
 
         ensure_team(teams, tname)
 
-        # Own goal?
-        own_goal = ('own' in detail or inc.get('isOwnGoal') or
-                    'own goal' in str(inc).lower())
-        if own_goal:
+        if ('own' in detail or inc.get('isOwnGoal') or
+                'own goal' in str(inc).lower()):
             teams[tname]['ownGoals'] += 1
 
-        # Late goal (minute >= 85)?
-        elapsed = parse_int(inc.get('time') or inc.get('minute') or
-                            inc.get('incidentTime') or
-                            (inc.get('time', {}).get('elapsed') if isinstance(inc.get('time'), dict) else 0))
-        extra   = parse_int(inc.get('addedTime') or inc.get('injury_time') or
-                            (inc.get('time', {}).get('extra') if isinstance(inc.get('time'), dict) else 0))
-        minute  = elapsed + extra
-        if minute >= 85:
+        elapsed = parse_int(
+            inc.get('time') if not isinstance(inc.get('time'), dict) else None
+            or inc.get('minute') or inc.get('incidentTime')
+            or (inc.get('time', {}).get('elapsed') if isinstance(inc.get('time'), dict) else 0))
+        extra = parse_int(
+            inc.get('addedTime') or inc.get('injury_time')
+            or (inc.get('time', {}).get('extra') if isinstance(inc.get('time'), dict) else 0))
+        if elapsed + extra >= 85:
             teams[tname]['lateGoals'] += 1
 
 
 # ── Main ──────────────────────────────────────────────────────────────────────
 
 if not API_KEY:
-    print('ERROR: RAPIDAPI_KEY environment variable not set.')
+    print('ERROR: RAPIDAPI_KEY not set.')
     sys.exit(1)
 
 stats_path = 'data/team-stats.json'
@@ -260,69 +207,68 @@ processed = set(data.get('processedFixtures', []))
 teams     = data.get('teams', {})
 errors    = []
 
-# Step 1: League ID (hardcoded to 77 = "World Cup" in this API)
-league_id = find_world_cup_league(data)
+# Dates to check: today + yesterday (catches matches that finish after midnight UTC)
+now       = datetime.now(timezone.utc)
+dates     = [(now - timedelta(days=i)).strftime('%Y%m%d') for i in range(2)]
 
-# Step 2: Get all fixtures
-print(f'Fetching fixtures for league {league_id}...')
-time.sleep(0.3)
-matches = get_matches(league_id)
-print(f'  Found {len(matches)} total fixtures')
+wc_matches = []
+for d in dates:
+    print(f'Fetching WC matches for {d}...')
+    try:
+        found = get_matches_for_date(d)
+        print(f'  {len(found)} finished WC match(es)')
+        wc_matches.extend(found)
+    except Exception as e:
+        errors.append(f'date {d}: {e}')
+        print(f'  Error: {e}')
+    time.sleep(0.4)
 
-# Step 3: Process new finished matches
 new_count = 0
-for match in matches:
-    event_id = get_event_id(match)
-    status   = get_status(match)
-
-    if status not in FINISHED_STATUSES:
-        continue
+for match in wc_matches:
+    event_id = match.get('id')
     if event_id is None or event_id in processed:
         continue
 
-    home_raw, away_raw = get_team_names(match)
-    if not home_raw or not away_raw:
-        print(f'  Skipping {event_id}: could not determine team names')
+    home_obj = match.get('home', {})
+    away_obj = match.get('away', {})
+    home = normalize(home_obj.get('longName') or home_obj.get('name', ''))
+    away = normalize(away_obj.get('longName') or away_obj.get('name', ''))
+    if not home or not away:
         continue
 
-    home = normalize(home_raw)
-    away = normalize(away_raw)
     ensure_team(teams, home)
     ensure_team(teams, away)
-    print(f'  Processing {event_id}: {home} vs {away}  [{status}]')
+    print(f'Processing {event_id}: {home} vs {away}')
 
-    # Stats (fouls, cards)
     try:
         time.sleep(0.4)
         stats_resp = api_get('/football-get-match-all-stats', {'eventid': event_id})
         process_stats(teams, home, away, stats_resp)
     except Exception as e:
         errors.append(f'stats {event_id}: {e}')
-        print(f'    Stats error: {e}')
+        print(f'  Stats error: {e}')
 
-    # Detail (own goals, late goals)
     try:
         time.sleep(0.4)
         detail_resp = api_get('/football-get-match-detail', {'eventid': event_id})
         process_events(teams, home, away, detail_resp)
     except Exception as e:
         errors.append(f'detail {event_id}: {e}')
-        print(f'    Detail error: {e}')
+        print(f'  Detail error: {e}')
 
     processed.add(event_id)
     new_count += 1
 
-# Step 4: Save
 data['processedFixtures'] = list(processed)
 data['teams']             = teams
-data['lastUpdated']       = datetime.now(timezone.utc).isoformat()
+data['lastUpdated']       = now.isoformat()
 
 with open(stats_path, 'w') as f:
     json.dump(data, f, indent=2)
 
-print(f'\nDone. Processed {new_count} new fixtures. Total processed: {len(processed)}.')
+print(f'\nDone. Processed {new_count} new match(es). Total: {len(processed)}.')
 if errors:
-    print('Errors encountered:')
+    print('Errors:')
     for e in errors:
         print(f'  {e}')
     sys.exit(1)
