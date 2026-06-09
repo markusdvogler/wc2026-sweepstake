@@ -39,7 +39,8 @@ function flagImg(teamName, size = 20) {
   const t = teamsData.find(t => t.name === teamName || t.code === teamName);
   const iso2 = t ? FLAG_ISO2[t.code] : null;
   if (!iso2) return '<span class="text-slate-500 text-xs">🏳</span>';
-  return `<img src="https://flagcdn.com/w${size}/${iso2}.png" width="${size}" class="inline rounded-sm align-middle" alt="${t.name}">`;
+  const base = isLocal ? `/flags/w${size}` : `https://flagcdn.com/w${size}`;
+  return `<img src="${base}/${iso2}.png" width="${size}" class="inline rounded-sm align-middle" alt="${t?.name ?? ''}">`;
 }
 
 function formatDate(dateStr) {
@@ -97,6 +98,7 @@ function renderParticipants(filter = '') {
   document.getElementById('participants-empty').classList.add('hidden');
   document.getElementById('participants-table').classList.remove('hidden');
   document.getElementById('draw-banner').classList.add('hidden');
+  document.getElementById('participants-subtitle').textContent = `${participants.length} participants`;
 
   const tbody = document.getElementById('participants-tbody');
   tbody.innerHTML = list.map((p, i) => {
