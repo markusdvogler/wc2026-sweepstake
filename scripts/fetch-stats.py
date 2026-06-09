@@ -255,12 +255,8 @@ processed = set(data.get('processedFixtures', []))
 teams     = data.get('teams', {})
 errors    = []
 
-# Step 1: Resolve league ID
+# Step 1: League ID (hardcoded to 77 = "World Cup" in this API)
 league_id = find_world_cup_league(data)
-if not league_id:
-    print('ERROR: FIFA World Cup 2026 league not found. Add it manually as leagueId in team-stats.json.')
-    sys.exit(1)
-data['leagueId'] = league_id
 
 # Step 2: Get all fixtures
 print(f'Fetching fixtures for league {league_id}...')
