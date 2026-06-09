@@ -15,7 +15,7 @@ from datetime import datetime, timezone
 API_KEY           = os.environ.get('RAPIDAPI_KEY', '')
 BASE_URL          = 'https://free-api-live-football-data.p.rapidapi.com'
 HOST              = 'free-api-live-football-data.p.rapidapi.com'
-WORLD_CUP_LEAGUE  = 77   # confirmed: "world cup" in free-api-live-football-data
+WORLD_CUP_LEAGUE  = 914609   # confirmed: FIFA World Cup 2026 leagueId from match data
 
 # Map API team names -> canonical names in our teams.json
 NAME_MAP = {
@@ -94,11 +94,17 @@ def get_event_id(match):
             match.get('fixture', {}).get('id'))
 
 def get_status(match):
-    """Extract and normalise the match status string."""
-    raw = (match.get('status') or match.get('matchStatus') or
-           match.get('fixture', {}).get('status', {}).get('short', '') or '')
+    """Extract and normalise the match status.
+    This API uses: status: {finished: bool, started: bool, cancelled: bool}
+    """
+    raw = match.get('status', {})
     if isinstance(raw, dict):
-        raw = raw.get('type') or raw.get('short') or raw.get('name') or ''
+        if raw.get('finished'):
+            return 'finished'
+        if raw.get('cancelled'):
+            return 'cancelled'
+        return 'upcoming'
+    # Fallback for string-style status
     return str(raw).strip().lower()
 
 def get_team_names(match):
@@ -108,10 +114,11 @@ def get_team_names(match):
         home = match['homeTeam'].get('name', '')
         away = match.get('awayTeam', {}).get('name', '')
         return home, away
-    # Pattern B: home / away objects
+    # Pattern B: home / away objects (confirmed structure for this API)
     if 'home' in match and isinstance(match['home'], dict):
-        home = match['home'].get('name', '')
-        away = match.get('away', {}).get('name', '')
+        home = match['home'].get('longName') or match['home'].get('name', '')
+        away_obj = match.get('away', {})
+        away = away_obj.get('longName') or away_obj.get('name', '')
         return home, away
     # Pattern C: flat strings
     home = match.get('homeName') or match.get('home_team') or match.get('homeTeamName', '')
