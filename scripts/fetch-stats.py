@@ -71,40 +71,21 @@ def find_world_cup_league(data):
     return WORLD_CUP_LEAGUE
 
 def get_matches(league_id):
-    """Fetch all fixtures for the given league ID."""
+    """Fetch all fixtures for the given league ID.
+    Confirmed response structure: {status, response: {matches: [...]}}
+    """
     resp = api_get('/football-get-all-matches-by-league', {'leagueid': league_id})
-
-    # Debug: show response structure
-    if isinstance(resp, dict):
-        print(f'  Matches response keys: {list(resp.keys())}')
-        inner_val = resp.get('response', {})
-        if isinstance(inner_val, dict):
-            print(f'  response sub-keys: {list(inner_val.keys())}')
-            for k, v in inner_val.items():
-                if isinstance(v, list):
-                    print(f'    [{k}] = list of {len(v)} items' + (f', first: {str(v[0])[:120]}' if v else ''))
-                else:
-                    print(f'    [{k}] = {type(v).__name__}: {str(v)[:80]}')
-        elif isinstance(inner_val, list):
-            print(f'  response = list of {len(inner_val)}' + (f', first: {str(inner_val[0])[:120]}' if inner_val else ''))
-    elif isinstance(resp, list):
-        print(f'  Matches response = list of {len(resp)}' + (f', first: {str(resp[0])[:120]}' if resp else ''))
-
     if isinstance(resp, list):
         return resp
     if isinstance(resp, dict):
-        # Same nesting pattern as leagues: {status, response: {events: [...]}}
         inner = resp.get('response', {})
         if isinstance(inner, dict):
-            for key in ('events', 'matches', 'fixtures', 'items', 'data'):
+            # Confirmed key: 'matches'
+            for key in ('matches', 'events', 'fixtures', 'items', 'data'):
                 if key in inner and isinstance(inner[key], list):
                     return inner[key]
         elif isinstance(inner, list):
             return inner
-        # Fallback: top-level list values
-        for key in ('events', 'matches', 'fixtures', 'data', 'result', 'items'):
-            if key in resp and isinstance(resp[key], list):
-                return resp[key]
     return []
 
 def get_event_id(match):
