@@ -1,39 +1,37 @@
 """
 Fetches WC 2026 match statistics from Free API Live Football Data (RapidAPI).
 
-Strategy: fetch all football matches for today + yesterday by date, filter for
-WC 2026 (leagueId 914609), then for each newly-finished match pull full-time
-stats and event details.
+Uses data/matches.json (football-data.org) as the authoritative list of WC
+fixtures. For each newly-finished WC match, fetches stats from RapidAPI by
+matching team names to the correct event on that date.
 
-Runs hourly via .github/workflows/fetch-stats.yml to stay within the
-100 requests/day free-tier limit.
+Runs hourly via .github/workflows/fetch-stats.yml (~48 API calls/day base).
 """
 import json, os, sys, time
 import urllib.request, urllib.parse
 from datetime import datetime, timezone, timedelta
 
-API_KEY          = os.environ.get('RAPIDAPI_KEY', '')
-BASE_URL         = 'https://free-api-live-football-data.p.rapidapi.com'
-HOST             = 'free-api-live-football-data.p.rapidapi.com'
-WORLD_CUP_LEAGUE = 914609   # FIFA World Cup 2026 – confirmed from live API data
+API_KEY  = os.environ.get('RAPIDAPI_KEY', '')
+BASE_URL = 'https://free-api-live-football-data.p.rapidapi.com'
+HOST     = 'free-api-live-football-data.p.rapidapi.com'
 
-# Map API team names → canonical names used in teams.json
+# Normalise team names to our canonical names (teams.json)
 NAME_MAP = {
-    'Korea Republic':           'South Korea',
-    'Republic of Korea':        'South Korea',
-    'IR Iran':                  'Iran',
-    'Cape Verde':               'Cape Verde Islands',
-    "Cote d'Ivoire":            'Ivory Coast',
-    "Côte d'Ivoire":            'Ivory Coast',
-    'Bosnia':                   'Bosnia-Herzegovina',
-    'Bosnia and Herzegovina':   'Bosnia-Herzegovina',
-    'Turkiye':                  'Turkey',
-    'Türkiye':                  'Turkey',
-    'USA':                      'United States',
-    'United States of America': 'United States',
-    'DR Congo':                 'Congo DR',
+    'Korea Republic':               'South Korea',
+    'Republic of Korea':            'South Korea',
+    'IR Iran':                      'Iran',
+    'Cape Verde':                   'Cape Verde Islands',
+    "Cote d'Ivoire":                'Ivory Coast',
+    "Côte d'Ivoire":                'Ivory Coast',
+    'Bosnia':                       'Bosnia-Herzegovina',
+    'Bosnia and Herzegovina':       'Bosnia-Herzegovina',
+    'Turkiye':                      'Turkey',
+    'Türkiye':                      'Turkey',
+    'USA':                          'United States',
+    'United States of America':     'United States',
+    'DR Congo':                     'Congo DR',
     'Democratic Republic of Congo': 'Congo DR',
-    'Curacao':                  'Curaçao',
+    'Curacao':                      'Curaçao',
 }
 
 def normalize(name):
@@ -58,14 +56,9 @@ def ensure_team(teams, name):
             'fouls': 0, 'ownGoals': 0, 'lateGoals': 0
         }
 
-def get_matches_for_date(date_str):
-    """
-    Fetch all matches on date_str (YYYYMMDD), return only finished WC ones.
-    Confirmed response: {status, response: {matches: [...]}}
-    Confirmed match structure: {id, leagueId, home: {name, longName}, away: {...},
-                                 status: {finished: bool, started: bool, ...}}
-    """
-    resp = api_get('/football-get-matches-by-date', {'date': date_str})
+def fetch_finished_matches_for_date(date_yyyymmdd):
+    """Fetch all finished matches from RapidAPI for a given date."""
+    resp = api_get('/football-get-matches-by-date', {'date': date_yyyymmdd})
     all_matches = []
     if isinstance(resp, dict):
         inner = resp.get('response', {})
@@ -75,12 +68,19 @@ def get_matches_for_date(date_str):
             all_matches = inner
     elif isinstance(resp, list):
         all_matches = resp
+    return [m for m in all_matches
+            if isinstance(m.get('status'), dict) and m['status'].get('finished')]
 
-    wc = [m for m in all_matches
-          if m.get('leagueId') == WORLD_CUP_LEAGUE
-          and isinstance(m.get('status'), dict)
-          and m['status'].get('finished')]
-    return wc
+def find_in_rapidapi(ra_matches, home_norm, away_norm):
+    """Find a RapidAPI match whose normalised team names match home_norm/away_norm."""
+    for m in ra_matches:
+        h = m.get('home', {})
+        a = m.get('away', {})
+        ra_home = normalize(h.get('longName') or h.get('name', ''))
+        ra_away = normalize(a.get('longName') or a.get('name', ''))
+        if ra_home == home_norm and ra_away == away_norm:
+            return m
+    return None
 
 def parse_int(val):
     try:
@@ -89,27 +89,21 @@ def parse_int(val):
         return 0
 
 def process_stats(teams, home, away, resp):
-    """
-    Extract fouls, yellow/red cards from /football-get-match-all-stats.
-    Handles two common response shapes:
-      A) list of {team: {name}, statistics: [{name, value}]}
-      B) {home: {statistics: [...]}, away: {...}}  (or wrapped in response.*)
-    """
+    """Extract fouls, yellow/red cards from /football-get-match-all-stats."""
     def apply(tname, stat_list):
         ensure_team(teams, tname)
         for s in (stat_list or []):
             if not isinstance(s, dict):
                 continue
-            key = str(s.get('name') or s.get('type') or s.get('key') or '').lower()
+            key = str(s.get('name') or s.get('type') or '').lower()
             val = parse_int(s.get('value') or s.get('count') or 0)
             if 'yellow' in key:
                 teams[tname]['yellowCards'] += val
-            elif 'red card' in key or key in ('red cards', 'red'):
+            elif 'red card' in key or key in ('red cards',):
                 teams[tname]['redCards'] += val
             elif 'foul' in key:
                 teams[tname]['fouls'] += val
 
-    # Unwrap a possible outer dict
     data = resp
     if isinstance(resp, dict):
         for wrap in ('response', 'data', 'result'):
@@ -117,7 +111,6 @@ def process_stats(teams, home, away, resp):
                 data = resp[wrap]
                 break
 
-    # Shape A: list of per-team objects
     if isinstance(data, list):
         for item in data:
             if not isinstance(item, dict):
@@ -127,16 +120,13 @@ def process_stats(teams, home, away, resp):
             apply(normalize(str(traw)), item.get('statistics') or item.get('stats') or [])
         return
 
-    # Shape B: {home: {...}, away: {...}}
     if isinstance(data, dict):
         for key, tname in (('home', home), ('away', away)):
             if key in data and isinstance(data[key], dict):
                 apply(tname, data[key].get('statistics') or data[key].get('stats') or [])
 
 def process_events(teams, home, away, resp):
-    """
-    Extract own goals and late goals (≥85 min) from /football-get-match-detail.
-    """
+    """Extract own goals and late goals (≥85 min) from /football-get-match-detail."""
     incidents = []
     data = resp
     if isinstance(resp, dict):
@@ -160,32 +150,20 @@ def process_events(teams, home, away, resp):
         if 'goal' not in etype and 'goal' not in detail:
             continue
 
-        # Determine team
         is_home = inc.get('isHome')
-        traw    = (inc.get('team', {}).get('name') if isinstance(inc.get('team'), dict)
-                   else inc.get('teamName') or inc.get('team', ''))
-        if traw:
-            tname = normalize(str(traw))
-        elif is_home is True:
-            tname = home
-        elif is_home is False:
-            tname = away
-        else:
+        traw = (inc.get('team', {}).get('name') if isinstance(inc.get('team'), dict)
+                else inc.get('teamName') or inc.get('team', ''))
+        tname = normalize(str(traw)) if traw else (home if is_home else away if is_home is False else None)
+        if not tname:
             continue
 
         ensure_team(teams, tname)
-
-        if ('own' in detail or inc.get('isOwnGoal') or
-                'own goal' in str(inc).lower()):
+        if 'own' in detail or inc.get('isOwnGoal'):
             teams[tname]['ownGoals'] += 1
 
-        elapsed = parse_int(
-            inc.get('time') if not isinstance(inc.get('time'), dict) else None
-            or inc.get('minute') or inc.get('incidentTime')
-            or (inc.get('time', {}).get('elapsed') if isinstance(inc.get('time'), dict) else 0))
-        extra = parse_int(
-            inc.get('addedTime') or inc.get('injury_time')
-            or (inc.get('time', {}).get('extra') if isinstance(inc.get('time'), dict) else 0))
+        t = inc.get('time', {})
+        elapsed = parse_int(t.get('elapsed') if isinstance(t, dict) else t)
+        extra   = parse_int(t.get('extra') if isinstance(t, dict) else inc.get('addedTime', 0))
         if elapsed + extra >= 85:
             teams[tname]['lateGoals'] += 1
 
@@ -196,6 +174,7 @@ if not API_KEY:
     print('ERROR: RAPIDAPI_KEY not set.')
     sys.exit(1)
 
+# Load saved stats
 stats_path = 'data/team-stats.json'
 try:
     with open(stats_path) as f:
@@ -203,42 +182,78 @@ try:
 except Exception:
     data = {}
 
-processed = set(data.get('processedFixtures', []))
+processed = set(data.get('processedFixtures', []))  # fdorg match IDs
 teams     = data.get('teams', {})
 errors    = []
 
-# Dates to check: today + yesterday (catches matches that finish after midnight UTC)
-now       = datetime.now(timezone.utc)
-dates     = [(now - timedelta(days=i)).strftime('%Y%m%d') for i in range(2)]
+# Load football-data.org WC fixtures as the authoritative match list
+try:
+    with open('data/matches.json') as f:
+        fdorg = json.load(f)
+    fd_matches = fdorg.get('matches', [])
+except Exception as e:
+    print(f'ERROR: could not load data/matches.json: {e}')
+    sys.exit(1)
 
-wc_matches = []
-for d in dates:
-    print(f'Fetching WC matches for {d}...')
-    try:
-        found = get_matches_for_date(d)
-        print(f'  {len(found)} finished WC match(es)')
-        wc_matches.extend(found)
-    except Exception as e:
-        errors.append(f'date {d}: {e}')
-        print(f'  Error: {e}')
-    time.sleep(0.4)
+# Find finished WC matches not yet processed
+new_wc_matches = [
+    m for m in fd_matches
+    if m.get('status') == 'FINISHED' and m.get('id') not in processed
+]
+print(f'Finished WC matches not yet processed: {len(new_wc_matches)}')
+
+if not new_wc_matches:
+    print('Nothing to do.')
+    data['lastUpdated'] = datetime.now(timezone.utc).isoformat()
+    with open(stats_path, 'w') as f:
+        json.dump(data, f, indent=2)
+    sys.exit(0)
+
+# Group unprocessed matches by the dates we need to fetch from RapidAPI.
+# WC matches are in the Americas (UTC-4 to UTC-7), so a match on "June 11 local"
+# might have utcDate "June 12". We check both the UTC date and the day before.
+date_cache = {}  # YYYYMMDD -> list of finished RapidAPI matches
+
+def get_cached(date_str):
+    if date_str not in date_cache:
+        print(f'  Fetching RapidAPI matches for {date_str}...')
+        try:
+            time.sleep(0.4)
+            date_cache[date_str] = fetch_finished_matches_for_date(date_str)
+            print(f'    Got {len(date_cache[date_str])} finished matches')
+        except Exception as e:
+            print(f'    Error: {e}')
+            date_cache[date_str] = []
+    return date_cache[date_str]
 
 new_count = 0
-for match in wc_matches:
-    event_id = match.get('id')
-    if event_id is None or event_id in processed:
+for m in new_wc_matches:
+    fdorg_id   = m['id']
+    home = normalize(m['homeTeam']['name'])
+    away = normalize(m['awayTeam']['name'])
+
+    # Candidate dates: UTC date from fdorg + day before (local time in Americas)
+    utc_date   = m['utcDate'][:10]   # "2026-06-11"
+    dt         = datetime.strptime(utc_date, '%Y-%m-%d')
+    candidates = [
+        dt.strftime('%Y%m%d'),
+        (dt - timedelta(days=1)).strftime('%Y%m%d'),
+    ]
+
+    ra_match = None
+    for date_str in candidates:
+        ra_match = find_in_rapidapi(get_cached(date_str), home, away)
+        if ra_match:
+            break
+
+    if ra_match is None:
+        print(f'  Could not find {home} vs {away} in RapidAPI — will retry next run')
         continue
 
-    home_obj = match.get('home', {})
-    away_obj = match.get('away', {})
-    home = normalize(home_obj.get('longName') or home_obj.get('name', ''))
-    away = normalize(away_obj.get('longName') or away_obj.get('name', ''))
-    if not home or not away:
-        continue
-
+    event_id = ra_match.get('id')
     ensure_team(teams, home)
     ensure_team(teams, away)
-    print(f'Processing {event_id}: {home} vs {away}')
+    print(f'Processing fdorg#{fdorg_id} → event {event_id}: {home} vs {away}')
 
     try:
         time.sleep(0.4)
@@ -256,17 +271,18 @@ for match in wc_matches:
         errors.append(f'detail {event_id}: {e}')
         print(f'  Detail error: {e}')
 
-    processed.add(event_id)
+    processed.add(fdorg_id)
     new_count += 1
 
+# Save
 data['processedFixtures'] = list(processed)
 data['teams']             = teams
-data['lastUpdated']       = now.isoformat()
+data['lastUpdated']       = datetime.now(timezone.utc).isoformat()
 
 with open(stats_path, 'w') as f:
     json.dump(data, f, indent=2)
 
-print(f'\nDone. Processed {new_count} new match(es). Total: {len(processed)}.')
+print(f'\nDone. Processed {new_count} new WC match(es). Total: {len(processed)}.')
 if errors:
     print('Errors:')
     for e in errors:
