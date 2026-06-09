@@ -73,11 +73,27 @@ def find_world_cup_league(data):
     print('Fetching all leagues to find FIFA World Cup 2026...')
     resp = api_get('/football-get-all-leagues')
 
+    # Debug: show raw response structure
+    if isinstance(resp, dict):
+        print(f'  Response keys: {list(resp.keys())}')
+        # Show type and length of each value
+        for k, v in resp.items():
+            if isinstance(v, list):
+                print(f'    [{k}] = list of {len(v)} items')
+                if v:
+                    print(f'      first item keys: {list(v[0].keys()) if isinstance(v[0], dict) else type(v[0])}')
+            else:
+                print(f'    [{k}] = {type(v).__name__}: {str(v)[:100]}')
+    elif isinstance(resp, list):
+        print(f'  Response is list of {len(resp)} items')
+        if resp:
+            print(f'  First item: {str(resp[0])[:200]}')
+
     # The response might be a list or a dict with a key containing the list
     if isinstance(resp, list):
         leagues = resp
     elif isinstance(resp, dict):
-        for key in ('response', 'data', 'result', 'leagues', 'items'):
+        for key in ('response', 'data', 'result', 'leagues', 'items', 'league', 'competition', 'competitions'):
             if key in resp and isinstance(resp[key], list):
                 leagues = resp[key]
                 break
