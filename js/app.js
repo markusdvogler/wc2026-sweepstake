@@ -300,9 +300,9 @@ async function loadPrizes() {
       const d = new Date(lastUpdated);
       const fmt = d.toLocaleString('en-GB', {
         day: 'numeric', month: 'short', year: 'numeric',
-        hour: '2-digit', minute: '2-digit', timeZone: 'UTC', timeZoneName: 'short'
+        hour: '2-digit', minute: '2-digit', timeZone: 'Europe/Zurich', timeZoneName: 'short'
       });
-      tsEl.textContent = `Stats (cards, fouls) last updated: ${fmt}`;
+      tsEl.textContent = `Stats last updated: ${fmt}`;
       tsEl.classList.remove('hidden');
     }
   } catch (e) {
