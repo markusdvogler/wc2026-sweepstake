@@ -284,10 +284,27 @@ async function loadPrizes() {
     return;
   }
   try {
-    teamStats = await API.getTeamStats();
+    const [stats, eventStats] = await Promise.all([
+      API.getTeamStats(),
+      API.getEventStats().catch(() => null)
+    ]);
+    teamStats = stats;
     document.getElementById('prizes-loading').classList.add('hidden');
     document.getElementById('prizes-grid').classList.remove('hidden');
     renderLivePrizes();
+
+    // Show last-updated timestamp from team-stats.json
+    const tsEl = document.getElementById('prizes-last-updated');
+    const lastUpdated = eventStats && eventStats.lastUpdated;
+    if (lastUpdated) {
+      const d = new Date(lastUpdated);
+      const fmt = d.toLocaleString('en-GB', {
+        day: 'numeric', month: 'short', year: 'numeric',
+        hour: '2-digit', minute: '2-digit', timeZone: 'UTC', timeZoneName: 'short'
+      });
+      tsEl.textContent = `Stats (cards, fouls) last updated: ${fmt}`;
+      tsEl.classList.remove('hidden');
+    }
   } catch (e) {
     document.getElementById('prizes-loading').classList.add('hidden');
     document.getElementById('prizes-no-api').classList.remove('hidden');

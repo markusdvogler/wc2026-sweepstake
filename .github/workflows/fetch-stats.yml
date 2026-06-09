@@ -2,7 +2,7 @@ name: Fetch Match Stats
 
 on:
   schedule:
-    - cron: '0 * * * *'   # every hour
+    - cron: '*/15 * * * *'   # every 15 minutes
   workflow_dispatch:        # manual trigger
 
 jobs:
