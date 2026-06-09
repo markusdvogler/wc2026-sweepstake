@@ -27,6 +27,11 @@ jobs:
             "https://api.football-data.org/v4/competitions/WC/standings" \
             > data/standings.json
 
+      - name: Fetch match stats and events (fouls, cards, own goals, late goals)
+        env:
+          RAPIDAPI_KEY: ${{ secrets.RAPIDAPI_KEY }}
+        run: python scripts/fetch-stats.py
+
       - name: Commit and push if data changed
         run: |
           git config user.email "action@github.com"
