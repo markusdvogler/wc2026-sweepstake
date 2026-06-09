@@ -334,11 +334,35 @@ function renderStaticPrizes() {
 }
 
 function renderLivePrizes() {
+  const MEDALS = { 1: '🥇', 2: '🥈', 3: '🥉' };
+  const RANK_COLOURS = {
+    1: 'border-amber-500/50 bg-amber-900/20',
+    2: 'border-slate-500/50 bg-slate-700/60',
+    3: 'border-orange-700/40 bg-orange-900/10'
+  };
+  const VALUE_COLOURS = { 1: 'text-amber-400', 2: 'text-slate-300', 3: 'text-orange-400' };
+
   const prizeResults = calcPrizeLeaders(teamStats, participants, teamsData, null);
   const container = document.getElementById('prizes-grid');
   container.innerHTML = prizeResults.map(p => {
-    const w = p.winner;
-    const hasWinner = w && (typeof w.value !== 'number' || w.value > 0);
+    const hasData = p.top3 && p.top3.length > 0;
+    const rows = hasData ? p.top3.map(e => {
+      const medal = MEDALS[e.rank] || '';
+      const rowClass = RANK_COLOURS[e.rank] || 'border-slate-700 bg-slate-700/40';
+      const valClass = VALUE_COLOURS[e.rank] || 'text-slate-400';
+      return `
+        <div class="flex items-center justify-between border ${rowClass} rounded-lg px-3 py-2 gap-2">
+          <div class="flex items-center gap-2 min-w-0">
+            <span class="text-base shrink-0">${medal}</span>
+            <div class="min-w-0">
+              <p class="font-semibold text-white text-sm truncate">${flagImg(e.team)} ${e.team}</p>
+              <p class="text-xs text-slate-400 truncate">${e.participant !== '?' ? e.participant : 'TBD'}</p>
+            </div>
+          </div>
+          <span class="${valClass} font-bold text-base shrink-0">${e.value}</span>
+        </div>`;
+    }).join('') : '';
+
     return `
       <div class="prize-card bg-slate-800 border border-slate-700 rounded-xl p-4">
         <div class="flex items-center gap-3 mb-3">
@@ -348,17 +372,10 @@ function renderLivePrizes() {
             <p class="text-xs text-slate-500">${p.desc}</p>
           </div>
         </div>
-        ${hasWinner ? `
-          <div class="bg-slate-700 rounded-lg px-3 py-2">
-            <p class="font-bold text-white text-sm">${flagImg(w.team)} ${w.team}</p>
-            <p class="text-xs text-slate-400">${w.participant !== '?' ? `Held by ${w.participant}` : 'Participant TBD'}</p>
-            <p class="text-green-400 font-bold text-lg mt-1">${w.value}</p>
-          </div>
-        ` : `
+        ${hasData ? `<div class="space-y-2">${rows}</div>` : `
           <div class="bg-slate-700/50 rounded-lg px-3 py-2 text-center">
             <p class="text-xs text-slate-500">${p.note || 'No data yet'}</p>
-          </div>
-        `}
+          </div>`}
         <div class="mt-2 text-right">
           <span class="text-xs font-bold text-green-400">5 CHF</span>
         </div>

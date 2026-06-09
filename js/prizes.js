@@ -103,45 +103,56 @@ function calcPrizeLeaders(teamStats, participants, teamsData, advancedTeamIds) {
   const results = [];
 
   for (const prize of PRIZE_DEFINITIONS) {
-    let winner = null, value = null;
+    let top3 = [];
 
     if (prize.order === 'special') {
-      // Lowest ranked team (highest FIFA ranking number) that advanced
       if (advancedTeamIds && advancedTeamIds.length > 0 && participants.length > 0) {
-        let lowestRanked = null;
-        let lowestRankNum = -1;
+        const ranked = [];
         for (const p of participants) {
           const team = teamsData.find(t => t.name === p.team || t.code === p.teamCode);
           if (team && advancedTeamIds.includes(p.teamCode)) {
-            if (team.fifaRanking > lowestRankNum) {
-              lowestRankNum = team.fifaRanking;
-              lowestRanked = { participant: p.name, team: p.team, value: `Rank #${team.fifaRanking}` };
-            }
+            ranked.push({ participant: p.name, team: p.team, value: `Rank #${team.fifaRanking}`, _sort: team.fifaRanking });
           }
         }
-        winner = lowestRanked;
+        ranked.sort((a, b) => b._sort - a._sort);
+        top3 = ranked.slice(0, 3).map(({ _sort, ...r }) => r);
       }
     } else if (statsArr.length > 0) {
-      const sorted = [...statsArr].sort((a, b) =>
-        prize.order === 'asc' ? prize.stat(a) - prize.stat(b) : prize.stat(b) - prize.stat(a)
-      );
-      const best = sorted[0];
-      const statVal = prize.stat(best);
+      // For asc prizes, only include teams that have played (avoids 48-way tie at 0)
+      const eligible = prize.order === 'asc'
+        ? statsArr.filter(s => s.played > 0)
+        : statsArr.filter(s => prize.stat(s) > 0);
 
-      // Find which participant has this team
-      const participant = participants.find(p =>
-        p.teamCode === best.shortName || p.team === best.name
-      );
+      if (eligible.length > 0) {
+        const sorted = [...eligible].sort((a, b) =>
+          prize.order === 'asc' ? prize.stat(a) - prize.stat(b) : prize.stat(b) - prize.stat(a)
+        );
 
-      winner = {
-        team: best.name,
-        participant: participant?.name || '?',
-        value: statVal
-      };
-      value = statVal;
+        // Take top 3, keeping tied teams at the same position
+        const topVal   = prize.stat(sorted[0]);
+        const rank2Val = sorted[1] ? prize.stat(sorted[1]) : null;
+        const rank3Val = sorted[2] ? prize.stat(sorted[2]) : null;
+
+        const toEntry = s => {
+          const participant = participants.find(p => p.teamCode === s.shortName || p.team === s.name);
+          return { team: s.name, participant: participant?.name || '?', value: prize.stat(s) };
+        };
+
+        const rank1 = sorted.filter(s => prize.stat(s) === topVal).map(toEntry);
+        const rank2 = rank2Val !== null && rank2Val !== topVal
+          ? sorted.filter(s => prize.stat(s) === rank2Val).map(toEntry) : [];
+        const rank3 = rank3Val !== null && rank3Val !== topVal && rank3Val !== rank2Val
+          ? sorted.filter(s => prize.stat(s) === rank3Val).map(toEntry) : [];
+
+        top3 = [
+          ...rank1.map(e => ({ ...e, rank: 1 })),
+          ...rank2.map(e => ({ ...e, rank: 2 })),
+          ...rank3.map(e => ({ ...e, rank: 3 })),
+        ];
+      }
     }
 
-    results.push({ ...prize, winner, value });
+    results.push({ ...prize, top3 });
   }
 
   return results;
