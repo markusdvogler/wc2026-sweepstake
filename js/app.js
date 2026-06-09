@@ -41,7 +41,7 @@ function flagImg(teamName, size = 20) {
   const iso2 = t ? FLAG_ISO2[t.code] : null;
   if (!iso2) return '<span class="text-slate-500 text-xs">🏳</span>';
   const base = isLocal ? `/flags/w${size}` : `https://flagcdn.com/w${size}`;
-  return `<img src="${base}/${iso2}.png" width="${size}" class="inline rounded-sm align-middle" alt="${t?.name ?? ''}">`;
+  return `<img src="${base}/${iso2}.png" width="${size}" height="${Math.round(size*0.75)}" class="inline rounded-sm align-middle flex-shrink-0" alt="">`;
 }
 
 function formatDate(dateStr) {
