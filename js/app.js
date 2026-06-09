@@ -111,7 +111,6 @@ function renderParticipants(filter = '') {
 
   document.getElementById('participants-empty').classList.add('hidden');
   document.getElementById('participants-table').classList.remove('hidden');
-  document.getElementById('draw-banner').classList.add('hidden');
   document.getElementById('participants-subtitle').textContent = `${participants.length} participants`;
 
   const tbody = document.getElementById('participants-tbody');
