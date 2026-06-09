@@ -31,25 +31,6 @@ while ($listener.IsListening) {
   $rawPath = $req.Url.AbsolutePath.TrimStart('/')
   if ($rawPath -eq '') { $rawPath = 'index.html' }
 
-  # Proxy /flags/* -> https://flagcdn.com/*
-  if ($rawPath.StartsWith('flags/')) {
-    $flagPath = $rawPath.Substring(6)
-    $upstreamUrl = "https://flagcdn.com/$flagPath"
-    try {
-      $wc = [System.Net.WebClient]::new()
-      $bytes = $wc.DownloadData($upstreamUrl)
-      $res.ContentType = 'image/png'
-      $res.ContentLength64 = $bytes.Length
-      $res.OutputStream.Write($bytes, 0, $bytes.Length)
-    } catch {
-      $res.StatusCode = 404
-      $body = [System.Text.Encoding]::UTF8.GetBytes('not found')
-      $res.OutputStream.Write($body, 0, $body.Length)
-    }
-    $res.OutputStream.Close()
-    continue
-  }
-
   # Proxy /proxy/* -> https://api.football-data.org/v4/*
   if ($rawPath.StartsWith('proxy/')) {
     $apiPath = $rawPath.Substring(6)
