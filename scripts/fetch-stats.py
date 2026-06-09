@@ -12,9 +12,10 @@ import json, os, sys, time
 import urllib.request, urllib.parse
 from datetime import datetime, timezone
 
-API_KEY  = os.environ.get('RAPIDAPI_KEY', '')
-BASE_URL = 'https://free-api-live-football-data.p.rapidapi.com'
-HOST     = 'free-api-live-football-data.p.rapidapi.com'
+API_KEY           = os.environ.get('RAPIDAPI_KEY', '')
+BASE_URL          = 'https://free-api-live-football-data.p.rapidapi.com'
+HOST              = 'free-api-live-football-data.p.rapidapi.com'
+WORLD_CUP_LEAGUE  = 77   # confirmed: "world cup" in free-api-live-football-data
 
 # Map API team names -> canonical names in our teams.json
 NAME_MAP = {
@@ -65,100 +66,9 @@ def ensure_team(teams, name):
         }
 
 def find_world_cup_league(data):
-    """Return cached league ID or discover it from the leagues endpoint."""
-    if data.get('leagueId'):
-        print(f"Using cached World Cup league ID: {data['leagueId']}")
-        return data['leagueId']
-
-    print('Fetching all leagues to find FIFA World Cup 2026...')
-    resp = api_get('/football-get-all-leagues')
-
-    # Debug: show raw response structure
-    if isinstance(resp, dict):
-        print(f'  Response keys: {list(resp.keys())}')
-        # Show type and length of each value
-        for k, v in resp.items():
-            if isinstance(v, list):
-                print(f'    [{k}] = list of {len(v)} items')
-                if v:
-                    print(f'      first item keys: {list(v[0].keys()) if isinstance(v[0], dict) else type(v[0])}')
-            else:
-                print(f'    [{k}] = {type(v).__name__}: {str(v)[:100]}')
-    elif isinstance(resp, list):
-        print(f'  Response is list of {len(resp)} items')
-        if resp:
-            print(f'  First item: {str(resp[0])[:200]}')
-
-    # The response might be a list or a nested dict
-    # Confirmed structure: {status, response: {leagues: [...]}}
-    if isinstance(resp, list):
-        leagues = resp
-    elif isinstance(resp, dict):
-        # First try response.leagues (confirmed structure)
-        inner = resp.get('response', {})
-        if isinstance(inner, dict):
-            leagues = inner.get('leagues', inner.get('competitions', inner.get('tournaments', [])))
-        elif isinstance(inner, list):
-            leagues = inner
-        else:
-            leagues = []
-        # Fallback: look for any top-level list or nested list
-        if not leagues:
-            for key in ('leagues', 'data', 'result', 'items', 'competitions', 'tournaments'):
-                val = resp.get(key)
-                if isinstance(val, list) and val:
-                    leagues = val
-                    break
-                elif isinstance(val, dict):
-                    sub = next((v for v in val.values() if isinstance(v, list)), None)
-                    if sub:
-                        leagues = sub
-                        break
-    else:
-        leagues = []
-
-    def extract_name_and_id(item):
-        """Try various field name patterns to get league name and ID."""
-        if not isinstance(item, dict):
-            return '', None
-        name = (item.get('name') or item.get('leagueName') or
-                item.get('league', {}).get('name', '') or
-                item.get('tournament', {}).get('name', '') or '')
-        lid  = (item.get('id') or item.get('leagueId') or
-                item.get('league', {}).get('id') or
-                item.get('tournament', {}).get('id'))
-        return str(name).lower(), lid
-
-    WC_KEYWORDS = ('world cup', 'worldcup', 'fifa world', 'coupe du monde', 'copa mundial')
-
-    def is_world_cup(name):
-        """True if name looks like the FIFA World Cup (not Club World Cup)."""
-        return any(kw in name for kw in WC_KEYWORDS) and 'club' not in name
-
-    # Print all leagues for visibility
-    print(f'  Total leagues found: {len(leagues)}')
-    for item in leagues:
-        n, lid = extract_name_and_id(item)
-        print(f'    id={lid}  name={n}')
-
-    # First pass: WC keywords (no "club") + 2026 in raw item
-    for item in leagues:
-        name, lid = extract_name_and_id(item)
-        if is_world_cup(name) and lid is not None:
-            item_str = json.dumps(item).lower()
-            if '2026' in item_str:
-                print(f'  Found: "{name}" → ID={lid}')
-                return lid
-
-    # Second pass: WC keywords (no "club"), any year
-    for item in leagues:
-        name, lid = extract_name_and_id(item)
-        if is_world_cup(name) and lid is not None:
-            print(f'  Found: "{name}" → ID={lid}')
-            return lid
-
-    print('  WARNING: Could not auto-detect FIFA World Cup league.')
-    return None
+    """Return the FIFA World Cup league ID (hardcoded, confirmed ID=77)."""
+    print(f'Using FIFA World Cup league ID: {WORLD_CUP_LEAGUE}')
+    return WORLD_CUP_LEAGUE
 
 def get_matches(league_id):
     """Fetch all fixtures for the given league ID."""
@@ -166,7 +76,16 @@ def get_matches(league_id):
     if isinstance(resp, list):
         return resp
     if isinstance(resp, dict):
-        for key in ('response', 'data', 'result', 'events', 'matches', 'fixtures', 'items'):
+        # Same nesting pattern as leagues: {status, response: {events: [...]}}
+        inner = resp.get('response', {})
+        if isinstance(inner, dict):
+            for key in ('events', 'matches', 'fixtures', 'items', 'data'):
+                if key in inner and isinstance(inner[key], list):
+                    return inner[key]
+        elif isinstance(inner, list):
+            return inner
+        # Fallback: top-level list values
+        for key in ('events', 'matches', 'fixtures', 'data', 'result', 'items'):
             if key in resp and isinstance(resp[key], list):
                 return resp[key]
     return []
