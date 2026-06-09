@@ -89,17 +89,31 @@ def find_world_cup_league(data):
         if resp:
             print(f'  First item: {str(resp[0])[:200]}')
 
-    # The response might be a list or a dict with a key containing the list
+    # The response might be a list or a nested dict
+    # Confirmed structure: {status, response: {leagues: [...]}}
     if isinstance(resp, list):
         leagues = resp
     elif isinstance(resp, dict):
-        for key in ('response', 'data', 'result', 'leagues', 'items', 'league', 'competition', 'competitions'):
-            if key in resp and isinstance(resp[key], list):
-                leagues = resp[key]
-                break
+        # First try response.leagues (confirmed structure)
+        inner = resp.get('response', {})
+        if isinstance(inner, dict):
+            leagues = inner.get('leagues', inner.get('competitions', inner.get('tournaments', [])))
+        elif isinstance(inner, list):
+            leagues = inner
         else:
-            # Last resort: look for any list value
-            leagues = next((v for v in resp.values() if isinstance(v, list)), [])
+            leagues = []
+        # Fallback: look for any top-level list or nested list
+        if not leagues:
+            for key in ('leagues', 'data', 'result', 'items', 'competitions', 'tournaments'):
+                val = resp.get(key)
+                if isinstance(val, list) and val:
+                    leagues = val
+                    break
+                elif isinstance(val, dict):
+                    sub = next((v for v in val.values() if isinstance(v, list)), None)
+                    if sub:
+                        leagues = sub
+                        break
     else:
         leagues = []
 
@@ -115,30 +129,34 @@ def find_world_cup_league(data):
                 item.get('tournament', {}).get('id'))
         return str(name).lower(), lid
 
-    # First pass: look for "world cup" with 2026 somewhere nearby
+    WC_KEYWORDS = ('world cup', 'worldcup', 'fifa world', 'coupe du monde', 'copa mundial')
+
+    # First pass: look for WC keywords + 2026
     for item in leagues:
         name, lid = extract_name_and_id(item)
-        if 'world cup' in name and lid is not None:
-            item_str = json.dumps(item)
-            if '2026' in item_str or '2026' in name:
+        if any(kw in name for kw in WC_KEYWORDS) and lid is not None:
+            item_str = json.dumps(item).lower()
+            if '2026' in item_str:
                 print(f'  Found: "{name}" → ID={lid}')
                 return lid
 
-    # Second pass: any "world cup"
+    # Second pass: any WC keyword
     for item in leagues:
         name, lid = extract_name_and_id(item)
-        if 'world cup' in name and lid is not None:
+        if any(kw in name for kw in WC_KEYWORDS) and lid is not None:
             print(f'  Found: "{name}" → ID={lid}')
             return lid
 
-    # Debug output so we can manually find the right ID
+    # Debug output — print ALL leagues so we can manually pick the right ID
     print('  WARNING: Could not auto-detect FIFA World Cup league.')
     print(f'  Total leagues found: {len(leagues)}')
     if leagues:
-        print('  Sample entries (first 10):')
-        for item in leagues[:10]:
+        print('  All leagues (id → name):')
+        for item in leagues:
             name, lid = extract_name_and_id(item)
             print(f'    id={lid}  name={name}')
+    else:
+        print('  Raw response sample:', str(resp)[:400])
     return None
 
 def get_matches(league_id):
