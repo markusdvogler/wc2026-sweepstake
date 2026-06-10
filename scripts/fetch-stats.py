@@ -7,7 +7,7 @@ matching team names to the correct event on that date.
 
 Runs hourly via .github/workflows/fetch-stats.yml (~48 API calls/day base).
 """
-import json, os, sys, time
+import json, os, re, sys, time, unicodedata
 import urllib.request, urllib.parse
 from datetime import datetime, timezone, timedelta
 
@@ -36,6 +36,26 @@ NAME_MAP = {
 
 def normalize(name):
     return NAME_MAP.get(name, name)
+
+# Token-based fuzzy matching — for team-name variants not covered by NAME_MAP
+# (accent differences, word order, articles, etc.). Self-healing fallback.
+_NOISE_TOKENS = {'the', 'and', 'of', 'fc', 'national', 'team', 'republic', 'islands'}
+
+def _tokenize(name):
+    """Lowercase, strip accents, drop noise words, return token set."""
+    nfkd = unicodedata.normalize('NFKD', name or '').encode('ascii', 'ignore').decode('ascii')
+    return set(re.findall(r'[a-z0-9]+', nfkd.lower())) - _NOISE_TOKENS
+
+def fuzzy_eq(a, b):
+    """True if a and b describe the same team after lenient normalisation."""
+    ta, tb = _tokenize(a), _tokenize(b)
+    if not ta or not tb:
+        return False
+    if ta == tb or ta <= tb or tb <= ta:
+        return True
+    # Strong overlap: at least 2 shared tokens or all of the smaller set matches
+    overlap = len(ta & tb)
+    return overlap >= 2 or (overlap >= 1 and overlap == min(len(ta), len(tb)))
 
 def api_get(path, params=None):
     url = BASE_URL + path
@@ -72,14 +92,37 @@ def fetch_finished_matches_for_date(date_yyyymmdd):
             if isinstance(m.get('status'), dict) and m['status'].get('finished')]
 
 def find_in_rapidapi(ra_matches, home_norm, away_norm):
-    """Find a RapidAPI match whose normalised team names match home_norm/away_norm."""
+    """Find a RapidAPI match whose team names match home_norm/away_norm.
+
+    Pass 1: exact match (after NAME_MAP). Pass 2: token-based fuzzy match for
+    accent/word-order/article variants — self-healing for unmapped names.
+    Pass 3: fuzzy match allowing swapped home/away (some APIs flip them).
+    """
+    candidates = []
     for m in ra_matches:
-        h = m.get('home', {})
-        a = m.get('away', {})
+        h = m.get('home', {}) or {}
+        a = m.get('away', {}) or {}
         ra_home = normalize(h.get('longName') or h.get('name', ''))
         ra_away = normalize(a.get('longName') or a.get('name', ''))
-        if ra_home == home_norm and ra_away == away_norm:
+        candidates.append((m, ra_home, ra_away))
+
+    # Pass 1: exact (post-NAME_MAP)
+    for m, rh, ra in candidates:
+        if rh == home_norm and ra == away_norm:
             return m
+
+    # Pass 2: fuzzy, same orientation
+    for m, rh, ra in candidates:
+        if fuzzy_eq(rh, home_norm) and fuzzy_eq(ra, away_norm):
+            print(f'  Fuzzy matched: "{rh}" ≈ "{home_norm}", "{ra}" ≈ "{away_norm}"')
+            return m
+
+    # Pass 3: fuzzy, swapped orientation (rare API quirk)
+    for m, rh, ra in candidates:
+        if fuzzy_eq(rh, away_norm) and fuzzy_eq(ra, home_norm):
+            print(f'  Fuzzy matched (swapped): "{rh}" ≈ "{away_norm}", "{ra}" ≈ "{home_norm}"')
+            return m
+
     return None
 
 def parse_int(val):
