@@ -207,6 +207,99 @@ function renderMatches(stageFilter) {
   `).join('');
 }
 
+// ---- Knockout Bracket ----
+async function loadKnockouts() {
+  try {
+    if (allMatches.length === 0) {
+      const data = await API.getMatches();
+      allMatches = data.matches || [];
+    }
+    document.getElementById('knockouts-loading').classList.add('hidden');
+    document.getElementById('knockouts-content').classList.remove('hidden');
+    renderKnockouts();
+  } catch (e) {
+    document.getElementById('knockouts-loading').classList.add('hidden');
+  }
+}
+
+const KO_STAGES = [
+  { key: 'LAST_32',        label: 'Round of 32' },
+  { key: 'LAST_16',        label: 'Round of 16' },
+  { key: 'QUARTER_FINALS', label: 'Quarter Finals' },
+  { key: 'SEMI_FINALS',    label: 'Semi Finals' },
+  { key: 'FINAL',          label: 'Final' },
+];
+
+function bracketCard(m) {
+  const finished = m.status === 'FINISHED';
+  const live     = m.status === 'IN_PLAY' || m.status === 'PAUSED';
+  const hs = m.score?.fullTime?.home;
+  const as = m.score?.fullTime?.away;
+  const winner = m.score?.winner;
+  const homeName = m.homeTeam?.name || 'TBD';
+  const awayName = m.awayTeam?.name || 'TBD';
+  const homeFlag = m.homeTeam ? flagImg(homeName) : '';
+  const awayFlag = m.awayTeam ? flagImg(awayName) : '';
+  const homeP = participants.find(p => p.team === homeName);
+  const awayP = participants.find(p => p.team === awayName);
+  const homeWin = winner === 'HOME_TEAM';
+  const awayWin = winner === 'AWAY_TEAM';
+  const dimHome = finished && !homeWin ? 'text-slate-500' : 'text-white';
+  const dimAway = finished && !awayWin ? 'text-slate-500' : 'text-white';
+  const dateLine = !finished && !live
+    ? `<p class="text-[10px] text-slate-500 text-center pt-1">${formatDate(m.utcDate)}</p>` : '';
+
+  const row = (flag, name, p, score, dim, isWin) => `
+    <div class="flex items-center justify-between gap-2 py-1 ${isWin ? 'font-bold' : ''}">
+      <div class="flex items-center gap-1.5 min-w-0">
+        <span class="shrink-0">${flag}</span>
+        <span class="text-xs truncate ${dim}">${name}</span>
+      </div>
+      <span class="text-xs font-bold tabular-nums ${dim}">${score ?? ''}</span>
+    </div>
+    ${p ? `<p class="text-[10px] text-slate-500 truncate -mt-1 ml-6">${p.name}</p>` : ''}`;
+
+  return `
+    <div class="bg-slate-800 border ${live ? 'border-red-600/60' : 'border-slate-700'} rounded-lg px-3 py-2 w-52">
+      ${row(homeFlag, homeName, homeP, finished || live ? hs : null, dimHome, homeWin)}
+      <div class="border-t border-slate-700/60 my-0.5"></div>
+      ${row(awayFlag, awayName, awayP, finished || live ? as : null, dimAway, awayWin)}
+      ${dateLine}
+    </div>`;
+}
+
+function renderKnockouts() {
+  const bracket = document.getElementById('knockouts-bracket');
+  bracket.innerHTML = KO_STAGES.map(stage => {
+    const matches = allMatches
+      .filter(m => m.stage === stage.key)
+      .sort((a, b) => new Date(a.utcDate) - new Date(b.utcDate));
+    return `
+      <div class="flex flex-col">
+        <h3 class="text-xs uppercase tracking-wider text-slate-500 font-semibold mb-3 text-center">${stage.label}</h3>
+        <div class="flex-1 flex flex-col justify-around gap-3">
+          ${matches.length > 0
+            ? matches.map(bracketCard).join('')
+            : `<div class="text-slate-600 text-xs italic text-center py-4">TBD</div>`
+          }
+        </div>
+      </div>`;
+  }).join('');
+
+  // Third Place playoff
+  const third = allMatches.filter(m => m.stage === 'THIRD_PLACE');
+  const thirdContainer = document.getElementById('knockouts-third');
+  if (third.length > 0) {
+    thirdContainer.innerHTML = `
+      <div class="max-w-xs">
+        <h3 class="text-xs uppercase tracking-wider text-slate-500 font-semibold mb-2">Third Place Playoff</h3>
+        ${third.map(bracketCard).join('')}
+      </div>`;
+  } else {
+    thirdContainer.innerHTML = '';
+  }
+}
+
 // ---- Standings ----
 async function loadStandings() {
   if (!API.hasKey()) {
@@ -432,13 +525,14 @@ async function init() {
   checkApiStatus();
 
   // Lazy-load other tabs when first visited
-  const loaded = { matches: false, standings: false, prizes: false };
+  const loaded = { matches: false, standings: false, prizes: false, knockouts: false };
   document.querySelectorAll('.tab-btn').forEach(btn => {
     btn.addEventListener('click', () => {
       const name = btn.id.replace('tab-', '');
       if (name === 'matches' && !loaded.matches) { loaded.matches = true; loadMatches(); }
       if (name === 'standings' && !loaded.standings) { loaded.standings = true; loadStandings(); }
       if (name === 'prizes' && !loaded.prizes) { loaded.prizes = true; loadPrizes(); }
+      if (name === 'knockouts' && !loaded.knockouts) { loaded.knockouts = true; loadKnockouts(); }
     });
   });
 }
