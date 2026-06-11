@@ -90,16 +90,26 @@ const API = {
       }
     }
 
-    // Merge in event-based stats from API-Football (cards, fouls, own goals, late goals)
+    // Merge in event-based stats from api-sports (cards, fouls, own goals,
+    // late goals). Create entries for teams currently playing live so the
+    // Prize Tracker shows them even before their first match finishes.
     for (const [teamName, ext] of Object.entries(extStats)) {
-      const entry = Object.values(stats).find(s => s.name === teamName);
-      if (entry) {
-        entry.yellowCards = ext.yellowCards || 0;
-        entry.redCards    = ext.redCards    || 0;
-        entry.fouls       = ext.fouls       || 0;
-        entry.ownGoals    = ext.ownGoals    || 0;
-        entry.lateGoals   = ext.lateGoals   || 0;
+      let entry = Object.values(stats).find(s => s.name === teamName);
+      if (!entry) {
+        // Find team metadata from any match (live or scheduled)
+        const m = matches.find(mm =>
+          mm.homeTeam?.name === teamName || mm.awayTeam?.name === teamName
+        );
+        if (!m) continue;
+        const t = m.homeTeam?.name === teamName ? m.homeTeam : m.awayTeam;
+        ensureTeam(t.id, t.name, t.shortName);
+        entry = stats[t.id];
       }
+      entry.yellowCards = ext.yellowCards || 0;
+      entry.redCards    = ext.redCards    || 0;
+      entry.fouls       = ext.fouls       || 0;
+      entry.ownGoals    = ext.ownGoals    || 0;
+      entry.lateGoals   = ext.lateGoals   || 0;
     }
 
     return stats;
