@@ -8,7 +8,11 @@ const cache = {};
 async function staticFetch(file) {
   const now = Date.now();
   if (cache[file] && now - cache[file].ts < CACHE_TTL) return cache[file].data;
-  const res = await fetch(file);
+  // Cache-bust at minute granularity: forces both matches.json and
+  // team-stats.json to hit the CDN with the same query string within the
+  // same minute, so they stay in sync rather than drifting independently.
+  const v = Math.floor(now / 60000);
+  const res = await fetch(`${file}?v=${v}`, { cache: 'no-store' });
   if (!res.ok) throw new Error(`File error ${res.status}`);
   const data = await res.json();
   cache[file] = { data, ts: now };
