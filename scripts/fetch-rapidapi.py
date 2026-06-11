@@ -1,11 +1,14 @@
 """
-Fetches WC 2026 match statistics from Free API Live Football Data (RapidAPI).
+Unified WC 2026 data fetcher from Free API Live Football Data (RapidAPI).
 
-Uses data/matches.json (football-data.org) as the authoritative list of WC
-fixtures. For each newly-finished WC match, fetches stats from RapidAPI by
-matching team names to the correct event on that date.
+Replaces the old football-data.org pipeline. Each run:
+  1. Fetches today's + yesterday's matches by date (timezone-safe)
+  2. Overlays live score + status onto data/matches.json (preserves schema)
+  3. For matches newly marked FINISHED, fetches stats + detail
+  4. Updates data/team-stats.json
 
-Runs hourly via .github/workflows/fetch-stats.yml (~48 API calls/day base).
+Runs every 15 min during match window (20:00–08:00 CEST) via
+.github/workflows/fetch-live.yml. ~50 API calls/day max.
 """
 import json, os, re, sys, time, unicodedata
 import urllib.request, urllib.parse
@@ -15,7 +18,7 @@ API_KEY  = os.environ.get('RAPIDAPI_KEY', '')
 BASE_URL = 'https://free-api-live-football-data.p.rapidapi.com'
 HOST     = 'free-api-live-football-data.p.rapidapi.com'
 
-# Normalise team names to our canonical names (teams.json)
+# Map RapidAPI team names to our canonical names (those used in matches.json)
 NAME_MAP = {
     'Korea Republic':               'South Korea',
     'Republic of Korea':            'South Korea',
@@ -37,23 +40,19 @@ NAME_MAP = {
 def normalize(name):
     return NAME_MAP.get(name, name)
 
-# Token-based fuzzy matching — for team-name variants not covered by NAME_MAP
-# (accent differences, word order, articles, etc.). Self-healing fallback.
+# Token-based fuzzy matching — self-healing fallback for unmapped variants.
 _NOISE_TOKENS = {'the', 'and', 'of', 'fc', 'national', 'team', 'republic', 'islands'}
 
 def _tokenize(name):
-    """Lowercase, strip accents, drop noise words, return token set."""
     nfkd = unicodedata.normalize('NFKD', name or '').encode('ascii', 'ignore').decode('ascii')
     return set(re.findall(r'[a-z0-9]+', nfkd.lower())) - _NOISE_TOKENS
 
 def fuzzy_eq(a, b):
-    """True if a and b describe the same team after lenient normalisation."""
     ta, tb = _tokenize(a), _tokenize(b)
     if not ta or not tb:
         return False
     if ta == tb or ta <= tb or tb <= ta:
         return True
-    # Strong overlap: at least 2 shared tokens or all of the smaller set matches
     overlap = len(ta & tb)
     return overlap >= 2 or (overlap >= 1 and overlap == min(len(ta), len(tb)))
 
@@ -69,15 +68,8 @@ def api_get(path, params=None):
     with urllib.request.urlopen(req, timeout=20) as r:
         return json.loads(r.read())
 
-def ensure_team(teams, name):
-    if name not in teams:
-        teams[name] = {
-            'yellowCards': 0, 'redCards': 0,
-            'fouls': 0, 'ownGoals': 0, 'lateGoals': 0
-        }
-
-def fetch_finished_matches_for_date(date_yyyymmdd):
-    """Fetch all finished matches from RapidAPI for a given date."""
+def fetch_matches_for_date(date_yyyymmdd):
+    """Fetch ALL matches (any status) from RapidAPI for a given date."""
     resp = api_get('/football-get-matches-by-date', {'date': date_yyyymmdd})
     all_matches = []
     if isinstance(resp, dict):
@@ -88,16 +80,45 @@ def fetch_finished_matches_for_date(date_yyyymmdd):
             all_matches = inner
     elif isinstance(resp, list):
         all_matches = resp
-    return [m for m in all_matches
-            if isinstance(m.get('status'), dict) and m['status'].get('finished')]
+    return all_matches
+
+def ra_status_string(ra_match):
+    """Convert RapidAPI status dict to fdorg-style string. matches.json schema."""
+    s = ra_match.get('status') or {}
+    if not isinstance(s, dict):
+        return 'TIMED'
+    if s.get('cancelled'):
+        return 'CANCELLED'
+    if s.get('finished'):
+        return 'FINISHED'
+    if s.get('started'):
+        return 'IN_PLAY'
+    return 'TIMED'
+
+def ra_score(ra_match, side):
+    """Extract score for 'home' or 'away' from RapidAPI match. Returns int or None."""
+    side_obj = ra_match.get(side) or {}
+    # Try multiple field names this API uses
+    for key in ('score', 'goals'):
+        val = side_obj.get(key)
+        if val is not None and val != '':
+            try:
+                return int(val)
+            except (ValueError, TypeError):
+                pass
+    # Some responses put scores under match-level 'score'
+    score_obj = ra_match.get('score') or {}
+    if isinstance(score_obj, dict):
+        val = score_obj.get(side) or score_obj.get(f'{side}Score')
+        if val is not None:
+            try:
+                return int(val)
+            except (ValueError, TypeError):
+                pass
+    return None
 
 def find_in_rapidapi(ra_matches, home_norm, away_norm):
-    """Find a RapidAPI match whose team names match home_norm/away_norm.
-
-    Pass 1: exact match (after NAME_MAP). Pass 2: token-based fuzzy match for
-    accent/word-order/article variants — self-healing for unmapped names.
-    Pass 3: fuzzy match allowing swapped home/away (some APIs flip them).
-    """
+    """Find RapidAPI match that matches home/away team names (with fuzzy fallback)."""
     candidates = []
     for m in ra_matches:
         h = m.get('home', {}) or {}
@@ -106,23 +127,17 @@ def find_in_rapidapi(ra_matches, home_norm, away_norm):
         ra_away = normalize(a.get('longName') or a.get('name', ''))
         candidates.append((m, ra_home, ra_away))
 
-    # Pass 1: exact (post-NAME_MAP)
     for m, rh, ra in candidates:
         if rh == home_norm and ra == away_norm:
             return m
-
-    # Pass 2: fuzzy, same orientation
     for m, rh, ra in candidates:
         if fuzzy_eq(rh, home_norm) and fuzzy_eq(ra, away_norm):
             print(f'  Fuzzy matched: "{rh}" ≈ "{home_norm}", "{ra}" ≈ "{away_norm}"')
             return m
-
-    # Pass 3: fuzzy, swapped orientation (rare API quirk)
     for m, rh, ra in candidates:
         if fuzzy_eq(rh, away_norm) and fuzzy_eq(ra, home_norm):
             print(f'  Fuzzy matched (swapped): "{rh}" ≈ "{away_norm}", "{ra}" ≈ "{home_norm}"')
             return m
-
     return None
 
 def parse_int(val):
@@ -130,6 +145,13 @@ def parse_int(val):
         return int(val or 0)
     except (ValueError, TypeError):
         return 0
+
+def ensure_team(teams, name):
+    if name not in teams:
+        teams[name] = {
+            'yellowCards': 0, 'redCards': 0,
+            'fouls': 0, 'ownGoals': 0, 'lateGoals': 0
+        }
 
 def process_stats(teams, home, away, resp):
     """Extract fouls, yellow/red cards from /football-get-match-all-stats."""
@@ -217,83 +239,97 @@ if not API_KEY:
     print('ERROR: RAPIDAPI_KEY not set.')
     sys.exit(1)
 
-# Load saved stats
-stats_path = 'data/team-stats.json'
+# Load existing fixtures (schema preserved from football-data.org era)
+matches_path = 'data/matches.json'
 try:
-    with open(stats_path) as f:
-        data = json.load(f)
-except Exception:
-    data = {}
-
-processed = set(data.get('processedFixtures', []))  # fdorg match IDs
-teams     = data.get('teams', {})
-errors    = []
-
-# Load football-data.org WC fixtures as the authoritative match list
-try:
-    with open('data/matches.json') as f:
-        fdorg = json.load(f)
-    fd_matches = fdorg.get('matches', [])
+    with open(matches_path, encoding='utf-8') as f:
+        fixtures = json.load(f)
+    fd_matches = fixtures.get('matches', [])
 except Exception as e:
-    print(f'ERROR: could not load data/matches.json: {e}')
+    print(f'ERROR: could not load {matches_path}: {e}')
     sys.exit(1)
 
-# Find finished WC matches not yet processed
-new_wc_matches = [
-    m for m in fd_matches
-    if m.get('status') == 'FINISHED' and m.get('id') not in processed
-]
-print(f'Finished WC matches not yet processed: {len(new_wc_matches)}')
+# Load stats state
+stats_path = 'data/team-stats.json'
+try:
+    with open(stats_path, encoding='utf-8') as f:
+        stats_data = json.load(f)
+except Exception:
+    stats_data = {}
 
-if not new_wc_matches:
-    print('Nothing to do.')
-    data['lastUpdated'] = datetime.now(timezone.utc).isoformat()
-    with open(stats_path, 'w') as f:
-        json.dump(data, f, indent=2)
-    sys.exit(0)
+processed = set(stats_data.get('processedFixtures', []))  # fdorg match IDs
+teams     = stats_data.get('teams', {})
+errors    = []
 
-# Group unprocessed matches by the dates we need to fetch from RapidAPI.
-# WC matches are in the Americas (UTC-4 to UTC-7), so a match on "June 11 local"
-# might have utcDate "June 12". We check both the UTC date and the day before.
-date_cache = {}  # YYYYMMDD -> list of finished RapidAPI matches
+# Determine which dates to query: today (UTC) and yesterday (covers timezone wrap)
+now_utc    = datetime.now(timezone.utc)
+date_today = now_utc.strftime('%Y%m%d')
+date_yest  = (now_utc - timedelta(days=1)).strftime('%Y%m%d')
 
-def get_cached(date_str):
-    if date_str not in date_cache:
-        print(f'  Fetching RapidAPI matches for {date_str}...')
-        try:
-            time.sleep(0.4)
-            date_cache[date_str] = fetch_finished_matches_for_date(date_str)
-            print(f'    Got {len(date_cache[date_str])} finished matches')
-        except Exception as e:
-            print(f'    Error: {e}')
-            date_cache[date_str] = []
-    return date_cache[date_str]
+print(f'Fetching matches for {date_today} and {date_yest}...')
+ra_matches = []
+for d in (date_today, date_yest):
+    try:
+        time.sleep(0.4)
+        batch = fetch_matches_for_date(d)
+        print(f'  {d}: {len(batch)} matches')
+        ra_matches.extend(batch)
+    except Exception as e:
+        errors.append(f'by-date {d}: {e}')
+        print(f'  Error fetching {d}: {e}')
 
-new_count = 0
-for m in new_wc_matches:
-    fdorg_id   = m['id']
-    home = normalize(m['homeTeam']['name'])
-    away = normalize(m['awayTeam']['name'])
-
-    # Candidate dates: UTC date from fdorg + day before (local time in Americas)
-    utc_date   = m['utcDate'][:10]   # "2026-06-11"
-    dt         = datetime.strptime(utc_date, '%Y-%m-%d')
-    candidates = [
-        dt.strftime('%Y%m%d'),
-        (dt - timedelta(days=1)).strftime('%Y%m%d'),
-    ]
-
-    ra_match = None
-    for date_str in candidates:
-        ra_match = find_in_rapidapi(get_cached(date_str), home, away)
-        if ra_match:
-            break
-
-    if ra_match is None:
-        print(f'  Could not find {home} vs {away} in RapidAPI — will retry next run')
+# Overlay live scores + statuses onto our fixture list
+updates = 0
+newly_finished = []
+for m in fd_matches:
+    home = normalize(m.get('homeTeam', {}).get('name', ''))
+    away = normalize(m.get('awayTeam', {}).get('name', ''))
+    if not home or not away:
         continue
 
-    event_id = ra_match.get('id')
+    ra = find_in_rapidapi(ra_matches, home, away)
+    if not ra:
+        continue   # not in today/yesterday window — leave as-is
+
+    new_status = ra_status_string(ra)
+    old_status = m.get('status', 'TIMED')
+    new_home_score = ra_score(ra, 'home')
+    new_away_score = ra_score(ra, 'away')
+
+    score = m.setdefault('score', {})
+    full = score.setdefault('fullTime', {})
+    changed = False
+
+    if new_status != old_status:
+        m['status'] = new_status
+        changed = True
+    if new_home_score is not None and full.get('home') != new_home_score:
+        full['home'] = new_home_score
+        changed = True
+    if new_away_score is not None and full.get('away') != new_away_score:
+        full['away'] = new_away_score
+        changed = True
+
+    if changed:
+        m['lastUpdated'] = now_utc.isoformat()
+        updates += 1
+
+    # Track newly-finished matches for stats fetch
+    if (new_status == 'FINISHED'
+            and m.get('id') not in processed
+            and ra.get('id')):
+        newly_finished.append((m, ra))
+
+print(f'Updated {updates} fixture(s) with live data.')
+print(f'Newly finished, awaiting stats: {len(newly_finished)}')
+
+# Pull stats + detail for newly finished matches
+new_count = 0
+for m, ra in newly_finished:
+    fdorg_id = m['id']
+    event_id = ra.get('id')
+    home = normalize(m['homeTeam']['name'])
+    away = normalize(m['awayTeam']['name'])
     ensure_team(teams, home)
     ensure_team(teams, away)
     print(f'Processing fdorg#{fdorg_id} → event {event_id}: {home} vs {away}')
@@ -305,6 +341,7 @@ for m in new_wc_matches:
     except Exception as e:
         errors.append(f'stats {event_id}: {e}')
         print(f'  Stats error: {e}')
+        continue   # don't mark processed if stats failed
 
     try:
         time.sleep(0.4)
@@ -317,15 +354,18 @@ for m in new_wc_matches:
     processed.add(fdorg_id)
     new_count += 1
 
-# Save
-data['processedFixtures'] = list(processed)
-data['teams']             = teams
-data['lastUpdated']       = datetime.now(timezone.utc).isoformat()
+# Persist updates
+fixtures['lastUpdated'] = now_utc.isoformat()
+with open(matches_path, 'w', encoding='utf-8') as f:
+    json.dump(fixtures, f, indent=2, ensure_ascii=False)
 
-with open(stats_path, 'w') as f:
-    json.dump(data, f, indent=2)
+stats_data['processedFixtures'] = list(processed)
+stats_data['teams']             = teams
+stats_data['lastUpdated']       = now_utc.isoformat()
+with open(stats_path, 'w', encoding='utf-8') as f:
+    json.dump(stats_data, f, indent=2, ensure_ascii=False)
 
-print(f'\nDone. Processed {new_count} new WC match(es). Total: {len(processed)}.')
+print(f'\nDone. Live updates: {updates}. New stats: {new_count}. Total processed: {len(processed)}.')
 if errors:
     print('Errors:')
     for e in errors:

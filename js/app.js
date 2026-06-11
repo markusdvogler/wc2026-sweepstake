@@ -494,9 +494,14 @@ function renderPrizesInfo() {
 async function checkApiStatus() {
   const indicator = document.getElementById('api-status');
   try {
-    const { matches } = await API.getMatches();
-    if (matches && matches.length > 0) {
-      indicator.textContent = '● Live data';
+    const data = await API.getMatches();
+    const lastUpdated = data && data.lastUpdated;
+    if (lastUpdated) {
+      const fmt = new Date(lastUpdated).toLocaleString('en-GB', {
+        hour: '2-digit', minute: '2-digit', day: 'numeric', month: 'short',
+        timeZone: 'Europe/Zurich'
+      });
+      indicator.textContent = `● Updated ${fmt} CEST`;
       indicator.className = 'text-xs px-2 py-1 rounded-full bg-green-900/50 text-green-400';
     } else {
       indicator.textContent = '● No data yet';
