@@ -451,18 +451,6 @@ async function loadPrizes() {
     document.getElementById('prizes-grid').classList.remove('hidden');
     renderLivePrizes();
 
-    // Show last-updated timestamp from team-stats.json
-    const tsEl = document.getElementById('prizes-last-updated');
-    const lastUpdated = eventStats && eventStats.lastUpdated;
-    if (lastUpdated) {
-      const d = new Date(lastUpdated);
-      const fmt = d.toLocaleString('en-GB', {
-        day: 'numeric', month: 'short', year: 'numeric',
-        hour: '2-digit', minute: '2-digit', timeZone: 'Europe/Zurich', timeZoneName: 'short'
-      });
-      tsEl.innerHTML = `Stats last updated: ${fmt} &nbsp;·&nbsp; <span class="text-slate-400">Goals update every 15 minutes during games. Cards, fouls, own goals and late goals are processed after each match finishes.</span>`;
-      tsEl.classList.remove('hidden');
-    }
   } catch (e) {
     document.getElementById('prizes-loading').classList.add('hidden');
     document.getElementById('prizes-no-api').classList.remove('hidden');

@@ -23,8 +23,8 @@ BASE_URL = 'https://v3.football.api-sports.io'
 HOST     = 'v3.football.api-sports.io'
 WC_LEAGUE_ID = 1
 WC_SEASON    = 2026
-EVENTS_INTERVAL_MIN = 25     # at most every ~25 min per live fixture
-STATS_INTERVAL_MIN  = 55     # at most every ~55 min per live fixture
+EVENTS_INTERVAL_MIN = 3      # at most every ~3 min per live fixture
+STATS_INTERVAL_MIN  = 5      # at most every ~5 min per live fixture
 
 NAME_MAP = {
     'Korea Republic':               'South Korea',
