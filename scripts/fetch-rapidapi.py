@@ -323,6 +323,21 @@ for m in fd_matches:
 print(f'Updated {updates} fixture(s) with live data.')
 print(f'Newly finished, awaiting stats: {len(newly_finished)}')
 
+# Diagnostic: if no matches found, dump what RapidAPI actually returned so we
+# can see whether the WC games are in there at all and what names they use.
+if updates == 0 and ra_matches:
+    print('\n--- DIAGNOSTIC: RapidAPI returned these matches ---')
+    for m in ra_matches:
+        h = m.get('home', {}) or {}
+        a = m.get('away', {}) or {}
+        league = (m.get('tournament', {}) or m.get('league', {}) or {}).get('name') or m.get('leagueName') or m.get('leagueId') or '?'
+        hname = h.get('longName') or h.get('name', '?')
+        aname = a.get('longName') or a.get('name', '?')
+        st = m.get('status', {})
+        sstr = 'FIN' if (isinstance(st, dict) and st.get('finished')) else 'LIVE' if (isinstance(st, dict) and st.get('started')) else 'UPC'
+        print(f'  [{sstr}] {hname} vs {aname}  (league: {league})')
+    print('--- end diagnostic ---\n')
+
 # Pull stats + detail for newly finished matches
 new_count = 0
 for m, ra in newly_finished:
