@@ -308,8 +308,9 @@ async function loadStandings() {
     return;
   }
   try {
-    const data = await API.getStandings();
-    standingsData = data.standings || [];
+    // Computed from matches.json (single source of truth now)
+    const { matches } = await API.getMatches();
+    standingsData = computeStandings(matches || []);
     document.getElementById('standings-loading').classList.add('hidden');
     document.getElementById('standings-content').classList.remove('hidden');
     renderStandings();
@@ -317,6 +318,67 @@ async function loadStandings() {
     document.getElementById('standings-loading').classList.add('hidden');
     document.getElementById('standings-no-api').classList.remove('hidden');
   }
+}
+
+// Compute group standings from match results. Mirrors football-data.org's
+// /standings response shape so renderStandings() doesn't need changes.
+function computeStandings(matches) {
+  const groupOf = {};   // teamName -> "GROUP_A"
+  const teamRef = {};   // teamName -> team object (id, name, tla, crest)
+  for (const m of matches) {
+    if (m.stage !== 'GROUP_STAGE' || !m.group) continue;
+    for (const side of ['homeTeam', 'awayTeam']) {
+      const t = m[side];
+      if (!t || !t.name) continue;
+      groupOf[t.name] = m.group;
+      teamRef[t.name] = t;
+    }
+  }
+
+  // Init each team's row
+  const rows = {};
+  for (const [name, group] of Object.entries(groupOf)) {
+    rows[name] = {
+      group, team: teamRef[name], position: 0,
+      playedGames: 0, won: 0, draw: 0, lost: 0,
+      goalsFor: 0, goalsAgainst: 0, goalDifference: 0, points: 0
+    };
+  }
+
+  // Accumulate from finished matches
+  for (const m of matches) {
+    if (m.stage !== 'GROUP_STAGE' || m.status !== 'FINISHED') continue;
+    const home = m.homeTeam?.name, away = m.awayTeam?.name;
+    const hs = m.score?.fullTime?.home, as = m.score?.fullTime?.away;
+    if (!home || !away || hs == null || as == null) continue;
+    const H = rows[home], A = rows[away];
+    if (!H || !A) continue;
+    H.playedGames++; A.playedGames++;
+    H.goalsFor += hs; H.goalsAgainst += as;
+    A.goalsFor += as; A.goalsAgainst += hs;
+    if (hs > as)      { H.won++;  A.lost++; H.points += 3; }
+    else if (hs < as) { A.won++;  H.lost++; A.points += 3; }
+    else              { H.draw++; A.draw++; H.points++; A.points++; }
+  }
+  for (const r of Object.values(rows)) r.goalDifference = r.goalsFor - r.goalsAgainst;
+
+  // Group rows by group and sort
+  const groups = {};
+  for (const r of Object.values(rows)) {
+    if (!groups[r.group]) groups[r.group] = [];
+    groups[r.group].push(r);
+  }
+  const sorted = Object.entries(groups).sort(([a], [b]) => a.localeCompare(b));
+  return sorted.map(([group, table]) => {
+    table.sort((a, b) =>
+      b.points - a.points ||
+      b.goalDifference - a.goalDifference ||
+      b.goalsFor - a.goalsFor ||
+      a.team.name.localeCompare(b.team.name)
+    );
+    table.forEach((r, i) => { r.position = i + 1; });
+    return { group, table };
+  });
 }
 
 function renderStandings() {

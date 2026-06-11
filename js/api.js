@@ -1,20 +1,9 @@
-// football-data.org API wrapper
-// - On localhost: proxies through serve.ps1 to avoid CORS
-// - On GitHub Pages: reads from data/*.json files updated by GitHub Actions every 15 min
+// Data wrapper — reads static JSON files updated by GitHub Actions (RapidAPI).
+// matches.json contains the WC fixture skeleton with live scores + status
+// overlaid by the fetch-rapidapi.py script. Standings are computed client-side.
 
 const CACHE_TTL = 5 * 60 * 1000;
 const cache = {};
-const isLocal = location.hostname === 'localhost' || location.hostname === '127.0.0.1';
-
-async function apiFetch(path) {
-  const now = Date.now();
-  if (cache[path] && now - cache[path].ts < CACHE_TTL) return cache[path].data;
-  const res = await fetch(`/proxy${path}`, { headers: {} });
-  if (!res.ok) throw new Error(`API error ${res.status}`);
-  const data = await res.json();
-  cache[path] = { data, ts: now };
-  return data;
-}
 
 async function staticFetch(file) {
   const now = Date.now();
@@ -27,22 +16,10 @@ async function staticFetch(file) {
 }
 
 const API = {
-  hasKey() {
-    return isLocal
-      ? CONFIG.API_KEY && CONFIG.API_KEY !== 'YOUR_API_KEY_HERE'
-      : true; // GitHub Pages always has data files
-  },
+  hasKey() { return true; },
 
   async getMatches() {
-    return isLocal
-      ? apiFetch(`/competitions/${CONFIG.COMPETITION_CODE}/matches`)
-      : staticFetch('data/matches.json');
-  },
-
-  async getStandings() {
-    return isLocal
-      ? apiFetch(`/competitions/${CONFIG.COMPETITION_CODE}/standings`)
-      : staticFetch('data/standings.json');
+    return staticFetch('data/matches.json');
   },
 
   async getEventStats() {
