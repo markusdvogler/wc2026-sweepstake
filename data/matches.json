@@ -39,11 +39,11 @@
       },
       "id": 537327,
       "utcDate": "2026-06-11T19:00:00Z",
-      "status": "TIMED",
+      "status": "IN_PLAY",
       "matchday": 1,
       "stage": "GROUP_STAGE",
       "group": "GROUP_A",
-      "lastUpdated": "2026-06-11T00:20:16Z",
+      "lastUpdated": "2026-06-11T20:25:55.241007+00:00",
       "homeTeam": {
         "id": 769,
         "name": "Mexico",
@@ -62,8 +62,8 @@
         "winner": null,
         "duration": "REGULAR",
         "fullTime": {
-          "home": null,
-          "away": null
+          "home": 1,
+          "away": 0
         },
         "halfTime": {
           "home": null,
@@ -6209,5 +6209,5 @@
       "referees": []
     }
   ],
-  "lastUpdated": "2026-06-11T20:17:59.770562+00:00"
+  "lastUpdated": "2026-06-11T20:25:55.241007+00:00"
 }

@@ -1,9 +1,45 @@
 {
   "processedFixtures": [],
-  "teams": {},
-  "lastUpdated": "2026-06-11T20:17:59.770562+00:00",
-  "matchStats": {},
-  "lastEventsFetch": {},
-  "lastStatsFetch": {},
+  "teams": {
+    "Mexico": {
+      "yellowCards": 1,
+      "redCards": 0,
+      "fouls": 5,
+      "ownGoals": 0,
+      "lateGoals": 0
+    },
+    "South Africa": {
+      "yellowCards": 1,
+      "redCards": 1,
+      "fouls": 7,
+      "ownGoals": 0,
+      "lateGoals": 0
+    }
+  },
+  "lastUpdated": "2026-06-11T20:25:55.241007+00:00",
+  "matchStats": {
+    "1489369": {
+      "Mexico": {
+        "yellowCards": 1,
+        "redCards": 0,
+        "fouls": 5,
+        "ownGoals": 0,
+        "lateGoals": 0
+      },
+      "South Africa": {
+        "yellowCards": 1,
+        "redCards": 1,
+        "fouls": 7,
+        "ownGoals": 0,
+        "lateGoals": 0
+      }
+    }
+  },
+  "lastEventsFetch": {
+    "1489369": "2026-06-11T20:25:55.241007+00:00"
+  },
+  "lastStatsFetch": {
+    "1489369": "2026-06-11T20:25:55.241007+00:00"
+  },
   "finishedFully": []
 }
