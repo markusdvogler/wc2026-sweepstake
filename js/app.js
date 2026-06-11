@@ -345,15 +345,19 @@ function computeStandings(matches) {
     };
   }
 
-  // Accumulate from finished matches
+  // Accumulate from finished AND live group-stage matches (live counts
+  // provisionally — points / GD update minute-by-minute).
   for (const m of matches) {
-    if (m.stage !== 'GROUP_STAGE' || m.status !== 'FINISHED') continue;
+    if (m.stage !== 'GROUP_STAGE') continue;
+    const isFinished = m.status === 'FINISHED';
+    const isLive     = m.status === 'IN_PLAY' || m.status === 'PAUSED';
+    if (!isFinished && !isLive) continue;
     const home = m.homeTeam?.name, away = m.awayTeam?.name;
     const hs = m.score?.fullTime?.home, as = m.score?.fullTime?.away;
     if (!home || !away || hs == null || as == null) continue;
     const H = rows[home], A = rows[away];
     if (!H || !A) continue;
-    H.playedGames++; A.playedGames++;
+    if (isFinished) { H.playedGames++; A.playedGames++; }
     H.goalsFor += hs; H.goalsAgainst += as;
     A.goalsFor += as; A.goalsAgainst += hs;
     if (hs > as)      { H.won++;  A.lost++; H.points += 3; }

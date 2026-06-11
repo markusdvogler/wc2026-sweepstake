@@ -48,16 +48,18 @@ const API = {
     }
 
     for (const m of matches) {
-      if (m.status !== 'FINISHED') continue;
+      const isFinished = m.status === 'FINISHED';
+      const isLive     = m.status === 'IN_PLAY' || m.status === 'PAUSED';
+      if (!isFinished && !isLive) continue;
+
       const h = m.homeTeam, a = m.awayTeam;
-      const hs = m.score.fullTime.home, as = m.score.fullTime.away;
-      if (hs === null || as === null) continue;
+      const hs = m.score?.fullTime?.home, as = m.score?.fullTime?.away;
+      if (hs === null || hs === undefined || as === null || as === undefined) continue;
 
       ensureTeam(h.id, h.name, h.shortName);
       ensureTeam(a.id, a.name, a.shortName);
 
-      stats[h.id].played++;
-      stats[a.id].played++;
+      // Count goals + provisional points for both live and finished
       stats[h.id].goalsFor += hs;
       stats[h.id].goalsAgainst += as;
       stats[a.id].goalsFor += as;
@@ -67,11 +69,19 @@ const API = {
       else if (hs < as) { stats[a.id].wins++; stats[a.id].points += 3; stats[h.id].losses++; }
       else { stats[h.id].draws++; stats[h.id].points++; stats[a.id].draws++; stats[a.id].points++; }
 
-      if (hs === 0 && as === 0) { stats[h.id].zeroZeroMatches++; stats[a.id].zeroZeroMatches++; }
+      // "Played" only increments for fully completed matches
+      if (isFinished) {
+        stats[h.id].played++;
+        stats[a.id].played++;
 
-      if (hs > as) stats[a.id].biggestDefeat = Math.max(stats[a.id].biggestDefeat, hs - as);
-      if (as > hs) stats[h.id].biggestDefeat = Math.max(stats[h.id].biggestDefeat, as - hs);
+        // Final-only stats: 0-0 match and biggest defeat can't be determined until full-time
+        if (hs === 0 && as === 0) { stats[h.id].zeroZeroMatches++; stats[a.id].zeroZeroMatches++; }
+        if (hs > as) stats[a.id].biggestDefeat = Math.max(stats[a.id].biggestDefeat, hs - as);
+        if (as > hs) stats[h.id].biggestDefeat = Math.max(stats[h.id].biggestDefeat, as - hs);
+      }
 
+      // m.goals / m.bookings come from football-data.org (legacy). With api-sports
+      // these now feed in via team-stats.json (extStats) and are merged below.
       if (m.goals) {
         for (const g of m.goals) {
           const tid = g.team?.id;
