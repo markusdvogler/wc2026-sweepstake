@@ -1,14 +1,12 @@
 name: Fetch WC Data (api-sports)
 
-# Every 5 min during match window: 16:00-05:55 UTC = 18:00-07:55 CEST
-# Plus the 06:00 UTC = 08:00 CEST boundary tick.
-# (GitHub Actions free-tier enforces a 5-min minimum interval on scheduled
-# workflows. Sub-minute cadence isn't supported by the schedule trigger.)
+# Every 5 minutes always-on. The Python script checks the time-of-day
+# match window (18:00-08:00 CEST) and exits cleanly outside that window
+# without making any API calls. Single simple cron is more reliable than
+# hour-ranged ones (GitHub silently drops complex schedules sometimes).
 on:
   schedule:
-    - cron: '*/5 16-23 * * *'
-    - cron: '*/5 0-5 * * *'
-    - cron: '0 6 * * *'
+    - cron: '*/5 * * * *'
   workflow_dispatch:
 
 jobs:

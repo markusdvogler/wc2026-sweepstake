@@ -106,6 +106,17 @@ if not API_KEY:
     sys.exit(1)
 
 now_utc = datetime.now(timezone.utc)
+
+# Skip outside match window (18:00-08:00 CEST = 16:00-06:00 UTC).
+# Saves API calls when no matches are likely live.
+# Manual workflow_dispatch runs (via GITHUB_EVENT_NAME) always proceed.
+event_name = os.environ.get('GITHUB_EVENT_NAME', '')
+if event_name == 'schedule':
+    hour = now_utc.hour
+    in_window = hour >= 16 or hour < 6     # 16:00 UTC inclusive .. 06:00 UTC exclusive
+    if not in_window:
+        print(f'Outside match window (UTC hour={hour}). Skipping this run.')
+        sys.exit(0)
 api_calls = 0
 errors = []
 
