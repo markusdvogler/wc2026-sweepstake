@@ -1,13 +1,13 @@
 name: Fetch WC Data (api-sports)
 
-# Every minute during match window: 16:00-05:59 UTC = 18:00-07:59 CEST
+# Every 5 min during match window: 16:00-05:55 UTC = 18:00-07:55 CEST
 # Plus the 06:00 UTC = 08:00 CEST boundary tick.
-# GitHub Actions free-tier scheduling is best-effort — some minute slots
-# may be skipped during high load, but the api-sports quota safely allows it.
+# (GitHub Actions free-tier enforces a 5-min minimum interval on scheduled
+# workflows. Sub-minute cadence isn't supported by the schedule trigger.)
 on:
   schedule:
-    - cron: '* 16-23 * * *'
-    - cron: '* 0-5 * * *'
+    - cron: '*/5 16-23 * * *'
+    - cron: '*/5 0-5 * * *'
     - cron: '0 6 * * *'
   workflow_dispatch:
 
