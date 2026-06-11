@@ -38,7 +38,7 @@ const API = {
       if (!stats[id]) {
         stats[id] = {
           id, name, shortName,
-          played: 0, wins: 0, draws: 0, losses: 0,
+          played: 0, appeared: 0, wins: 0, draws: 0, losses: 0,
           goalsFor: 0, goalsAgainst: 0, points: 0,
           yellowCards: 0, redCards: 0, ownGoals: 0,
           zeroZeroMatches: 0, lateGoals: 0,
@@ -58,6 +58,10 @@ const API = {
 
       ensureTeam(h.id, h.name, h.shortName);
       ensureTeam(a.id, a.name, a.shortName);
+
+      // `appeared` includes live matches; `played` only finished ones
+      stats[h.id].appeared++;
+      stats[a.id].appeared++;
 
       // Count goals + provisional points for both live and finished
       stats[h.id].goalsFor += hs;

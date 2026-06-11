@@ -118,9 +118,10 @@ function calcPrizeLeaders(teamStats, participants, teamsData, advancedTeamIds) {
         top3 = ranked.slice(0, 3).map(({ _sort, ...r }) => r);
       }
     } else if (statsArr.length > 0) {
-      // For asc prizes, only include teams that have played (avoids 48-way tie at 0)
+      // For asc prizes, only include teams that have appeared in a match
+      // (finished OR live) — avoids a 48-way tie at 0 before kickoff
       const eligible = prize.order === 'asc'
-        ? statsArr.filter(s => s.played > 0)
+        ? statsArr.filter(s => (s.appeared || 0) > 0)
         : statsArr.filter(s => prize.stat(s) > 0);
 
       if (eligible.length > 0) {
