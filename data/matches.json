@@ -105,11 +105,11 @@
       },
       "id": 537328,
       "utcDate": "2026-06-12T02:00:00Z",
-      "status": "TIMED",
+      "status": "FINISHED",
       "matchday": 1,
       "stage": "GROUP_STAGE",
       "group": "GROUP_A",
-      "lastUpdated": "2026-06-11T00:20:16Z",
+      "lastUpdated": "2026-06-12T05:12:09.451553+00:00",
       "homeTeam": {
         "id": 772,
         "name": "South Korea",
@@ -128,8 +128,8 @@
         "winner": null,
         "duration": "REGULAR",
         "fullTime": {
-          "home": null,
-          "away": null
+          "home": 2,
+          "away": 1
         },
         "halfTime": {
           "home": null,
@@ -6209,5 +6209,5 @@
       "referees": []
     }
   ],
-  "lastUpdated": "2026-06-12T05:11:10.101230+00:00"
+  "lastUpdated": "2026-06-12T05:12:09.451553+00:00"
 }

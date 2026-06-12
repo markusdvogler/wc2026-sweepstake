@@ -14,9 +14,23 @@
       "fouls": 11,
       "ownGoals": 0,
       "lateGoals": 0
+    },
+    "South Korea": {
+      "yellowCards": 1,
+      "redCards": 0,
+      "fouls": 9,
+      "ownGoals": 0,
+      "lateGoals": 0
+    },
+    "Czechia": {
+      "yellowCards": 0,
+      "redCards": 0,
+      "fouls": 16,
+      "ownGoals": 0,
+      "lateGoals": 0
     }
   },
-  "lastUpdated": "2026-06-12T05:11:10.101230+00:00",
+  "lastUpdated": "2026-06-12T05:12:09.451553+00:00",
   "matchStats": {
     "1489369": {
       "Mexico": {
@@ -33,15 +47,34 @@
         "ownGoals": 0,
         "lateGoals": 0
       }
+    },
+    "1538999": {
+      "South Korea": {
+        "yellowCards": 1,
+        "redCards": 0,
+        "fouls": 9,
+        "ownGoals": 0,
+        "lateGoals": 0
+      },
+      "Czechia": {
+        "yellowCards": 0,
+        "redCards": 0,
+        "fouls": 16,
+        "ownGoals": 0,
+        "lateGoals": 0
+      }
     }
   },
   "lastEventsFetch": {
-    "1489369": "2026-06-12T04:58:47.337234+00:00"
+    "1489369": "2026-06-12T04:58:47.337234+00:00",
+    "1538999": "2026-06-12T05:12:09.451553+00:00"
   },
   "lastStatsFetch": {
-    "1489369": "2026-06-12T04:58:47.337234+00:00"
+    "1489369": "2026-06-12T04:58:47.337234+00:00",
+    "1538999": "2026-06-12T05:12:09.451553+00:00"
   },
   "finishedFully": [
-    "1489369"
+    "1489369",
+    "1538999"
   ]
 }
