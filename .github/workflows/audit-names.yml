@@ -1,0 +1,16 @@
+name: Audit Team Names
+
+# Manual trigger only — runs the one-shot name audit against api-sports'
+# full WC 2026 fixture list to surface NAME_MAP gaps before they bite us.
+on:
+  workflow_dispatch:
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Run name audit
+        env:
+          APISPORTS_KEY: ${{ secrets.APISPORTS_KEY }}
+        run: python scripts/audit-names.py
