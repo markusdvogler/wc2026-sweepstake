@@ -43,6 +43,7 @@ NAME_MAP = {
     'Congo Democratic Republic':    'Congo DR',
     'Democratic Republic of Congo': 'Congo DR',
     'Curacao':                      'Curaçao',
+    'Czech Republic':               'Czechia',
 }
 
 def normalize(name):
