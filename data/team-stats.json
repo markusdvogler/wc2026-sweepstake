@@ -32,19 +32,19 @@
     "Canada": {
       "yellowCards": 2,
       "redCards": 0,
-      "fouls": 4,
+      "fouls": 5,
       "ownGoals": 0,
       "lateGoals": 0
     },
     "Bosnia-Herzegovina": {
       "yellowCards": 2,
       "redCards": 0,
-      "fouls": 10,
+      "fouls": 11,
       "ownGoals": 0,
       "lateGoals": 0
     }
   },
-  "lastUpdated": "2026-06-12T20:16:16.089455+00:00",
+  "lastUpdated": "2026-06-12T20:17:08.885300+00:00",
   "matchStats": {
     "1489369": {
       "Mexico": {
@@ -82,14 +82,14 @@
       "Canada": {
         "yellowCards": 2,
         "redCards": 0,
-        "fouls": 4,
+        "fouls": 5,
         "ownGoals": 0,
         "lateGoals": 0
       },
       "Bosnia-Herzegovina": {
         "yellowCards": 2,
         "redCards": 0,
-        "fouls": 10,
+        "fouls": 11,
         "ownGoals": 0,
         "lateGoals": 0
       }
@@ -98,12 +98,12 @@
   "lastEventsFetch": {
     "1489369": "2026-06-12T04:58:47.337234+00:00",
     "1538999": "2026-06-12T05:12:09.451553+00:00",
-    "1539000": "2026-06-12T20:16:16.089455+00:00"
+    "1539000": "2026-06-12T20:17:08.885300+00:00"
   },
   "lastStatsFetch": {
     "1489369": "2026-06-12T04:58:47.337234+00:00",
     "1538999": "2026-06-12T05:12:09.451553+00:00",
-    "1539000": "2026-06-12T20:16:16.089455+00:00"
+    "1539000": "2026-06-12T20:17:08.885300+00:00"
   },
   "finishedFully": [
     "1489369",
