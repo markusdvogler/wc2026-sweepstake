@@ -244,36 +244,6 @@ for m in fd_matches:
 print(f'Updated {updates} fixture(s) with live data.')
 print(f'Candidates for stat refresh: {len(needs_refresh)}')
 
-# Diagnostic: list every api-sports fixture we fetched, and any fdorg
-# fixtures from today/yesterday that we couldn't match.
-print('\n--- DIAGNOSTIC ---')
-print(f'api-sports returned {len(ra_fixtures)} fixture(s):')
-for fx in ra_fixtures:
-    h = (fx.get('teams', {}).get('home') or {}).get('name', '?')
-    a = (fx.get('teams', {}).get('away') or {}).get('name', '?')
-    st = fx.get('fixture', {}).get('status', {}).get('short', '?')
-    print(f'  [{st}] {h} vs {a}')
-
-# Which fdorg matches in today's/yesterday's window did we fail to match?
-today_iso = now_utc.strftime('%Y-%m-%d')
-yest_iso  = (now_utc - timedelta(days=1)).strftime('%Y-%m-%d')
-unmatched = []
-for m in fd_matches:
-    dt = (m.get('utcDate') or '')[:10]
-    if dt not in (today_iso, yest_iso):
-        continue
-    home = normalize(m.get('homeTeam', {}).get('name', ''))
-    away = normalize(m.get('awayTeam', {}).get('name', ''))
-    if not home or not away:
-        continue
-    if find_fixture(home, away) is None:
-        unmatched.append(f'  [{m.get("status")}] {home} vs {away} ({dt})')
-if unmatched:
-    print(f'\nfdorg fixtures NOT matched to api-sports ({len(unmatched)}):')
-    for u in unmatched:
-        print(u)
-print('--- END DIAGNOSTIC ---\n')
-
 # 3) For each candidate, decide whether to fetch events / statistics
 def time_since(iso_str):
     """Minutes since iso_str timestamp, or infinity if never set."""
