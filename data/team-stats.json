@@ -4,7 +4,7 @@
     "Mexico": {
       "yellowCards": 1,
       "redCards": 1,
-      "fouls": 11,
+      "fouls": 12,
       "ownGoals": 0,
       "lateGoals": 0
     },
@@ -16,13 +16,13 @@
       "lateGoals": 0
     }
   },
-  "lastUpdated": "2026-06-11T21:00:39.472435+00:00",
+  "lastUpdated": "2026-06-12T04:58:47.337234+00:00",
   "matchStats": {
     "1489369": {
       "Mexico": {
         "yellowCards": 1,
         "redCards": 1,
-        "fouls": 11,
+        "fouls": 12,
         "ownGoals": 0,
         "lateGoals": 0
       },
@@ -36,10 +36,12 @@
     }
   },
   "lastEventsFetch": {
-    "1489369": "2026-06-11T21:00:39.472435+00:00"
+    "1489369": "2026-06-12T04:58:47.337234+00:00"
   },
   "lastStatsFetch": {
-    "1489369": "2026-06-11T21:00:39.472435+00:00"
+    "1489369": "2026-06-12T04:58:47.337234+00:00"
   },
-  "finishedFully": []
+  "finishedFully": [
+    "1489369"
+  ]
 }
