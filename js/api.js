@@ -46,7 +46,7 @@ const API = {
           goalsFor: 0, goalsAgainst: 0, points: 0,
           yellowCards: 0, redCards: 0, ownGoals: 0,
           zeroZeroMatches: 0, lateGoals: 0,
-          biggestDefeat: 0, fouls: 0
+          biggestDefeat: 0, biggestDefeatScore: null, fouls: 0
         };
       }
     }
@@ -84,8 +84,20 @@ const API = {
 
         // Final-only stats: 0-0 match and biggest defeat can't be determined until full-time
         if (hs === 0 && as === 0) { stats[h.id].zeroZeroMatches++; stats[a.id].zeroZeroMatches++; }
-        if (hs > as) stats[a.id].biggestDefeat = Math.max(stats[a.id].biggestDefeat, hs - as);
-        if (as > hs) stats[h.id].biggestDefeat = Math.max(stats[h.id].biggestDefeat, as - hs);
+        if (hs > as) {
+          const diff = hs - as;
+          if (diff > stats[a.id].biggestDefeat) {
+            stats[a.id].biggestDefeat = diff;
+            stats[a.id].biggestDefeatScore = `${as}-${hs}`;   // scored-conceded
+          }
+        }
+        if (as > hs) {
+          const diff = as - hs;
+          if (diff > stats[h.id].biggestDefeat) {
+            stats[h.id].biggestDefeat = diff;
+            stats[h.id].biggestDefeatScore = `${hs}-${as}`;
+          }
+        }
       }
 
       // m.goals / m.bookings come from football-data.org (legacy). With api-sports

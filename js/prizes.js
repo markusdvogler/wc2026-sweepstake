@@ -62,6 +62,7 @@ const PRIZE_DEFINITIONS = [
     desc: 'Team with largest defeat in one game',
     icon: '😵',
     stat: s => s.biggestDefeat,
+    format: s => s.biggestDefeatScore || s.biggestDefeat,
     order: 'desc'
   },
   {
@@ -136,7 +137,8 @@ function calcPrizeLeaders(teamStats, participants, teamsData, advancedTeamIds) {
 
         const toEntry = s => {
           const participant = participants.find(p => p.teamCode === s.shortName || p.team === s.name);
-          return { team: s.name, participant: participant?.name || '?', value: prize.stat(s) };
+          const displayVal = prize.format ? prize.format(s) : prize.stat(s);
+          return { team: s.name, participant: participant?.name || '?', value: displayVal };
         };
 
         const rank1 = sorted.filter(s => prize.stat(s) === topVal).map(toEntry);
