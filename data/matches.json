@@ -237,11 +237,11 @@
       },
       "id": 537345,
       "utcDate": "2026-06-13T01:00:00Z",
-      "status": "PAUSED",
+      "status": "IN_PLAY",
       "matchday": 1,
       "stage": "GROUP_STAGE",
       "group": "GROUP_D",
-      "lastUpdated": "2026-06-13T01:53:07.813302+00:00",
+      "lastUpdated": "2026-06-13T02:10:16.456198+00:00",
       "homeTeam": {
         "id": 771,
         "name": "United States",
@@ -6209,5 +6209,5 @@
       "referees": []
     }
   ],
-  "lastUpdated": "2026-06-13T02:09:09.896692+00:00"
+  "lastUpdated": "2026-06-13T02:10:16.456198+00:00"
 }
