@@ -303,11 +303,11 @@
       },
       "id": 537334,
       "utcDate": "2026-06-13T19:00:00Z",
-      "status": "TIMED",
+      "status": "IN_PLAY",
       "matchday": 1,
       "stage": "GROUP_STAGE",
       "group": "GROUP_B",
-      "lastUpdated": "2026-06-11T00:20:16Z",
+      "lastUpdated": "2026-06-13T19:06:15.344912+00:00",
       "homeTeam": {
         "id": 8030,
         "name": "Qatar",
@@ -326,8 +326,8 @@
         "winner": null,
         "duration": "REGULAR",
         "fullTime": {
-          "home": null,
-          "away": null
+          "home": 0,
+          "away": 0
         },
         "halfTime": {
           "home": null,
@@ -6209,5 +6209,5 @@
       "referees": []
     }
   ],
-  "lastUpdated": "2026-06-13T19:05:18.321900+00:00"
+  "lastUpdated": "2026-06-13T19:06:15.344912+00:00"
 }
