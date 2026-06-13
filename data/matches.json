@@ -303,11 +303,11 @@
       },
       "id": 537334,
       "utcDate": "2026-06-13T19:00:00Z",
-      "status": "PAUSED",
+      "status": "IN_PLAY",
       "matchday": 1,
       "stage": "GROUP_STAGE",
       "group": "GROUP_B",
-      "lastUpdated": "2026-06-13T19:57:09.430498+00:00",
+      "lastUpdated": "2026-06-13T20:13:14.880823+00:00",
       "homeTeam": {
         "id": 8030,
         "name": "Qatar",
@@ -6209,5 +6209,5 @@
       "referees": []
     }
   ],
-  "lastUpdated": "2026-06-13T20:12:09.642666+00:00"
+  "lastUpdated": "2026-06-13T20:13:14.880823+00:00"
 }
