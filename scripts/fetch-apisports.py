@@ -295,7 +295,13 @@ for fxid, home, away, new_status in needs_refresh:
                         match_stats[fxid][tname]['redCards'] += 1
                 elif etype == 'goal':
                     if 'own goal' in detail:
-                        match_stats[fxid][tname]['ownGoals'] += 1
+                        # api-sports attributes the goal event to the team
+                        # that BENEFITED. The Deflectors prize should track
+                        # the team that COMMITTED the own goal — i.e. the
+                        # opposing side of the team api-sports lists.
+                        own_goal_team = away if tname == home else home if tname == away else None
+                        if own_goal_team:
+                            match_stats[fxid][own_goal_team]['ownGoals'] += 1
                     if elapsed >= 85:
                         match_stats[fxid][tname]['lateGoals'] += 1
             last_events[fxid] = now_utc.isoformat()
