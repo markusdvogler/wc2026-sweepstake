@@ -571,7 +571,7 @@
       "matchday": 1,
       "stage": "GROUP_STAGE",
       "group": "GROUP_E",
-      "lastUpdated": "2026-06-14T18:32:08.643976+00:00",
+      "lastUpdated": "2026-06-14T18:42:15.844710+00:00",
       "homeTeam": {
         "id": 759,
         "name": "Germany",
@@ -590,7 +590,7 @@
         "winner": null,
         "duration": "REGULAR",
         "fullTime": {
-          "home": 5,
+          "home": 6,
           "away": 1
         },
         "halfTime": {
@@ -6209,5 +6209,5 @@
       "referees": []
     }
   ],
-  "lastUpdated": "2026-06-14T18:41:08.613570+00:00"
+  "lastUpdated": "2026-06-14T18:42:15.844710+00:00"
 }
