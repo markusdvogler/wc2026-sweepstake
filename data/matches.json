@@ -435,11 +435,11 @@
       },
       "id": 537340,
       "utcDate": "2026-06-14T01:00:00Z",
-      "status": "IN_PLAY",
+      "status": "FINISHED",
       "matchday": 1,
       "stage": "GROUP_STAGE",
       "group": "GROUP_C",
-      "lastUpdated": "2026-06-14T02:10:15.284951+00:00",
+      "lastUpdated": "2026-06-14T03:04:09.008585+00:00",
       "homeTeam": {
         "id": 836,
         "name": "Haiti",
@@ -6209,5 +6209,5 @@
       "referees": []
     }
   ],
-  "lastUpdated": "2026-06-14T03:03:09.600835+00:00"
+  "lastUpdated": "2026-06-14T03:04:09.008585+00:00"
 }
