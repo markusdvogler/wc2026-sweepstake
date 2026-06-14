@@ -567,11 +567,11 @@
       },
       "id": 537351,
       "utcDate": "2026-06-14T17:00:00Z",
-      "status": "IN_PLAY",
+      "status": "FINISHED",
       "matchday": 1,
       "stage": "GROUP_STAGE",
       "group": "GROUP_E",
-      "lastUpdated": "2026-06-14T18:52:14.650785+00:00",
+      "lastUpdated": "2026-06-14T19:00:41.951150+00:00",
       "homeTeam": {
         "id": 759,
         "name": "Germany",
@@ -6209,5 +6209,5 @@
       "referees": []
     }
   ],
-  "lastUpdated": "2026-06-14T18:59:16.090043+00:00"
+  "lastUpdated": "2026-06-14T19:00:41.951150+00:00"
 }
