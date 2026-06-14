@@ -501,11 +501,11 @@
       },
       "id": 537346,
       "utcDate": "2026-06-14T04:00:00Z",
-      "status": "TIMED",
+      "status": "IN_PLAY",
       "matchday": 1,
       "stage": "GROUP_STAGE",
       "group": "GROUP_D",
-      "lastUpdated": "2026-06-11T00:20:16Z",
+      "lastUpdated": "2026-06-14T04:02:09.050905+00:00",
       "homeTeam": {
         "id": 779,
         "name": "Australia",
@@ -524,8 +524,8 @@
         "winner": null,
         "duration": "REGULAR",
         "fullTime": {
-          "home": null,
-          "away": null
+          "home": 0,
+          "away": 0
         },
         "halfTime": {
           "home": null,
@@ -6209,5 +6209,5 @@
       "referees": []
     }
   ],
-  "lastUpdated": "2026-06-14T04:01:09.028708+00:00"
+  "lastUpdated": "2026-06-14T04:02:09.050905+00:00"
 }
