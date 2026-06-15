@@ -685,11 +685,11 @@
       },
       "id": 537352,
       "utcDate": "2026-06-14T23:00:00Z",
-      "status": "IN_PLAY",
+      "status": "FINISHED",
       "matchday": 1,
       "stage": "GROUP_STAGE",
       "group": "GROUP_E",
-      "lastUpdated": "2026-06-15T01:00:33.351973+00:00",
+      "lastUpdated": "2026-06-15T01:05:12.417329+00:00",
       "homeTeam": {
         "id": 1935,
         "name": "Ivory Coast",
@@ -6209,5 +6209,5 @@
       "referees": []
     }
   ],
-  "lastUpdated": "2026-06-15T01:04:15.725142+00:00"
+  "lastUpdated": "2026-06-15T01:05:12.417329+00:00"
 }
