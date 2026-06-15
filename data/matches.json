@@ -744,11 +744,11 @@
       },
       "id": 537358,
       "utcDate": "2026-06-15T02:00:00Z",
-      "status": "IN_PLAY",
+      "status": "PAUSED",
       "matchday": 1,
       "stage": "GROUP_STAGE",
       "group": "GROUP_F",
-      "lastUpdated": "2026-06-15T02:44:11.586243+00:00",
+      "lastUpdated": "2026-06-15T02:50:17.488375+00:00",
       "homeTeam": {
         "id": 792,
         "name": "Sweden",
@@ -6209,5 +6209,5 @@
       "referees": []
     }
   ],
-  "lastUpdated": "2026-06-15T02:49:08.129966+00:00"
+  "lastUpdated": "2026-06-15T02:50:17.488375+00:00"
 }
