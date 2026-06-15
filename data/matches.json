@@ -748,7 +748,7 @@
       "matchday": 1,
       "stage": "GROUP_STAGE",
       "group": "GROUP_F",
-      "lastUpdated": "2026-06-15T03:06:17.414979+00:00",
+      "lastUpdated": "2026-06-15T03:21:10.898292+00:00",
       "homeTeam": {
         "id": 792,
         "name": "Sweden",
@@ -767,7 +767,7 @@
         "winner": null,
         "duration": "REGULAR",
         "fullTime": {
-          "home": 2,
+          "home": 3,
           "away": 1
         },
         "halfTime": {
@@ -6209,5 +6209,5 @@
       "referees": []
     }
   ],
-  "lastUpdated": "2026-06-15T03:20:16.356113+00:00"
+  "lastUpdated": "2026-06-15T03:21:10.898292+00:00"
 }
