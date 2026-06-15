@@ -921,11 +921,11 @@
       },
       "id": 537370,
       "utcDate": "2026-06-15T22:00:00Z",
-      "status": "IN_PLAY",
+      "status": "PAUSED",
       "matchday": 1,
       "stage": "GROUP_STAGE",
       "group": "GROUP_H",
-      "lastUpdated": "2026-06-15T22:45:24.700736+00:00",
+      "lastUpdated": "2026-06-15T22:54:12.882247+00:00",
       "homeTeam": {
         "id": 801,
         "name": "Saudi Arabia",
@@ -6209,5 +6209,5 @@
       "referees": []
     }
   ],
-  "lastUpdated": "2026-06-15T22:53:14.393731+00:00"
+  "lastUpdated": "2026-06-15T22:54:12.882247+00:00"
 }
