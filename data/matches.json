@@ -866,7 +866,7 @@
       "matchday": 1,
       "stage": "GROUP_STAGE",
       "group": "GROUP_G",
-      "lastUpdated": "2026-06-15T20:08:16.717079+00:00",
+      "lastUpdated": "2026-06-15T20:29:09.933029+00:00",
       "homeTeam": {
         "id": 805,
         "name": "Belgium",
@@ -885,7 +885,7 @@
         "winner": null,
         "duration": "REGULAR",
         "fullTime": {
-          "home": 0,
+          "home": 1,
           "away": 1
         },
         "halfTime": {
@@ -6209,5 +6209,5 @@
       "referees": []
     }
   ],
-  "lastUpdated": "2026-06-15T20:28:17.290805+00:00"
+  "lastUpdated": "2026-06-15T20:29:09.933029+00:00"
 }
