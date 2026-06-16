@@ -9,6 +9,11 @@ on:
     - cron: '*/5 * * * *'
   workflow_dispatch:
 
+# Serialise runs of this workflow so backfill + cron never race each other.
+concurrency:
+  group: fetch-apisports
+  cancel-in-progress: false
+
 jobs:
   fetch:
     runs-on: ubuntu-latest
@@ -27,4 +32,20 @@ jobs:
           git config user.email "action@github.com"
           git config user.name "GitHub Action"
           git add data/matches.json data/team-stats.json
-          git diff --staged --quiet || (git commit -m "Update WC data [skip ci]" && git push)
+          if git diff --staged --quiet; then
+            echo "No changes."
+            exit 0
+          fi
+          git commit -m "Update WC data [skip ci]"
+          # Retry-on-conflict: if external push lands between our checkout
+          # and push, rebase onto it and try again. Up to 5 attempts.
+          for i in 1 2 3 4 5; do
+            if git push; then
+              echo "Pushed on attempt $i"
+              exit 0
+            fi
+            echo "Push attempt $i failed, rebasing..."
+            git pull --rebase origin main || exit 1
+          done
+          echo "Push failed after 5 attempts."
+          exit 1
