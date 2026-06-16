@@ -8,11 +8,6 @@ on:
   schedule:
     - cron: '*/5 * * * *'
   workflow_dispatch:
-    inputs:
-      backfill:
-        description: 'Re-process ALL WC matches (set 1 to backfill)'
-        required: false
-        default: '0'
 
 jobs:
   fetch:
@@ -25,7 +20,6 @@ jobs:
       - name: Fetch live scores + stats from api-sports
         env:
           APISPORTS_KEY: ${{ secrets.APISPORTS_KEY }}
-          BACKFILL_ALL: ${{ github.event.inputs.backfill }}
         run: python scripts/fetch-apisports.py
 
       - name: Commit and push if data changed

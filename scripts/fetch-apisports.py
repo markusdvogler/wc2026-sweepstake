@@ -163,7 +163,10 @@ date_today = now_utc.strftime('%Y-%m-%d')
 ra_fixtures = []
 seen_ids = set()
 
-backfill_mode = os.environ.get('BACKFILL_ALL', '') == '1'
+# Any manual workflow_dispatch triggers a full backfill — fetches all WC
+# fixtures and re-processes finished ones with current logic. Scheduled
+# runs stay efficient (today+yesterday only).
+backfill_mode = event_name == 'workflow_dispatch'
 
 if backfill_mode:
     # One-shot: fetch ALL WC 2026 fixtures so finished matches missed by
