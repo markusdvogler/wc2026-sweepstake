@@ -1,0 +1,20 @@
+name: Inspect Fixture Events
+
+on:
+  workflow_dispatch:
+    inputs:
+      fixture_id:
+        description: 'api-sports fixture ID to dump events for'
+        required: false
+        default: '1489373'
+
+jobs:
+  inspect:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Dump events
+        env:
+          APISPORTS_KEY: ${{ secrets.APISPORTS_KEY }}
+          FIXTURE_ID: ${{ github.event.inputs.fixture_id }}
+        run: python scripts/inspect-events.py
