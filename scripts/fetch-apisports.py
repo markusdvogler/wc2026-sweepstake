@@ -282,23 +282,35 @@ for fxid, home, away, new_status in needs_refresh:
             for ev in get_response(resp):
                 etype  = (ev.get('type')   or '').lower()
                 detail = (ev.get('detail') or '').lower()
+                comments = (ev.get('comments') or '').lower()
                 tname_raw = (ev.get('team') or {}).get('name', '')
                 tname = resolve_team(match_stats[fxid], tname_raw, home, away)
                 if not tname:
                     continue
                 t = ev.get('time') or {}
                 elapsed = (t.get('elapsed') or 0) + (t.get('extra') or 0)
+                # Diagnostic: dump every goal event so we can see exactly
+                # what string api-sports uses for own goals when our check misses
+                if etype == 'goal':
+                    print(f'  GOAL EV: team={tname_raw!r} detail={detail!r} comments={comments!r} time={elapsed}')
                 if etype == 'card':
                     if 'yellow' in detail and 'second' not in detail:
                         match_stats[fxid][tname]['yellowCards'] += 1
                     elif 'red' in detail or 'second yellow' in detail:
                         match_stats[fxid][tname]['redCards'] += 1
                 elif etype == 'goal':
-                    if 'own goal' in detail:
+                    # Detect own goal across detail or comments fields, plus
+                    # standalone "OG" token (some feeds use it as a marker).
+                    detail_toks = detail.split()
+                    is_own_goal = (
+                        'own goal' in detail
+                        or 'own goal' in comments
+                        or 'og' in detail_toks
+                    )
+                    if is_own_goal:
                         # api-sports attributes the goal event to the team
                         # that BENEFITED. The Deflectors prize should track
-                        # the team that COMMITTED the own goal — i.e. the
-                        # opposing side of the team api-sports lists.
+                        # the team that COMMITTED the own goal.
                         own_goal_team = away if tname == home else home if tname == away else None
                         if own_goal_team:
                             match_stats[fxid][own_goal_team]['ownGoals'] += 1
