@@ -1039,11 +1039,11 @@
       },
       "id": 537391,
       "utcDate": "2026-06-16T19:00:00Z",
-      "status": "IN_PLAY",
+      "status": "FINISHED",
       "matchday": 1,
       "stage": "GROUP_STAGE",
       "group": "GROUP_I",
-      "lastUpdated": "2026-06-16T21:00:36.015621+00:00",
+      "lastUpdated": "2026-06-16T21:05:20.821068+00:00",
       "homeTeam": {
         "id": 773,
         "name": "France",
@@ -6209,5 +6209,5 @@
       "referees": []
     }
   ],
-  "lastUpdated": "2026-06-16T21:04:15.197501+00:00"
+  "lastUpdated": "2026-06-16T21:05:20.821068+00:00"
 }
