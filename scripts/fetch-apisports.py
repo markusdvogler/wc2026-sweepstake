@@ -163,27 +163,42 @@ date_today = now_utc.strftime('%Y-%m-%d')
 ra_fixtures = []
 seen_ids = set()
 
-dates_to_fetch = [date_today]
-if now_utc.hour < 6:                       # before 06:00 UTC = 08:00 CEST
-    dates_to_fetch.append((now_utc - timedelta(days=1)).strftime('%Y-%m-%d'))
+backfill_mode = os.environ.get('BACKFILL_ALL', '') == '1'
 
-for d in dates_to_fetch:
+if backfill_mode:
+    # One-shot: fetch ALL WC 2026 fixtures so finished matches missed by
+    # earlier code revisions can be re-processed with current logic.
     try:
-        time.sleep(0.3)
-        api_calls += 1
-        resp = api_get('/fixtures', {
-            'league': WC_LEAGUE_ID, 'season': WC_SEASON, 'date': d
-        })
-        batch = get_response(resp)
-        print(f'  {d}: {len(batch)} WC fixtures')
-        for fx in batch:
-            fid = fx.get('fixture', {}).get('id')
-            if fid and fid not in seen_ids:
-                seen_ids.add(fid)
-                ra_fixtures.append(fx)
+        time.sleep(0.3); api_calls += 1
+        resp = api_get('/fixtures', {'league': WC_LEAGUE_ID, 'season': WC_SEASON})
+        ra_fixtures = get_response(resp)
+        seen_ids = {fx.get('fixture', {}).get('id') for fx in ra_fixtures}
+        print(f'BACKFILL: pulled {len(ra_fixtures)} WC fixtures (all dates)')
     except Exception as e:
-        errors.append(f'fixtures {d}: {e}')
-        print(f'  Error fetching {d}: {e}')
+        errors.append(f'backfill fixtures: {e}')
+        print(f'BACKFILL error: {e}')
+else:
+    dates_to_fetch = [date_today]
+    if now_utc.hour < 6:                   # before 06:00 UTC = 08:00 CEST
+        dates_to_fetch.append((now_utc - timedelta(days=1)).strftime('%Y-%m-%d'))
+
+    for d in dates_to_fetch:
+        try:
+            time.sleep(0.3)
+            api_calls += 1
+            resp = api_get('/fixtures', {
+                'league': WC_LEAGUE_ID, 'season': WC_SEASON, 'date': d
+            })
+            batch = get_response(resp)
+            print(f'  {d}: {len(batch)} WC fixtures')
+            for fx in batch:
+                fid = fx.get('fixture', {}).get('id')
+                if fid and fid not in seen_ids:
+                    seen_ids.add(fid)
+                    ra_fixtures.append(fx)
+        except Exception as e:
+            errors.append(f'fixtures {d}: {e}')
+            print(f'  Error fetching {d}: {e}')
 
 def fx_team_pair(fx):
     home = normalize((fx.get('teams', {}).get('home') or {}).get('name', ''))
@@ -289,10 +304,6 @@ for fxid, home, away, new_status in needs_refresh:
                     continue
                 t = ev.get('time') or {}
                 elapsed = (t.get('elapsed') or 0) + (t.get('extra') or 0)
-                # Diagnostic: dump every goal event so we can see exactly
-                # what string api-sports uses for own goals when our check misses
-                if etype == 'goal':
-                    print(f'  GOAL EV: team={tname_raw!r} detail={detail!r} comments={comments!r} time={elapsed}')
                 if etype == 'card':
                     if 'yellow' in detail and 'second' not in detail:
                         match_stats[fxid][tname]['yellowCards'] += 1
