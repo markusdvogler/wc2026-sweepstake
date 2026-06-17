@@ -1338,7 +1338,7 @@
       "matchday": 1,
       "stage": "GROUP_STAGE",
       "group": "GROUP_L",
-      "lastUpdated": "2026-06-17T21:10:16.626779+00:00",
+      "lastUpdated": "2026-06-17T21:12:10.971806+00:00",
       "homeTeam": {
         "id": 770,
         "name": "England",
@@ -1357,7 +1357,7 @@
         "winner": null,
         "duration": "REGULAR",
         "fullTime": {
-          "home": 2,
+          "home": 3,
           "away": 2
         },
         "halfTime": {
@@ -6209,5 +6209,5 @@
       "referees": []
     }
   ],
-  "lastUpdated": "2026-06-17T21:11:14.406366+00:00"
+  "lastUpdated": "2026-06-17T21:12:10.971806+00:00"
 }
