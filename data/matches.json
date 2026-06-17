@@ -1275,11 +1275,11 @@
       },
       "id": 537403,
       "utcDate": "2026-06-17T17:00:00Z",
-      "status": "TIMED",
+      "status": "IN_PLAY",
       "matchday": 1,
       "stage": "GROUP_STAGE",
       "group": "GROUP_K",
-      "lastUpdated": "2026-06-11T00:20:16Z",
+      "lastUpdated": "2026-06-17T17:02:24.250430+00:00",
       "homeTeam": {
         "id": 765,
         "name": "Portugal",
@@ -1298,8 +1298,8 @@
         "winner": null,
         "duration": "REGULAR",
         "fullTime": {
-          "home": null,
-          "away": null
+          "home": 0,
+          "away": 0
         },
         "halfTime": {
           "home": null,
@@ -6209,5 +6209,5 @@
       "referees": []
     }
   ],
-  "lastUpdated": "2026-06-17T17:01:16.927783+00:00"
+  "lastUpdated": "2026-06-17T17:02:24.250430+00:00"
 }
