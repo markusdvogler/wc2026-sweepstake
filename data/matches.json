@@ -1334,11 +1334,11 @@
       },
       "id": 537409,
       "utcDate": "2026-06-17T20:00:00Z",
-      "status": "TIMED",
+      "status": "IN_PLAY",
       "matchday": 1,
       "stage": "GROUP_STAGE",
       "group": "GROUP_L",
-      "lastUpdated": "2026-06-11T00:20:16Z",
+      "lastUpdated": "2026-06-17T20:00:42.263171+00:00",
       "homeTeam": {
         "id": 770,
         "name": "England",
@@ -1357,8 +1357,8 @@
         "winner": null,
         "duration": "REGULAR",
         "fullTime": {
-          "home": null,
-          "away": null
+          "home": 0,
+          "away": 0
         },
         "halfTime": {
           "home": null,
@@ -6209,5 +6209,5 @@
       "referees": []
     }
   ],
-  "lastUpdated": "2026-06-17T19:59:11.189884+00:00"
+  "lastUpdated": "2026-06-17T20:00:42.263171+00:00"
 }
