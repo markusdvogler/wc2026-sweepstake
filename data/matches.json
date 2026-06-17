@@ -1157,11 +1157,11 @@
       },
       "id": 537397,
       "utcDate": "2026-06-17T01:00:00Z",
-      "status": "PAUSED",
+      "status": "IN_PLAY",
       "matchday": 1,
       "stage": "GROUP_STAGE",
       "group": "GROUP_J",
-      "lastUpdated": "2026-06-17T01:53:14.293006+00:00",
+      "lastUpdated": "2026-06-17T02:09:08.669426+00:00",
       "homeTeam": {
         "id": 762,
         "name": "Argentina",
@@ -6209,5 +6209,5 @@
       "referees": []
     }
   ],
-  "lastUpdated": "2026-06-17T02:08:09.524779+00:00"
+  "lastUpdated": "2026-06-17T02:09:08.669426+00:00"
 }
