@@ -1216,11 +1216,11 @@
       },
       "id": 537398,
       "utcDate": "2026-06-17T04:00:00Z",
-      "status": "IN_PLAY",
+      "status": "FINISHED",
       "matchday": 1,
       "stage": "GROUP_STAGE",
       "group": "GROUP_J",
-      "lastUpdated": "2026-06-17T05:42:15.646476+00:00",
+      "lastUpdated": "2026-06-17T16:00:50.643223+00:00",
       "homeTeam": {
         "id": 816,
         "name": "Austria",
@@ -1239,7 +1239,7 @@
         "winner": null,
         "duration": "REGULAR",
         "fullTime": {
-          "home": 2,
+          "home": 3,
           "away": 1
         },
         "halfTime": {
@@ -6209,5 +6209,5 @@
       "referees": []
     }
   ],
-  "lastUpdated": "2026-06-17T05:59:15.830131+00:00"
+  "lastUpdated": "2026-06-17T16:00:50.643223+00:00"
 }
