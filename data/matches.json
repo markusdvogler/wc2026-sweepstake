@@ -1456,7 +1456,7 @@
       "matchday": 1,
       "stage": "GROUP_STAGE",
       "group": "GROUP_K",
-      "lastUpdated": "2026-06-18T02:01:09.737931+00:00",
+      "lastUpdated": "2026-06-18T02:41:08.237762+00:00",
       "homeTeam": {
         "id": 8070,
         "name": "Uzbekistan",
@@ -1476,7 +1476,7 @@
         "duration": "REGULAR",
         "fullTime": {
           "home": 0,
-          "away": 0
+          "away": 1
         },
         "halfTime": {
           "home": null,
@@ -6209,5 +6209,5 @@
       "referees": []
     }
   ],
-  "lastUpdated": "2026-06-18T02:40:16.788806+00:00"
+  "lastUpdated": "2026-06-18T02:41:08.237762+00:00"
 }
