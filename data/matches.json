@@ -1515,7 +1515,7 @@
       "matchday": 2,
       "stage": "GROUP_STAGE",
       "group": "GROUP_A",
-      "lastUpdated": "2026-06-18T16:01:41.580492+00:00",
+      "lastUpdated": "2026-06-18T16:06:11.151410+00:00",
       "homeTeam": {
         "id": 798,
         "name": "Czechia",
@@ -1534,7 +1534,7 @@
         "winner": null,
         "duration": "REGULAR",
         "fullTime": {
-          "home": 0,
+          "home": 1,
           "away": 0
         },
         "halfTime": {
@@ -6209,5 +6209,5 @@
       "referees": []
     }
   ],
-  "lastUpdated": "2026-06-18T16:05:21.784131+00:00"
+  "lastUpdated": "2026-06-18T16:06:11.151410+00:00"
 }
