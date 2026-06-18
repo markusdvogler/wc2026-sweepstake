@@ -1574,7 +1574,7 @@
       "matchday": 2,
       "stage": "GROUP_STAGE",
       "group": "GROUP_B",
-      "lastUpdated": "2026-06-18T20:44:09.673624+00:00",
+      "lastUpdated": "2026-06-18T20:50:19.362837+00:00",
       "homeTeam": {
         "id": 788,
         "name": "Switzerland",
@@ -1593,7 +1593,7 @@
         "winner": null,
         "duration": "REGULAR",
         "fullTime": {
-          "home": 2,
+          "home": 3,
           "away": 0
         },
         "halfTime": {
@@ -6209,5 +6209,5 @@
       "referees": []
     }
   ],
-  "lastUpdated": "2026-06-18T20:49:10.347723+00:00"
+  "lastUpdated": "2026-06-18T20:50:19.362837+00:00"
 }
