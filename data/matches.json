@@ -1452,11 +1452,11 @@
       },
       "id": 537404,
       "utcDate": "2026-06-18T02:00:00Z",
-      "status": "PAUSED",
+      "status": "IN_PLAY",
       "matchday": 1,
       "stage": "GROUP_STAGE",
       "group": "GROUP_K",
-      "lastUpdated": "2026-06-18T02:51:09.194914+00:00",
+      "lastUpdated": "2026-06-18T03:06:09.864562+00:00",
       "homeTeam": {
         "id": 8070,
         "name": "Uzbekistan",
@@ -6209,5 +6209,5 @@
       "referees": []
     }
   ],
-  "lastUpdated": "2026-06-18T03:05:12.636008+00:00"
+  "lastUpdated": "2026-06-18T03:06:09.864562+00:00"
 }
