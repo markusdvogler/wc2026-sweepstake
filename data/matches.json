@@ -1806,11 +1806,11 @@
       },
       "id": 537342,
       "utcDate": "2026-06-19T22:00:00Z",
-      "status": "IN_PLAY",
+      "status": "FINISHED",
       "matchday": 2,
       "stage": "GROUP_STAGE",
       "group": "GROUP_C",
-      "lastUpdated": "2026-06-19T23:08:10.025213+00:00",
+      "lastUpdated": "2026-06-20T00:00:35.023950+00:00",
       "homeTeam": {
         "id": 8873,
         "name": "Scotland",
@@ -6209,5 +6209,5 @@
       "referees": []
     }
   ],
-  "lastUpdated": "2026-06-19T23:59:09.207261+00:00"
+  "lastUpdated": "2026-06-20T00:00:35.023950+00:00"
 }
