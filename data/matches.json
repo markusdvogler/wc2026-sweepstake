@@ -2042,11 +2042,11 @@
       },
       "id": 537353,
       "utcDate": "2026-06-20T20:00:00Z",
-      "status": "TIMED",
+      "status": "IN_PLAY",
       "matchday": 2,
       "stage": "GROUP_STAGE",
       "group": "GROUP_E",
-      "lastUpdated": "2026-06-11T00:20:16Z",
+      "lastUpdated": "2026-06-20T20:00:35.562806+00:00",
       "homeTeam": {
         "id": 759,
         "name": "Germany",
@@ -2065,8 +2065,8 @@
         "winner": null,
         "duration": "REGULAR",
         "fullTime": {
-          "home": null,
-          "away": null
+          "home": 0,
+          "away": 0
         },
         "halfTime": {
           "home": null,
@@ -6209,5 +6209,5 @@
       "referees": []
     }
   ],
-  "lastUpdated": "2026-06-20T19:59:09.665823+00:00"
+  "lastUpdated": "2026-06-20T20:00:35.562806+00:00"
 }
