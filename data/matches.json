@@ -1924,11 +1924,11 @@
       },
       "id": 537347,
       "utcDate": "2026-06-20T03:00:00Z",
-      "status": "TIMED",
+      "status": "IN_PLAY",
       "matchday": 2,
       "stage": "GROUP_STAGE",
       "group": "GROUP_D",
-      "lastUpdated": "2026-06-11T00:20:16Z",
+      "lastUpdated": "2026-06-20T03:01:08.173366+00:00",
       "homeTeam": {
         "id": 803,
         "name": "Turkey",
@@ -1947,8 +1947,8 @@
         "winner": null,
         "duration": "REGULAR",
         "fullTime": {
-          "home": null,
-          "away": null
+          "home": 0,
+          "away": 0
         },
         "halfTime": {
           "home": null,
@@ -6209,5 +6209,5 @@
       "referees": []
     }
   ],
-  "lastUpdated": "2026-06-20T03:00:32.404668+00:00"
+  "lastUpdated": "2026-06-20T03:01:08.173366+00:00"
 }
