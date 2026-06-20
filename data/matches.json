@@ -1869,7 +1869,7 @@
       "matchday": 2,
       "stage": "GROUP_STAGE",
       "group": "GROUP_C",
-      "lastUpdated": "2026-06-20T00:33:09.345211+00:00",
+      "lastUpdated": "2026-06-20T00:56:09.499617+00:00",
       "homeTeam": {
         "id": 764,
         "name": "Brazil",
@@ -1888,7 +1888,7 @@
         "winner": null,
         "duration": "REGULAR",
         "fullTime": {
-          "home": 0,
+          "home": 1,
           "away": 0
         },
         "halfTime": {
@@ -6209,5 +6209,5 @@
       "referees": []
     }
   ],
-  "lastUpdated": "2026-06-20T00:55:12.424472+00:00"
+  "lastUpdated": "2026-06-20T00:56:09.499617+00:00"
 }
