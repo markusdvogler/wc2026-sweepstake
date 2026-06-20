@@ -1983,11 +1983,11 @@
       },
       "id": 537359,
       "utcDate": "2026-06-20T17:00:00Z",
-      "status": "IN_PLAY",
+      "status": "FINISHED",
       "matchday": 2,
       "stage": "GROUP_STAGE",
       "group": "GROUP_F",
-      "lastUpdated": "2026-06-20T18:50:17.851662+00:00",
+      "lastUpdated": "2026-06-20T18:58:09.253706+00:00",
       "homeTeam": {
         "id": 8601,
         "name": "Netherlands",
@@ -6209,5 +6209,5 @@
       "referees": []
     }
   ],
-  "lastUpdated": "2026-06-20T18:57:08.742523+00:00"
+  "lastUpdated": "2026-06-20T18:58:09.253706+00:00"
 }
