@@ -1865,11 +1865,11 @@
       },
       "id": 537341,
       "utcDate": "2026-06-20T00:30:00Z",
-      "status": "TIMED",
+      "status": "IN_PLAY",
       "matchday": 2,
       "stage": "GROUP_STAGE",
       "group": "GROUP_C",
-      "lastUpdated": "2026-06-11T00:20:16Z",
+      "lastUpdated": "2026-06-20T00:33:09.345211+00:00",
       "homeTeam": {
         "id": 764,
         "name": "Brazil",
@@ -1888,8 +1888,8 @@
         "winner": null,
         "duration": "REGULAR",
         "fullTime": {
-          "home": null,
-          "away": null
+          "home": 0,
+          "away": 0
         },
         "halfTime": {
           "home": null,
@@ -6209,5 +6209,5 @@
       "referees": []
     }
   ],
-  "lastUpdated": "2026-06-20T00:32:09.241429+00:00"
+  "lastUpdated": "2026-06-20T00:33:09.345211+00:00"
 }
