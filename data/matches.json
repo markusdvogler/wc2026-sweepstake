@@ -2223,7 +2223,7 @@
       "matchday": 2,
       "stage": "GROUP_STAGE",
       "group": "GROUP_H",
-      "lastUpdated": "2026-06-21T17:55:11.968699+00:00",
+      "lastUpdated": "2026-06-21T17:58:08.918808+00:00",
       "homeTeam": {
         "id": 760,
         "name": "Spain",
@@ -2242,7 +2242,7 @@
         "winner": null,
         "duration": "REGULAR",
         "fullTime": {
-          "home": 5,
+          "home": 4,
           "away": 0
         },
         "halfTime": {
@@ -6209,5 +6209,5 @@
       "referees": []
     }
   ],
-  "lastUpdated": "2026-06-21T17:57:08.268965+00:00"
+  "lastUpdated": "2026-06-21T17:58:08.918808+00:00"
 }
