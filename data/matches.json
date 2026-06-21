@@ -2101,11 +2101,11 @@
       },
       "id": 537354,
       "utcDate": "2026-06-21T00:00:00Z",
-      "status": "PAUSED",
+      "status": "IN_PLAY",
       "matchday": 2,
       "stage": "GROUP_STAGE",
       "group": "GROUP_E",
-      "lastUpdated": "2026-06-21T00:50:16.286634+00:00",
+      "lastUpdated": "2026-06-21T01:06:11.513246+00:00",
       "homeTeam": {
         "id": 791,
         "name": "Ecuador",
@@ -6209,5 +6209,5 @@
       "referees": []
     }
   ],
-  "lastUpdated": "2026-06-21T01:05:13.418641+00:00"
+  "lastUpdated": "2026-06-21T01:06:11.513246+00:00"
 }
