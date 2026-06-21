@@ -2160,11 +2160,11 @@
       },
       "id": 537360,
       "utcDate": "2026-06-21T04:00:00Z",
-      "status": "PAUSED",
+      "status": "IN_PLAY",
       "matchday": 2,
       "stage": "GROUP_STAGE",
       "group": "GROUP_F",
-      "lastUpdated": "2026-06-21T04:50:17.400955+00:00",
+      "lastUpdated": "2026-06-21T05:06:09.032221+00:00",
       "homeTeam": {
         "id": 802,
         "name": "Tunisia",
@@ -6209,5 +6209,5 @@
       "referees": []
     }
   ],
-  "lastUpdated": "2026-06-21T05:05:12.475859+00:00"
+  "lastUpdated": "2026-06-21T05:06:09.032221+00:00"
 }
