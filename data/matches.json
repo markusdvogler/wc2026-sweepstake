@@ -2164,7 +2164,7 @@
       "matchday": 2,
       "stage": "GROUP_STAGE",
       "group": "GROUP_F",
-      "lastUpdated": "2026-06-21T05:29:08.027101+00:00",
+      "lastUpdated": "2026-06-21T05:44:09.090298+00:00",
       "homeTeam": {
         "id": 802,
         "name": "Tunisia",
@@ -2184,7 +2184,7 @@
         "duration": "REGULAR",
         "fullTime": {
           "home": 0,
-          "away": 3
+          "away": 4
         },
         "halfTime": {
           "home": null,
@@ -6209,5 +6209,5 @@
       "referees": []
     }
   ],
-  "lastUpdated": "2026-06-21T05:43:09.278441+00:00"
+  "lastUpdated": "2026-06-21T05:44:09.090298+00:00"
 }
