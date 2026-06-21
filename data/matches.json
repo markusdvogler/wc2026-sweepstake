@@ -2341,7 +2341,7 @@
       "matchday": 2,
       "stage": "GROUP_STAGE",
       "group": "GROUP_H",
-      "lastUpdated": "2026-06-21T22:02:09.545895+00:00",
+      "lastUpdated": "2026-06-21T22:22:08.962449+00:00",
       "homeTeam": {
         "id": 758,
         "name": "Uruguay",
@@ -2361,7 +2361,7 @@
         "duration": "REGULAR",
         "fullTime": {
           "home": 0,
-          "away": 0
+          "away": 1
         },
         "halfTime": {
           "home": null,
@@ -6209,5 +6209,5 @@
       "referees": []
     }
   ],
-  "lastUpdated": "2026-06-21T22:21:07.928247+00:00"
+  "lastUpdated": "2026-06-21T22:22:08.962449+00:00"
 }
