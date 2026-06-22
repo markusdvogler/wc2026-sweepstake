@@ -2337,11 +2337,11 @@
       },
       "id": 537372,
       "utcDate": "2026-06-21T22:00:00Z",
-      "status": "IN_PLAY",
+      "status": "FINISHED",
       "matchday": 2,
       "stage": "GROUP_STAGE",
       "group": "GROUP_H",
-      "lastUpdated": "2026-06-21T23:27:08.287315+00:00",
+      "lastUpdated": "2026-06-22T00:05:12.995607+00:00",
       "homeTeam": {
         "id": 758,
         "name": "Uruguay",
@@ -6209,5 +6209,5 @@
       "referees": []
     }
   ],
-  "lastUpdated": "2026-06-22T00:04:10.371204+00:00"
+  "lastUpdated": "2026-06-22T00:05:12.995607+00:00"
 }
