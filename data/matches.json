@@ -2459,7 +2459,7 @@
       "matchday": 2,
       "stage": "GROUP_STAGE",
       "group": "GROUP_J",
-      "lastUpdated": "2026-06-22T17:02:12.565517+00:00",
+      "lastUpdated": "2026-06-22T17:40:24.581624+00:00",
       "homeTeam": {
         "id": 762,
         "name": "Argentina",
@@ -2478,7 +2478,7 @@
         "winner": null,
         "duration": "REGULAR",
         "fullTime": {
-          "home": 0,
+          "home": 1,
           "away": 0
         },
         "halfTime": {
@@ -6209,5 +6209,5 @@
       "referees": []
     }
   ],
-  "lastUpdated": "2026-06-22T17:39:14.877224+00:00"
+  "lastUpdated": "2026-06-22T17:40:24.581624+00:00"
 }
