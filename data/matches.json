@@ -2396,11 +2396,11 @@
       },
       "id": 537366,
       "utcDate": "2026-06-22T01:00:00Z",
-      "status": "IN_PLAY",
+      "status": "FINISHED",
       "matchday": 2,
       "stage": "GROUP_STAGE",
       "group": "GROUP_G",
-      "lastUpdated": "2026-06-22T02:42:11.220527+00:00",
+      "lastUpdated": "2026-06-22T03:02:09.141987+00:00",
       "homeTeam": {
         "id": 783,
         "name": "New Zealand",
@@ -6209,5 +6209,5 @@
       "referees": []
     }
   ],
-  "lastUpdated": "2026-06-22T03:01:08.474437+00:00"
+  "lastUpdated": "2026-06-22T03:02:09.141987+00:00"
 }
