@@ -2750,11 +2750,11 @@
       },
       "id": 537411,
       "utcDate": "2026-06-23T20:00:00Z",
-      "status": "PAUSED",
+      "status": "IN_PLAY",
       "matchday": 2,
       "stage": "GROUP_STAGE",
       "group": "GROUP_L",
-      "lastUpdated": "2026-06-23T20:52:11.029290+00:00",
+      "lastUpdated": "2026-06-23T21:10:19.385496+00:00",
       "homeTeam": {
         "id": 770,
         "name": "England",
@@ -6209,5 +6209,5 @@
       "referees": []
     }
   ],
-  "lastUpdated": "2026-06-23T21:09:08.709547+00:00"
+  "lastUpdated": "2026-06-23T21:10:19.385496+00:00"
 }
