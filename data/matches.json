@@ -2695,7 +2695,7 @@
       "matchday": 2,
       "stage": "GROUP_STAGE",
       "group": "GROUP_K",
-      "lastUpdated": "2026-06-23T18:10:45.423159+00:00",
+      "lastUpdated": "2026-06-23T18:24:14.937254+00:00",
       "homeTeam": {
         "id": 765,
         "name": "Portugal",
@@ -2714,7 +2714,7 @@
         "winner": null,
         "duration": "REGULAR",
         "fullTime": {
-          "home": 3,
+          "home": 4,
           "away": 0
         },
         "halfTime": {
@@ -6209,5 +6209,5 @@
       "referees": []
     }
   ],
-  "lastUpdated": "2026-06-23T18:23:11.330872+00:00"
+  "lastUpdated": "2026-06-23T18:24:14.937254+00:00"
 }
