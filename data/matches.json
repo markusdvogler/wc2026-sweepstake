@@ -2577,7 +2577,7 @@
       "matchday": 2,
       "stage": "GROUP_STAGE",
       "group": "GROUP_I",
-      "lastUpdated": "2026-06-23T01:13:08.387006+00:00",
+      "lastUpdated": "2026-06-23T01:17:10.706925+00:00",
       "homeTeam": {
         "id": 8872,
         "name": "Norway",
@@ -2596,7 +2596,7 @@
         "winner": null,
         "duration": "REGULAR",
         "fullTime": {
-          "home": 2,
+          "home": 3,
           "away": 1
         },
         "halfTime": {
@@ -6209,5 +6209,5 @@
       "referees": []
     }
   ],
-  "lastUpdated": "2026-06-23T01:16:10.286004+00:00"
+  "lastUpdated": "2026-06-23T01:17:10.706925+00:00"
 }
