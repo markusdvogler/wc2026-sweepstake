@@ -2986,11 +2986,11 @@
       },
       "id": 537338,
       "utcDate": "2026-06-24T19:00:00Z",
-      "status": "IN_PLAY",
+      "status": "FINISHED",
       "matchday": 3,
       "stage": "GROUP_STAGE",
       "group": "GROUP_B",
-      "lastUpdated": "2026-06-24T20:43:08.566706+00:00",
+      "lastUpdated": "2026-06-24T20:59:08.063055+00:00",
       "homeTeam": {
         "id": 1060,
         "name": "Bosnia-Herzegovina",
@@ -6209,5 +6209,5 @@
       "referees": []
     }
   ],
-  "lastUpdated": "2026-06-24T20:58:11.526958+00:00"
+  "lastUpdated": "2026-06-24T20:59:08.063055+00:00"
 }
