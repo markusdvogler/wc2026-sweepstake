@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-24T21:11:09.668415+00:00",
+  "lastUpdated": "2026-06-24T21:12:11.586128+00:00",
   "rows": [
     {
       "team": "Mexico",
@@ -30,14 +30,14 @@
       "description": null
     },
     {
-      "team": "Canada",
+      "team": "Switzerland",
       "group": "Group B",
       "rank": 1,
-      "points": 4,
+      "points": 7,
       "description": "Round of 32"
     },
     {
-      "team": "Switzerland",
+      "team": "Canada",
       "group": "Group B",
       "rank": 2,
       "points": 4,
@@ -47,7 +47,7 @@
       "team": "Bosnia & Herzegovina",
       "group": "Group B",
       "rank": 3,
-      "points": 1,
+      "points": 4,
       "description": null
     },
     {
@@ -338,77 +338,77 @@
       "description": null
     },
     {
-      "team": "Sweden",
+      "team": "Bosnia & Herzegovina",
       "group": "Group Stage",
       "rank": 1,
-      "points": 3,
+      "points": 4,
       "description": "Round of 32"
     },
     {
-      "team": "Scotland",
+      "team": "Sweden",
       "group": "Group Stage",
       "rank": 2,
       "points": 3,
       "description": "Round of 32"
     },
     {
-      "team": "Croatia",
+      "team": "Scotland",
       "group": "Group Stage",
       "rank": 3,
       "points": 3,
       "description": "Round of 32"
     },
     {
-      "team": "Algeria",
+      "team": "Croatia",
       "group": "Group Stage",
       "rank": 4,
       "points": 3,
       "description": "Round of 32"
     },
     {
-      "team": "Paraguay",
+      "team": "Algeria",
       "group": "Group Stage",
       "rank": 5,
       "points": 3,
       "description": "Round of 32"
     },
     {
-      "team": "Cape Verde Islands",
+      "team": "Paraguay",
       "group": "Group Stage",
       "rank": 6,
-      "points": 2,
+      "points": 3,
       "description": "Round of 32"
     },
     {
-      "team": "Belgium",
+      "team": "Cape Verde Islands",
       "group": "Group Stage",
       "rank": 7,
       "points": 2,
       "description": "Round of 32"
     },
     {
-      "team": "Czechia",
+      "team": "Belgium",
       "group": "Group Stage",
       "rank": 8,
-      "points": 1,
+      "points": 2,
       "description": "Round of 32"
     },
     {
-      "team": "Congo DR",
+      "team": "Czechia",
       "group": "Group Stage",
       "rank": 9,
       "points": 1,
       "description": null
     },
     {
-      "team": "Ecuador",
+      "team": "Congo DR",
       "group": "Group Stage",
       "rank": 10,
       "points": 1,
       "description": null
     },
     {
-      "team": "Bosnia & Herzegovina",
+      "team": "Ecuador",
       "group": "Group Stage",
       "rank": 11,
       "points": 1,
