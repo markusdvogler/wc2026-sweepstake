@@ -3049,7 +3049,7 @@
       "matchday": 3,
       "stage": "GROUP_STAGE",
       "group": "GROUP_C",
-      "lastUpdated": "2026-06-24T23:08:09.265569+00:00",
+      "lastUpdated": "2026-06-24T23:41:08.982540+00:00",
       "homeTeam": {
         "id": 815,
         "name": "Morocco",
@@ -3068,7 +3068,7 @@
         "winner": null,
         "duration": "REGULAR",
         "fullTime": {
-          "home": 2,
+          "home": 3,
           "away": 2
         },
         "halfTime": {
@@ -6209,5 +6209,5 @@
       "referees": []
     }
   ],
-  "lastUpdated": "2026-06-24T23:40:15.079380+00:00"
+  "lastUpdated": "2026-06-24T23:41:08.982540+00:00"
 }
