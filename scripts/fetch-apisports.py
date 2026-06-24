@@ -377,7 +377,35 @@ for fxid, by_team in match_stats.items():
         for k in team_totals[tname]:
             team_totals[tname][k] += vals.get(k, 0)
 
-# 5) Persist
+# 5) Fetch standings (1 call) — includes qualification status per team
+#    (description="Round of 32" etc.). Drives The Upgraders prize logic.
+standings_path = 'data/standings.json'
+try:
+    time.sleep(0.3); api_calls += 1
+    resp = api_get('/standings', {'league': WC_LEAGUE_ID, 'season': WC_SEASON})
+    standings_resp = get_response(resp)
+    # Flatten into a simple shape: [{team, group, rank, points, description}]
+    flat = []
+    for league_block in standings_resp:
+        groups = (league_block.get('league') or {}).get('standings') or []
+        for grp in groups:
+            for row in grp:
+                flat.append({
+                    'team':        (row.get('team') or {}).get('name'),
+                    'group':       row.get('group'),
+                    'rank':        row.get('rank'),
+                    'points':      row.get('points'),
+                    'description': row.get('description'),
+                })
+    standings_out = {'lastUpdated': now_utc.isoformat(), 'rows': flat}
+    with open(standings_path, 'w', encoding='utf-8') as f:
+        json.dump(standings_out, f, indent=2, ensure_ascii=False)
+    print(f'Standings: {len(flat)} rows.')
+except Exception as e:
+    errors.append(f'standings: {e}')
+    print(f'Standings error: {e}')
+
+# 6) Persist
 fixtures['lastUpdated'] = now_utc.isoformat()
 with open(matches_path, 'w', encoding='utf-8') as f:
     json.dump(fixtures, f, indent=2, ensure_ascii=False)

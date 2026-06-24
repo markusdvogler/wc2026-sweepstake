@@ -4,6 +4,7 @@ let participantSort = 'alpha'; // 'alpha' or 'rank'
 let teamStats = {};
 let allMatches = [];
 let standingsData = [];
+let advancedTeamCodes = [];
 
 // ---- Tab navigation ----
 function showTab(name) {
@@ -442,11 +443,26 @@ async function loadPrizes() {
     return;
   }
   try {
-    const [stats, eventStats] = await Promise.all([
+    const [stats, eventStats, { matches }] = await Promise.all([
       API.getTeamStats(),
-      API.getEventStats().catch(() => null)
+      API.getEventStats().catch(() => null),
+      API.getMatches()
     ]);
     teamStats = stats;
+    // A team has truly advanced once they're slotted into a knockout fixture
+    // (real team name, not "TBD"). This becomes accurate only after group
+    // stage ends and the bracket is set — exactly what we want.
+    const knockoutStages = new Set(['LAST_32', 'LAST_16', 'QUARTER_FINALS', 'SEMI_FINALS', 'FINAL', 'THIRD_PLACE']);
+    const advancedNames = new Set();
+    for (const m of (matches || [])) {
+      if (!knockoutStages.has(m.stage)) continue;
+      if (m.homeTeam?.name) advancedNames.add(m.homeTeam.name);
+      if (m.awayTeam?.name) advancedNames.add(m.awayTeam.name);
+    }
+    advancedTeamCodes = [...advancedNames]
+      .map(name => teamsData.find(td => td.name === name)?.code)
+      .filter(Boolean);
+
     document.getElementById('prizes-loading').classList.add('hidden');
     document.getElementById('prizes-grid').classList.remove('hidden');
     renderLivePrizes();
@@ -488,7 +504,7 @@ function renderLivePrizes() {
   };
   const VALUE_COLOURS = { 1: 'text-amber-400', 2: 'text-slate-300', 3: 'text-orange-400' };
 
-  const prizeResults = calcPrizeLeaders(teamStats, participants, teamsData, null);
+  const prizeResults = calcPrizeLeaders(teamStats, participants, teamsData, advancedTeamCodes);
   const container = document.getElementById('prizes-grid');
   container.innerHTML = prizeResults.map(p => {
     const hasData = p.top3 && p.top3.length > 0;
