@@ -223,7 +223,61 @@ def find_fixture(home_norm, away_norm):
             return fx
     return None
 
-# 2) Overlay live scores & statuses; figure out which matches need stat refreshes
+# 2a) Populate empty knockout placeholders. Our matches.json was bootstrapped
+# from fdorg with null teams for knockout fixtures. As the bracket fills in,
+# api-sports knows the matchups before fdorg does. Match by stage + utcDate
+# and copy team info onto the placeholder.
+ROUND_TO_STAGE = {
+    'round of 32':     'LAST_32',
+    'round of 16':     'LAST_16',
+    'quarter-finals':  'QUARTER_FINALS',
+    'semi-finals':     'SEMI_FINALS',
+    '3rd place final': 'THIRD_PLACE',
+    'final':           'FINAL',
+}
+ko_filled = 0
+for fx in ra_fixtures:
+    teams = fx.get('teams') or {}
+    h, a = teams.get('home') or {}, teams.get('away') or {}
+    hname_raw, aname_raw = h.get('name'), a.get('name')
+    if not hname_raw or not aname_raw:
+        continue       # api-sports doesn't have the matchup yet either
+    league_info = fx.get('league') or {}
+    stage = ROUND_TO_STAGE.get((league_info.get('round') or '').lower())
+    if not stage:
+        continue       # not a knockout round
+    fx_date = (fx.get('fixture') or {}).get('date', '')[:19]
+
+    for m in fd_matches:
+        if m.get('stage') != stage:
+            continue
+        if (m.get('homeTeam') or {}).get('name'):
+            continue   # already populated, don't clobber
+        m_date = (m.get('utcDate') or '')[:19].replace('Z', '')
+        if fx_date != m_date:
+            continue
+        # Populate the placeholder
+        m['homeTeam'] = {
+            'id':        h.get('id'),
+            'name':      normalize(hname_raw),
+            'shortName': normalize(hname_raw),
+            'tla':       (h.get('name') or '')[:3].upper(),
+            'crest':     h.get('logo'),
+        }
+        m['awayTeam'] = {
+            'id':        a.get('id'),
+            'name':      normalize(aname_raw),
+            'shortName': normalize(aname_raw),
+            'tla':       (a.get('name') or '')[:3].upper(),
+            'crest':     a.get('logo'),
+        }
+        m['lastUpdated'] = now_utc.isoformat()
+        ko_filled += 1
+        break
+if ko_filled:
+    print(f'Populated {ko_filled} knockout fixture placeholder(s).')
+
+# 2b) Overlay live scores & statuses; figure out which matches need stat refreshes
 needs_refresh = []   # list of (fxid_str, home_norm, away_norm, new_status)
 updates = 0
 for m in fd_matches:
