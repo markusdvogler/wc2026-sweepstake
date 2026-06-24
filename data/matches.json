@@ -2868,11 +2868,11 @@
       },
       "id": 537406,
       "utcDate": "2026-06-24T02:00:00Z",
-      "status": "TIMED",
+      "status": "IN_PLAY",
       "matchday": 2,
       "stage": "GROUP_STAGE",
       "group": "GROUP_K",
-      "lastUpdated": "2026-06-11T00:20:16Z",
+      "lastUpdated": "2026-06-24T02:01:08.568783+00:00",
       "homeTeam": {
         "id": 818,
         "name": "Colombia",
@@ -2891,8 +2891,8 @@
         "winner": null,
         "duration": "REGULAR",
         "fullTime": {
-          "home": null,
-          "away": null
+          "home": 0,
+          "away": 0
         },
         "halfTime": {
           "home": null,
@@ -6209,5 +6209,5 @@
       "referees": []
     }
   ],
-  "lastUpdated": "2026-06-24T02:00:39.619352+00:00"
+  "lastUpdated": "2026-06-24T02:01:08.568783+00:00"
 }
