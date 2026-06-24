@@ -2990,7 +2990,7 @@
       "matchday": 3,
       "stage": "GROUP_STAGE",
       "group": "GROUP_B",
-      "lastUpdated": "2026-06-24T19:01:09.022403+00:00",
+      "lastUpdated": "2026-06-24T19:30:29.568324+00:00",
       "homeTeam": {
         "id": 1060,
         "name": "Bosnia-Herzegovina",
@@ -3009,7 +3009,7 @@
         "winner": null,
         "duration": "REGULAR",
         "fullTime": {
-          "home": 0,
+          "home": 1,
           "away": 0
         },
         "halfTime": {
@@ -6209,5 +6209,5 @@
       "referees": []
     }
   ],
-  "lastUpdated": "2026-06-24T19:29:08.221204+00:00"
+  "lastUpdated": "2026-06-24T19:30:29.568324+00:00"
 }
