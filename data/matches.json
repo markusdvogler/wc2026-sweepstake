@@ -3163,11 +3163,11 @@
       },
       "id": 537331,
       "utcDate": "2026-06-25T01:00:00Z",
-      "status": "PAUSED",
+      "status": "IN_PLAY",
       "matchday": 3,
       "stage": "GROUP_STAGE",
       "group": "GROUP_A",
-      "lastUpdated": "2026-06-25T01:50:15.420281+00:00",
+      "lastUpdated": "2026-06-25T02:06:09.124076+00:00",
       "homeTeam": {
         "id": 798,
         "name": "Czechia",
@@ -6209,5 +6209,5 @@
       "referees": []
     }
   ],
-  "lastUpdated": "2026-06-25T02:05:14.239218+00:00"
+  "lastUpdated": "2026-06-25T02:06:09.124076+00:00"
 }
