@@ -3340,11 +3340,11 @@
       },
       "id": 537356,
       "utcDate": "2026-06-25T20:00:00Z",
-      "status": "PAUSED",
+      "status": "IN_PLAY",
       "matchday": 3,
       "stage": "GROUP_STAGE",
       "group": "GROUP_E",
-      "lastUpdated": "2026-06-25T20:51:10.354444+00:00",
+      "lastUpdated": "2026-06-25T21:08:11.079489+00:00",
       "homeTeam": {
         "id": 9460,
         "name": "Curaçao",
@@ -6209,5 +6209,5 @@
       "referees": []
     }
   ],
-  "lastUpdated": "2026-06-25T21:07:08.099337+00:00"
+  "lastUpdated": "2026-06-25T21:08:11.079489+00:00"
 }
