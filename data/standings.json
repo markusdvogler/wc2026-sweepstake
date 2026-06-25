@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-25T22:11:08.265839+00:00",
+  "lastUpdated": "2026-06-25T22:12:10.545678+00:00",
   "rows": [
     {
       "team": "Mexico",
@@ -124,15 +124,15 @@
       "team": "Ivory Coast",
       "group": "Group E",
       "rank": 2,
-      "points": 3,
+      "points": 6,
       "description": "Round of 32"
     },
     {
       "team": "Ecuador",
       "group": "Group E",
       "rank": 3,
-      "points": 1,
-      "description": null
+      "points": 4,
+      "description": "Round of 32"
     },
     {
       "team": "Curaçao",
@@ -338,77 +338,77 @@
       "description": null
     },
     {
-      "team": "Bosnia & Herzegovina",
+      "team": "Ecuador",
       "group": "Group Stage",
       "rank": 1,
       "points": 4,
       "description": "Round of 32"
     },
     {
-      "team": "Sweden",
+      "team": "Bosnia & Herzegovina",
       "group": "Group Stage",
       "rank": 2,
-      "points": 3,
+      "points": 4,
       "description": "Round of 32"
     },
     {
-      "team": "Croatia",
+      "team": "Sweden",
       "group": "Group Stage",
       "rank": 3,
       "points": 3,
       "description": "Round of 32"
     },
     {
-      "team": "South Korea",
+      "team": "Croatia",
       "group": "Group Stage",
       "rank": 4,
       "points": 3,
       "description": "Round of 32"
     },
     {
-      "team": "Algeria",
+      "team": "South Korea",
       "group": "Group Stage",
       "rank": 5,
       "points": 3,
       "description": "Round of 32"
     },
     {
-      "team": "Paraguay",
+      "team": "Algeria",
       "group": "Group Stage",
       "rank": 6,
       "points": 3,
       "description": "Round of 32"
     },
     {
-      "team": "Scotland",
+      "team": "Paraguay",
       "group": "Group Stage",
       "rank": 7,
       "points": 3,
       "description": "Round of 32"
     },
     {
-      "team": "Cape Verde Islands",
+      "team": "Scotland",
       "group": "Group Stage",
       "rank": 8,
-      "points": 2,
+      "points": 3,
       "description": "Round of 32"
     },
     {
-      "team": "Belgium",
+      "team": "Cape Verde Islands",
       "group": "Group Stage",
       "rank": 9,
       "points": 2,
       "description": null
     },
     {
-      "team": "Congo DR",
+      "team": "Belgium",
       "group": "Group Stage",
       "rank": 10,
-      "points": 1,
+      "points": 2,
       "description": null
     },
     {
-      "team": "Ecuador",
+      "team": "Congo DR",
       "group": "Group Stage",
       "rank": 11,
       "points": 1,
