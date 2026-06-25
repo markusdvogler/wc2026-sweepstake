@@ -1,29 +1,29 @@
 {
-  "lastUpdated": "2026-06-25T03:11:09.423033+00:00",
+  "lastUpdated": "2026-06-25T03:12:09.132322+00:00",
   "rows": [
     {
       "team": "Mexico",
       "group": "Group A",
       "rank": 1,
-      "points": 6,
+      "points": 9,
+      "description": "Round of 32"
+    },
+    {
+      "team": "South Africa",
+      "group": "Group A",
+      "rank": 2,
+      "points": 4,
       "description": "Round of 32"
     },
     {
       "team": "South Korea",
       "group": "Group A",
-      "rank": 2,
-      "points": 3,
-      "description": "Round of 32"
-    },
-    {
-      "team": "Czechia",
-      "group": "Group A",
       "rank": 3,
-      "points": 1,
+      "points": 3,
       "description": null
     },
     {
-      "team": "South Africa",
+      "team": "Czechia",
       "group": "Group A",
       "rank": 4,
       "points": 1,
@@ -359,45 +359,45 @@
       "description": "Round of 32"
     },
     {
-      "team": "Algeria",
+      "team": "South Korea",
       "group": "Group Stage",
       "rank": 4,
       "points": 3,
       "description": "Round of 32"
     },
     {
-      "team": "Paraguay",
+      "team": "Algeria",
       "group": "Group Stage",
       "rank": 5,
       "points": 3,
       "description": "Round of 32"
     },
     {
-      "team": "Scotland",
+      "team": "Paraguay",
       "group": "Group Stage",
       "rank": 6,
       "points": 3,
       "description": "Round of 32"
     },
     {
-      "team": "Cape Verde Islands",
+      "team": "Scotland",
       "group": "Group Stage",
       "rank": 7,
-      "points": 2,
+      "points": 3,
       "description": "Round of 32"
     },
     {
-      "team": "Belgium",
+      "team": "Cape Verde Islands",
       "group": "Group Stage",
       "rank": 8,
       "points": 2,
       "description": "Round of 32"
     },
     {
-      "team": "Czechia",
+      "team": "Belgium",
       "group": "Group Stage",
       "rank": 9,
-      "points": 1,
+      "points": 2,
       "description": null
     },
     {
