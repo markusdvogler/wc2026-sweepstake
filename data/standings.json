@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-25T01:11:08.260896+00:00",
+  "lastUpdated": "2026-06-25T01:12:11.532843+00:00",
   "rows": [
     {
       "team": "Mexico",
@@ -48,7 +48,7 @@
       "group": "Group B",
       "rank": 3,
       "points": 4,
-      "description": null
+      "description": "Round of 32"
     },
     {
       "team": "Qatar",
@@ -61,14 +61,14 @@
       "team": "Brazil",
       "group": "Group C",
       "rank": 1,
-      "points": 4,
+      "points": 7,
       "description": "Round of 32"
     },
     {
       "team": "Morocco",
       "group": "Group C",
       "rank": 2,
-      "points": 4,
+      "points": 7,
       "description": "Round of 32"
     },
     {
@@ -352,28 +352,28 @@
       "description": "Round of 32"
     },
     {
-      "team": "Scotland",
+      "team": "Croatia",
       "group": "Group Stage",
       "rank": 3,
       "points": 3,
       "description": "Round of 32"
     },
     {
-      "team": "Croatia",
+      "team": "Algeria",
       "group": "Group Stage",
       "rank": 4,
       "points": 3,
       "description": "Round of 32"
     },
     {
-      "team": "Algeria",
+      "team": "Paraguay",
       "group": "Group Stage",
       "rank": 5,
       "points": 3,
       "description": "Round of 32"
     },
     {
-      "team": "Paraguay",
+      "team": "Scotland",
       "group": "Group Stage",
       "rank": 6,
       "points": 3,
