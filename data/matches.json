@@ -3694,11 +3694,11 @@
       },
       "id": 537396,
       "utcDate": "2026-06-26T19:00:00Z",
-      "status": "IN_PLAY",
+      "status": "PAUSED",
       "matchday": 3,
       "stage": "GROUP_STAGE",
       "group": "GROUP_I",
-      "lastUpdated": "2026-06-26T19:07:09.024893+00:00",
+      "lastUpdated": "2026-06-26T19:57:08.730391+00:00",
       "homeTeam": {
         "id": 804,
         "name": "Senegal",
@@ -6209,5 +6209,5 @@
       "referees": []
     }
   ],
-  "lastUpdated": "2026-06-26T19:56:09.600855+00:00"
+  "lastUpdated": "2026-06-26T19:57:08.730391+00:00"
 }
