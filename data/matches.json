@@ -3517,11 +3517,11 @@
       },
       "id": 537349,
       "utcDate": "2026-06-26T02:00:00Z",
-      "status": "IN_PLAY",
+      "status": "FINISHED",
       "matchday": 3,
       "stage": "GROUP_STAGE",
       "group": "GROUP_D",
-      "lastUpdated": "2026-06-26T04:01:10.307131+00:00",
+      "lastUpdated": "2026-06-26T04:03:09.237976+00:00",
       "homeTeam": {
         "id": 803,
         "name": "Turkey",
@@ -6209,5 +6209,5 @@
       "referees": []
     }
   ],
-  "lastUpdated": "2026-06-26T04:02:09.175354+00:00"
+  "lastUpdated": "2026-06-26T04:03:09.237976+00:00"
 }
