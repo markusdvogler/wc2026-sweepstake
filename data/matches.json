@@ -3521,7 +3521,7 @@
       "matchday": 3,
       "stage": "GROUP_STAGE",
       "group": "GROUP_D",
-      "lastUpdated": "2026-06-26T02:03:11.172892+00:00",
+      "lastUpdated": "2026-06-26T02:11:08.641649+00:00",
       "homeTeam": {
         "id": 803,
         "name": "Turkey",
@@ -3540,7 +3540,7 @@
         "winner": null,
         "duration": "REGULAR",
         "fullTime": {
-          "home": 0,
+          "home": 1,
           "away": 1
         },
         "halfTime": {
@@ -6209,5 +6209,5 @@
       "referees": []
     }
   ],
-  "lastUpdated": "2026-06-26T02:10:14.948254+00:00"
+  "lastUpdated": "2026-06-26T02:11:08.641649+00:00"
 }
