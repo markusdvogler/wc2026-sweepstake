@@ -3517,11 +3517,11 @@
       },
       "id": 537349,
       "utcDate": "2026-06-26T02:00:00Z",
-      "status": "PAUSED",
+      "status": "IN_PLAY",
       "matchday": 3,
       "stage": "GROUP_STAGE",
       "group": "GROUP_D",
-      "lastUpdated": "2026-06-26T02:52:08.984986+00:00",
+      "lastUpdated": "2026-06-26T03:09:08.504700+00:00",
       "homeTeam": {
         "id": 803,
         "name": "Turkey",
@@ -3576,11 +3576,11 @@
       },
       "id": 537350,
       "utcDate": "2026-06-26T02:00:00Z",
-      "status": "PAUSED",
+      "status": "IN_PLAY",
       "matchday": 3,
       "stage": "GROUP_STAGE",
       "group": "GROUP_D",
-      "lastUpdated": "2026-06-26T02:53:08.120445+00:00",
+      "lastUpdated": "2026-06-26T03:09:08.504700+00:00",
       "homeTeam": {
         "id": 761,
         "name": "Paraguay",
@@ -6209,5 +6209,5 @@
       "referees": []
     }
   ],
-  "lastUpdated": "2026-06-26T03:08:10.321365+00:00"
+  "lastUpdated": "2026-06-26T03:09:08.504700+00:00"
 }
