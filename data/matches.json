@@ -3635,11 +3635,11 @@
       },
       "id": 537395,
       "utcDate": "2026-06-26T19:00:00Z",
-      "status": "IN_PLAY",
+      "status": "PAUSED",
       "matchday": 3,
       "stage": "GROUP_STAGE",
       "group": "GROUP_I",
-      "lastUpdated": "2026-06-26T19:34:10.226480+00:00",
+      "lastUpdated": "2026-06-26T19:53:08.390951+00:00",
       "homeTeam": {
         "id": 8872,
         "name": "Norway",
@@ -6209,5 +6209,5 @@
       "referees": []
     }
   ],
-  "lastUpdated": "2026-06-26T19:52:09.322181+00:00"
+  "lastUpdated": "2026-06-26T19:53:08.390951+00:00"
 }
