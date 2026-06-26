@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-26T01:11:12.505173+00:00",
+  "lastUpdated": "2026-06-26T01:12:08.632524+00:00",
   "rows": [
     {
       "team": "Mexico",
@@ -145,21 +145,21 @@
       "team": "Netherlands",
       "group": "Group F",
       "rank": 1,
-      "points": 4,
+      "points": 7,
       "description": "Round of 32"
     },
     {
       "team": "Japan",
       "group": "Group F",
       "rank": 2,
-      "points": 4,
+      "points": 5,
       "description": "Round of 32"
     },
     {
       "team": "Sweden",
       "group": "Group F",
       "rank": 3,
-      "points": 3,
+      "points": 4,
       "description": null
     },
     {
@@ -338,24 +338,24 @@
       "description": null
     },
     {
-      "team": "Ecuador",
+      "team": "Sweden",
       "group": "Group Stage",
       "rank": 1,
       "points": 4,
       "description": "Round of 32"
     },
     {
-      "team": "Bosnia & Herzegovina",
+      "team": "Ecuador",
       "group": "Group Stage",
       "rank": 2,
       "points": 4,
       "description": "Round of 32"
     },
     {
-      "team": "Sweden",
+      "team": "Bosnia & Herzegovina",
       "group": "Group Stage",
       "rank": 3,
-      "points": 3,
+      "points": 4,
       "description": "Round of 32"
     },
     {
