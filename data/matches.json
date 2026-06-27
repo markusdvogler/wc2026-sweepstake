@@ -4048,11 +4048,11 @@
       },
       "id": 537414,
       "utcDate": "2026-06-27T21:00:00Z",
-      "status": "IN_PLAY",
+      "status": "PAUSED",
       "matchday": 3,
       "stage": "GROUP_STAGE",
       "group": "GROUP_L",
-      "lastUpdated": "2026-06-27T21:33:08.335780+00:00",
+      "lastUpdated": "2026-06-27T21:50:15.032537+00:00",
       "homeTeam": {
         "id": 799,
         "name": "Croatia",
@@ -6209,5 +6209,5 @@
       "referees": []
     }
   ],
-  "lastUpdated": "2026-06-27T21:49:09.011262+00:00"
+  "lastUpdated": "2026-06-27T21:50:15.032537+00:00"
 }
