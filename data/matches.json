@@ -4583,20 +4583,20 @@
       "matchday": null,
       "stage": "LAST_32",
       "group": null,
-      "lastUpdated": "2026-06-11T00:20:16Z",
+      "lastUpdated": "2026-06-27T02:08:09.286761+00:00",
       "homeTeam": {
-        "id": null,
-        "name": null,
-        "shortName": null,
-        "tla": null,
-        "crest": null
+        "id": 1501,
+        "name": "Ivory Coast",
+        "shortName": "Ivory Coast",
+        "tla": "IVO",
+        "crest": "https://media.api-sports.io/football/teams/1501.png"
       },
       "awayTeam": {
-        "id": null,
-        "name": null,
-        "shortName": null,
-        "tla": null,
-        "crest": null
+        "id": 1090,
+        "name": "Norway",
+        "shortName": "Norway",
+        "tla": "NOR",
+        "crest": "https://media.api-sports.io/football/teams/1090.png"
       },
       "score": {
         "winner": null,
@@ -6209,5 +6209,5 @@
       "referees": []
     }
   ],
-  "lastUpdated": "2026-06-27T02:07:07.380203+00:00"
+  "lastUpdated": "2026-06-27T02:08:09.286761+00:00"
 }
