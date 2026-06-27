@@ -3812,11 +3812,11 @@
       },
       "id": 537374,
       "utcDate": "2026-06-27T00:00:00Z",
-      "status": "IN_PLAY",
+      "status": "FINISHED",
       "matchday": 3,
       "stage": "GROUP_STAGE",
       "group": "GROUP_H",
-      "lastUpdated": "2026-06-27T01:10:15.380476+00:00",
+      "lastUpdated": "2026-06-27T02:00:31.981496+00:00",
       "homeTeam": {
         "id": 1930,
         "name": "Cape Verde Islands",
@@ -6209,5 +6209,5 @@
       "referees": []
     }
   ],
-  "lastUpdated": "2026-06-27T01:59:08.880060+00:00"
+  "lastUpdated": "2026-06-27T02:00:31.981496+00:00"
 }
