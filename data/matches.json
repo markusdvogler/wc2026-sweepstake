@@ -3989,11 +3989,11 @@
       },
       "id": 537413,
       "utcDate": "2026-06-27T21:00:00Z",
-      "status": "IN_PLAY",
+      "status": "PAUSED",
       "matchday": 3,
       "stage": "GROUP_STAGE",
       "group": "GROUP_L",
-      "lastUpdated": "2026-06-27T21:01:08.200671+00:00",
+      "lastUpdated": "2026-06-27T21:49:09.011262+00:00",
       "homeTeam": {
         "id": 1836,
         "name": "Panama",
@@ -6209,5 +6209,5 @@
       "referees": []
     }
   ],
-  "lastUpdated": "2026-06-27T21:48:09.139366+00:00"
+  "lastUpdated": "2026-06-27T21:49:09.011262+00:00"
 }
