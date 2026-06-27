@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-27T02:11:07.743710+00:00",
+  "lastUpdated": "2026-06-27T02:12:09.506028+00:00",
   "rows": [
     {
       "team": "Mexico",
@@ -104,7 +104,7 @@
       "group": "Group D",
       "rank": 3,
       "points": 4,
-      "description": null
+      "description": "Round of 32"
     },
     {
       "team": "Türkiye",
@@ -201,18 +201,18 @@
       "team": "Spain",
       "group": "Group H",
       "rank": 1,
-      "points": 4,
-      "description": "Round of 32"
-    },
-    {
-      "team": "Uruguay",
-      "group": "Group H",
-      "rank": 2,
-      "points": 2,
+      "points": 7,
       "description": "Round of 32"
     },
     {
       "team": "Cape Verde Islands",
+      "group": "Group H",
+      "rank": 2,
+      "points": 3,
+      "description": "Round of 32"
+    },
+    {
+      "team": "Uruguay",
       "group": "Group H",
       "rank": 3,
       "points": 2,
@@ -222,7 +222,7 @@
       "team": "Saudi Arabia",
       "group": "Group H",
       "rank": 4,
-      "points": 1,
+      "points": 2,
       "description": null
     },
     {
@@ -401,14 +401,14 @@
       "description": null
     },
     {
-      "team": "Cape Verde Islands",
+      "team": "Belgium",
       "group": "Group Stage",
       "rank": 10,
       "points": 2,
       "description": null
     },
     {
-      "team": "Belgium",
+      "team": "Uruguay",
       "group": "Group Stage",
       "rank": 11,
       "points": 2,
