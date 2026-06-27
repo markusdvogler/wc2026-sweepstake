@@ -4107,11 +4107,11 @@
       },
       "id": 537407,
       "utcDate": "2026-06-27T23:30:00Z",
-      "status": "TIMED",
+      "status": "IN_PLAY",
       "matchday": 3,
       "stage": "GROUP_STAGE",
       "group": "GROUP_K",
-      "lastUpdated": "2026-06-11T00:20:16Z",
+      "lastUpdated": "2026-06-27T23:32:11.552149+00:00",
       "homeTeam": {
         "id": 818,
         "name": "Colombia",
@@ -4130,8 +4130,8 @@
         "winner": null,
         "duration": "REGULAR",
         "fullTime": {
-          "home": null,
-          "away": null
+          "home": 0,
+          "away": 0
         },
         "halfTime": {
           "home": null,
@@ -4166,11 +4166,11 @@
       },
       "id": 537408,
       "utcDate": "2026-06-27T23:30:00Z",
-      "status": "TIMED",
+      "status": "IN_PLAY",
       "matchday": 3,
       "stage": "GROUP_STAGE",
       "group": "GROUP_K",
-      "lastUpdated": "2026-06-11T00:20:16Z",
+      "lastUpdated": "2026-06-27T23:32:11.552149+00:00",
       "homeTeam": {
         "id": 1934,
         "name": "Congo DR",
@@ -4189,8 +4189,8 @@
         "winner": null,
         "duration": "REGULAR",
         "fullTime": {
-          "home": null,
-          "away": null
+          "home": 0,
+          "away": 0
         },
         "halfTime": {
           "home": null,
@@ -6209,5 +6209,5 @@
       "referees": []
     }
   ],
-  "lastUpdated": "2026-06-27T23:31:07.533674+00:00"
+  "lastUpdated": "2026-06-27T23:32:11.552149+00:00"
 }
