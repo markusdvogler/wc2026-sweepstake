@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-27T23:11:10.286363+00:00",
+  "lastUpdated": "2026-06-27T23:12:10.842967+00:00",
   "rows": [
     {
       "team": "Mexico",
@@ -313,21 +313,21 @@
       "team": "England",
       "group": "Group L",
       "rank": 1,
-      "points": 4,
-      "description": "Round of 32"
-    },
-    {
-      "team": "Ghana",
-      "group": "Group L",
-      "rank": 2,
-      "points": 4,
+      "points": 7,
       "description": "Round of 32"
     },
     {
       "team": "Croatia",
       "group": "Group L",
+      "rank": 2,
+      "points": 6,
+      "description": "Round of 32"
+    },
+    {
+      "team": "Ghana",
+      "group": "Group L",
       "rank": 3,
-      "points": 3,
+      "points": 4,
       "description": null
     },
     {
@@ -345,42 +345,42 @@
       "description": "Round of 32"
     },
     {
-      "team": "Ecuador",
+      "team": "Ghana",
       "group": "Group Stage",
       "rank": 2,
       "points": 4,
       "description": "Round of 32"
     },
     {
-      "team": "Bosnia & Herzegovina",
+      "team": "Ecuador",
       "group": "Group Stage",
       "rank": 3,
       "points": 4,
       "description": "Round of 32"
     },
     {
-      "team": "Paraguay",
+      "team": "Bosnia & Herzegovina",
       "group": "Group Stage",
       "rank": 4,
       "points": 4,
       "description": "Round of 32"
     },
     {
-      "team": "Senegal",
+      "team": "Paraguay",
       "group": "Group Stage",
       "rank": 5,
-      "points": 3,
+      "points": 4,
       "description": "Round of 32"
     },
     {
-      "team": "Iran",
+      "team": "Senegal",
       "group": "Group Stage",
       "rank": 6,
       "points": 3,
       "description": "Round of 32"
     },
     {
-      "team": "Croatia",
+      "team": "Iran",
       "group": "Group Stage",
       "rank": 7,
       "points": 3,
