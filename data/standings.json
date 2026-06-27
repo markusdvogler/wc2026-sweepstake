@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-27T05:11:08.958103+00:00",
+  "lastUpdated": "2026-06-27T05:12:10.976499+00:00",
   "rows": [
     {
       "team": "Mexico",
@@ -170,24 +170,24 @@
       "description": null
     },
     {
-      "team": "Egypt",
+      "team": "Belgium",
       "group": "Group G",
       "rank": 1,
-      "points": 4,
+      "points": 5,
+      "description": "Round of 32"
+    },
+    {
+      "team": "Egypt",
+      "group": "Group G",
+      "rank": 2,
+      "points": 5,
       "description": "Round of 32"
     },
     {
       "team": "Iran",
       "group": "Group G",
-      "rank": 2,
-      "points": 2,
-      "description": "Round of 32"
-    },
-    {
-      "team": "Belgium",
-      "group": "Group G",
       "rank": 3,
-      "points": 2,
+      "points": 3,
       "description": null
     },
     {
@@ -373,38 +373,38 @@
       "description": "Round of 32"
     },
     {
-      "team": "Croatia",
+      "team": "Iran",
       "group": "Group Stage",
       "rank": 6,
       "points": 3,
       "description": "Round of 32"
     },
     {
-      "team": "South Korea",
+      "team": "Croatia",
       "group": "Group Stage",
       "rank": 7,
       "points": 3,
       "description": "Round of 32"
     },
     {
-      "team": "Algeria",
+      "team": "South Korea",
       "group": "Group Stage",
       "rank": 8,
       "points": 3,
       "description": "Round of 32"
     },
     {
-      "team": "Scotland",
+      "team": "Algeria",
       "group": "Group Stage",
       "rank": 9,
       "points": 3,
       "description": null
     },
     {
-      "team": "Belgium",
+      "team": "Scotland",
       "group": "Group Stage",
       "rank": 10,
-      "points": 2,
+      "points": 3,
       "description": null
     },
     {
