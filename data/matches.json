@@ -4465,20 +4465,20 @@
       "matchday": null,
       "stage": "LAST_32",
       "group": null,
-      "lastUpdated": "2026-06-11T00:20:16Z",
+      "lastUpdated": "2026-06-27T05:07:07.969077+00:00",
       "homeTeam": {
-        "id": null,
-        "name": null,
-        "shortName": null,
-        "tla": null,
-        "crest": null
+        "id": 25,
+        "name": "Germany",
+        "shortName": "Germany",
+        "tla": "GER",
+        "crest": "https://media.api-sports.io/football/teams/25.png"
       },
       "awayTeam": {
-        "id": null,
-        "name": null,
-        "shortName": null,
-        "tla": null,
-        "crest": null
+        "id": 2380,
+        "name": "Paraguay",
+        "shortName": "Paraguay",
+        "tla": "PAR",
+        "crest": "https://media.api-sports.io/football/teams/2380.png"
       },
       "score": {
         "winner": null,
@@ -4642,20 +4642,20 @@
       "matchday": null,
       "stage": "LAST_32",
       "group": null,
-      "lastUpdated": "2026-06-11T00:20:16Z",
+      "lastUpdated": "2026-06-27T05:07:07.969077+00:00",
       "homeTeam": {
-        "id": null,
-        "name": null,
-        "shortName": null,
-        "tla": null,
-        "crest": null
+        "id": 2,
+        "name": "France",
+        "shortName": "France",
+        "tla": "FRA",
+        "crest": "https://media.api-sports.io/football/teams/2.png"
       },
       "awayTeam": {
-        "id": null,
-        "name": null,
-        "shortName": null,
-        "tla": null,
-        "crest": null
+        "id": 5,
+        "name": "Sweden",
+        "shortName": "Sweden",
+        "tla": "SWE",
+        "crest": "https://media.api-sports.io/football/teams/5.png"
       },
       "score": {
         "winner": null,
@@ -5114,20 +5114,20 @@
       "matchday": null,
       "stage": "LAST_32",
       "group": null,
-      "lastUpdated": "2026-06-11T00:20:16Z",
+      "lastUpdated": "2026-06-27T05:07:07.969077+00:00",
       "homeTeam": {
-        "id": null,
-        "name": null,
-        "shortName": null,
-        "tla": null,
-        "crest": null
+        "id": 20,
+        "name": "Australia",
+        "shortName": "Australia",
+        "tla": "AUS",
+        "crest": "https://media.api-sports.io/football/teams/20.png"
       },
       "awayTeam": {
-        "id": null,
-        "name": null,
-        "shortName": null,
-        "tla": null,
-        "crest": null
+        "id": 32,
+        "name": "Egypt",
+        "shortName": "Egypt",
+        "tla": "EGY",
+        "crest": "https://media.api-sports.io/football/teams/32.png"
       },
       "score": {
         "winner": null,
@@ -5173,20 +5173,20 @@
       "matchday": null,
       "stage": "LAST_32",
       "group": null,
-      "lastUpdated": "2026-06-11T00:20:16Z",
+      "lastUpdated": "2026-06-27T05:07:07.969077+00:00",
       "homeTeam": {
-        "id": null,
-        "name": null,
-        "shortName": null,
-        "tla": null,
-        "crest": null
+        "id": 26,
+        "name": "Argentina",
+        "shortName": "Argentina",
+        "tla": "ARG",
+        "crest": "https://media.api-sports.io/football/teams/26.png"
       },
       "awayTeam": {
-        "id": null,
-        "name": null,
-        "shortName": null,
-        "tla": null,
-        "crest": null
+        "id": 1533,
+        "name": "Cape Verde Islands",
+        "shortName": "Cape Verde Islands",
+        "tla": "CAP",
+        "crest": "https://media.api-sports.io/football/teams/1533.png"
       },
       "score": {
         "winner": null,
@@ -6209,5 +6209,5 @@
       "referees": []
     }
   ],
-  "lastUpdated": "2026-06-27T05:06:11.545427+00:00"
+  "lastUpdated": "2026-06-27T05:07:07.969077+00:00"
 }
