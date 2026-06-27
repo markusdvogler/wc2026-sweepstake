@@ -3930,11 +3930,11 @@
       },
       "id": 537368,
       "utcDate": "2026-06-27T03:00:00Z",
-      "status": "IN_PLAY",
+      "status": "FINISHED",
       "matchday": 3,
       "stage": "GROUP_STAGE",
       "group": "GROUP_G",
-      "lastUpdated": "2026-06-27T05:00:32.090235+00:00",
+      "lastUpdated": "2026-06-27T05:04:08.489149+00:00",
       "homeTeam": {
         "id": 825,
         "name": "Egypt",
@@ -6209,5 +6209,5 @@
       "referees": []
     }
   ],
-  "lastUpdated": "2026-06-27T05:03:10.721848+00:00"
+  "lastUpdated": "2026-06-27T05:04:08.489149+00:00"
 }
