@@ -4052,7 +4052,7 @@
       "matchday": 3,
       "stage": "GROUP_STAGE",
       "group": "GROUP_L",
-      "lastUpdated": "2026-06-27T22:07:08.894696+00:00",
+      "lastUpdated": "2026-06-27T22:34:10.865955+00:00",
       "homeTeam": {
         "id": 799,
         "name": "Croatia",
@@ -4072,7 +4072,7 @@
         "duration": "REGULAR",
         "fullTime": {
           "home": 1,
-          "away": 0
+          "away": 1
         },
         "halfTime": {
           "home": null,
@@ -6209,5 +6209,5 @@
       "referees": []
     }
   ],
-  "lastUpdated": "2026-06-27T22:33:09.327350+00:00"
+  "lastUpdated": "2026-06-27T22:34:10.865955+00:00"
 }
