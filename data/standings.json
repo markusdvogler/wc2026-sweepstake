@@ -1,55 +1,6 @@
 {
-  "lastUpdated": "2026-06-28T05:08:14.849866+00:00",
+  "lastUpdated": "2026-06-28T05:12:07.740815+00:00",
   "rows": [
-    {
-      "team": "Japan",
-      "group": "Group F",
-      "rank": 2,
-      "points": 5,
-      "description": "Round of 32"
-    },
-    {
-      "team": "Sweden",
-      "group": "Group F",
-      "rank": 3,
-      "points": 4,
-      "description": "Round of 32"
-    },
-    {
-      "team": "Tunisia",
-      "group": "Group F",
-      "rank": 4,
-      "points": 0,
-      "description": null
-    },
-    {
-      "team": "Netherlands",
-      "group": "Group F",
-      "rank": 1,
-      "points": 7,
-      "description": "Round of 32"
-    },
-    {
-      "team": "Japan",
-      "group": "Group F",
-      "rank": 2,
-      "points": 5,
-      "description": "Round of 32"
-    },
-    {
-      "team": "Sweden",
-      "group": "Group F",
-      "rank": 3,
-      "points": 4,
-      "description": "Round of 32"
-    },
-    {
-      "team": "Tunisia",
-      "group": "Group F",
-      "rank": 4,
-      "points": 0,
-      "description": null
-    },
     {
       "team": "Mexico",
       "group": "Group A",
@@ -74,62 +25,6 @@
     {
       "team": "Czechia",
       "group": "Group A",
-      "rank": 4,
-      "points": 1,
-      "description": null
-    },
-    {
-      "team": "Belgium",
-      "group": "Group G",
-      "rank": 1,
-      "points": 5,
-      "description": "Round of 32"
-    },
-    {
-      "team": "Egypt",
-      "group": "Group G",
-      "rank": 2,
-      "points": 5,
-      "description": "Round of 32"
-    },
-    {
-      "team": "Iran",
-      "group": "Group G",
-      "rank": 3,
-      "points": 3,
-      "description": null
-    },
-    {
-      "team": "New Zealand",
-      "group": "Group G",
-      "rank": 4,
-      "points": 1,
-      "description": null
-    },
-    {
-      "team": "Belgium",
-      "group": "Group G",
-      "rank": 1,
-      "points": 5,
-      "description": "Round of 32"
-    },
-    {
-      "team": "Egypt",
-      "group": "Group G",
-      "rank": 2,
-      "points": 5,
-      "description": "Round of 32"
-    },
-    {
-      "team": "Iran",
-      "group": "Group G",
-      "rank": 3,
-      "points": 3,
-      "description": null
-    },
-    {
-      "team": "New Zealand",
-      "group": "Group G",
       "rank": 4,
       "points": 1,
       "description": null
@@ -160,62 +55,6 @@
       "group": "Group B",
       "rank": 4,
       "points": 1,
-      "description": null
-    },
-    {
-      "team": "Spain",
-      "group": "Group H",
-      "rank": 1,
-      "points": 7,
-      "description": "Round of 32"
-    },
-    {
-      "team": "Cape Verde Islands",
-      "group": "Group H",
-      "rank": 2,
-      "points": 3,
-      "description": "Round of 32"
-    },
-    {
-      "team": "Uruguay",
-      "group": "Group H",
-      "rank": 3,
-      "points": 2,
-      "description": null
-    },
-    {
-      "team": "Saudi Arabia",
-      "group": "Group H",
-      "rank": 4,
-      "points": 2,
-      "description": null
-    },
-    {
-      "team": "Spain",
-      "group": "Group H",
-      "rank": 1,
-      "points": 7,
-      "description": "Round of 32"
-    },
-    {
-      "team": "Cape Verde Islands",
-      "group": "Group H",
-      "rank": 2,
-      "points": 3,
-      "description": "Round of 32"
-    },
-    {
-      "team": "Uruguay",
-      "group": "Group H",
-      "rank": 3,
-      "points": 2,
-      "description": null
-    },
-    {
-      "team": "Saudi Arabia",
-      "group": "Group H",
-      "rank": 4,
-      "points": 2,
       "description": null
     },
     {
@@ -275,62 +114,6 @@
       "description": null
     },
     {
-      "team": "France",
-      "group": "Group I",
-      "rank": 1,
-      "points": 9,
-      "description": "Round of 32"
-    },
-    {
-      "team": "Norway",
-      "group": "Group I",
-      "rank": 2,
-      "points": 6,
-      "description": "Round of 32"
-    },
-    {
-      "team": "Senegal",
-      "group": "Group I",
-      "rank": 3,
-      "points": 3,
-      "description": "Round of 32"
-    },
-    {
-      "team": "Iraq",
-      "group": "Group I",
-      "rank": 4,
-      "points": 0,
-      "description": null
-    },
-    {
-      "team": "France",
-      "group": "Group I",
-      "rank": 1,
-      "points": 9,
-      "description": "Round of 32"
-    },
-    {
-      "team": "Norway",
-      "group": "Group I",
-      "rank": 2,
-      "points": 6,
-      "description": "Round of 32"
-    },
-    {
-      "team": "Senegal",
-      "group": "Group I",
-      "rank": 3,
-      "points": 3,
-      "description": "Round of 32"
-    },
-    {
-      "team": "Iraq",
-      "group": "Group I",
-      "rank": 4,
-      "points": 0,
-      "description": null
-    },
-    {
       "team": "Germany",
       "group": "Group E",
       "rank": 1,
@@ -359,255 +142,199 @@
       "description": null
     },
     {
-      "team": "Argentina",
-      "group": "Group J",
-      "rank": 1,
-      "points": 9,
-      "description": "Round of 32"
-    },
-    {
-      "team": "Austria",
-      "group": "Group J",
-      "rank": 2,
-      "points": 4,
-      "description": "Round of 32"
-    },
-    {
-      "team": "Algeria",
-      "group": "Group J",
-      "rank": 3,
-      "points": 4,
-      "description": null
-    },
-    {
-      "team": "Jordan",
-      "group": "Group J",
-      "rank": 4,
-      "points": 0,
-      "description": null
-    },
-    {
-      "team": "Argentina",
-      "group": "Group J",
-      "rank": 1,
-      "points": 9,
-      "description": "Round of 32"
-    },
-    {
-      "team": "Austria",
-      "group": "Group J",
-      "rank": 2,
-      "points": 4,
-      "description": "Round of 32"
-    },
-    {
-      "team": "Algeria",
-      "group": "Group J",
-      "rank": 3,
-      "points": 4,
-      "description": null
-    },
-    {
-      "team": "Jordan",
-      "group": "Group J",
-      "rank": 4,
-      "points": 0,
-      "description": null
-    },
-    {
-      "team": "Colombia",
-      "group": "Group K",
+      "team": "Netherlands",
+      "group": "Group F",
       "rank": 1,
       "points": 7,
       "description": "Round of 32"
     },
     {
-      "team": "Portugal",
-      "group": "Group K",
+      "team": "Japan",
+      "group": "Group F",
       "rank": 2,
       "points": 5,
-      "description": "Round of 32"
-    },
-    {
-      "team": "Congo DR",
-      "group": "Group K",
-      "rank": 3,
-      "points": 4,
-      "description": "Round of 32"
-    },
-    {
-      "team": "Uzbekistan",
-      "group": "Group K",
-      "rank": 4,
-      "points": 0,
-      "description": null
-    },
-    {
-      "team": "Colombia",
-      "group": "Group K",
-      "rank": 1,
-      "points": 7,
-      "description": "Round of 32"
-    },
-    {
-      "team": "Portugal",
-      "group": "Group K",
-      "rank": 2,
-      "points": 5,
-      "description": "Round of 32"
-    },
-    {
-      "team": "Congo DR",
-      "group": "Group K",
-      "rank": 3,
-      "points": 4,
-      "description": "Round of 32"
-    },
-    {
-      "team": "Uzbekistan",
-      "group": "Group K",
-      "rank": 4,
-      "points": 0,
-      "description": null
-    },
-    {
-      "team": "England",
-      "group": "Group L",
-      "rank": 1,
-      "points": 7,
-      "description": "Round of 32"
-    },
-    {
-      "team": "Croatia",
-      "group": "Group L",
-      "rank": 2,
-      "points": 6,
-      "description": "Round of 32"
-    },
-    {
-      "team": "Ghana",
-      "group": "Group L",
-      "rank": 3,
-      "points": 4,
-      "description": "Round of 32"
-    },
-    {
-      "team": "Panama",
-      "group": "Group L",
-      "rank": 4,
-      "points": 0,
-      "description": null
-    },
-    {
-      "team": "England",
-      "group": "Group L",
-      "rank": 1,
-      "points": 7,
-      "description": "Round of 32"
-    },
-    {
-      "team": "Croatia",
-      "group": "Group L",
-      "rank": 2,
-      "points": 6,
-      "description": "Round of 32"
-    },
-    {
-      "team": "Ghana",
-      "group": "Group L",
-      "rank": 3,
-      "points": 4,
-      "description": "Round of 32"
-    },
-    {
-      "team": "Panama",
-      "group": "Group L",
-      "rank": 4,
-      "points": 0,
-      "description": null
-    },
-    {
-      "team": "Congo DR",
-      "group": "Group Stage",
-      "rank": 1,
-      "points": 4,
       "description": "Round of 32"
     },
     {
       "team": "Sweden",
-      "group": "Group Stage",
-      "rank": 2,
-      "points": 4,
-      "description": "Round of 32"
-    },
-    {
-      "team": "Ghana",
-      "group": "Group Stage",
+      "group": "Group F",
       "rank": 3,
       "points": 4,
       "description": "Round of 32"
     },
     {
-      "team": "Ecuador",
-      "group": "Group Stage",
+      "team": "Tunisia",
+      "group": "Group F",
       "rank": 4,
-      "points": 4,
+      "points": 0,
+      "description": null
+    },
+    {
+      "team": "Belgium",
+      "group": "Group G",
+      "rank": 1,
+      "points": 5,
       "description": "Round of 32"
     },
     {
-      "team": "Bosnia & Herzegovina",
-      "group": "Group Stage",
-      "rank": 5,
+      "team": "Egypt",
+      "group": "Group G",
+      "rank": 2,
+      "points": 5,
+      "description": "Round of 32"
+    },
+    {
+      "team": "Iran",
+      "group": "Group G",
+      "rank": 3,
+      "points": 3,
+      "description": null
+    },
+    {
+      "team": "New Zealand",
+      "group": "Group G",
+      "rank": 4,
+      "points": 1,
+      "description": null
+    },
+    {
+      "team": "Spain",
+      "group": "Group H",
+      "rank": 1,
+      "points": 7,
+      "description": "Round of 32"
+    },
+    {
+      "team": "Cape Verde Islands",
+      "group": "Group H",
+      "rank": 2,
+      "points": 3,
+      "description": "Round of 32"
+    },
+    {
+      "team": "Uruguay",
+      "group": "Group H",
+      "rank": 3,
+      "points": 2,
+      "description": null
+    },
+    {
+      "team": "Saudi Arabia",
+      "group": "Group H",
+      "rank": 4,
+      "points": 2,
+      "description": null
+    },
+    {
+      "team": "France",
+      "group": "Group I",
+      "rank": 1,
+      "points": 9,
+      "description": "Round of 32"
+    },
+    {
+      "team": "Norway",
+      "group": "Group I",
+      "rank": 2,
+      "points": 6,
+      "description": "Round of 32"
+    },
+    {
+      "team": "Senegal",
+      "group": "Group I",
+      "rank": 3,
+      "points": 3,
+      "description": "Round of 32"
+    },
+    {
+      "team": "Iraq",
+      "group": "Group I",
+      "rank": 4,
+      "points": 0,
+      "description": null
+    },
+    {
+      "team": "Argentina",
+      "group": "Group J",
+      "rank": 1,
+      "points": 9,
+      "description": "Round of 32"
+    },
+    {
+      "team": "Austria",
+      "group": "Group J",
+      "rank": 2,
       "points": 4,
       "description": "Round of 32"
     },
     {
       "team": "Algeria",
-      "group": "Group Stage",
-      "rank": 6,
+      "group": "Group J",
+      "rank": 3,
       "points": 4,
       "description": "Round of 32"
     },
     {
-      "team": "Paraguay",
-      "group": "Group Stage",
-      "rank": 7,
+      "team": "Jordan",
+      "group": "Group J",
+      "rank": 4,
+      "points": 0,
+      "description": null
+    },
+    {
+      "team": "Colombia",
+      "group": "Group K",
+      "rank": 1,
+      "points": 7,
+      "description": "Round of 32"
+    },
+    {
+      "team": "Portugal",
+      "group": "Group K",
+      "rank": 2,
+      "points": 5,
+      "description": "Round of 32"
+    },
+    {
+      "team": "Congo DR",
+      "group": "Group K",
+      "rank": 3,
       "points": 4,
       "description": "Round of 32"
     },
     {
-      "team": "Senegal",
-      "group": "Group Stage",
-      "rank": 8,
-      "points": 3,
+      "team": "Uzbekistan",
+      "group": "Group K",
+      "rank": 4,
+      "points": 0,
+      "description": null
+    },
+    {
+      "team": "England",
+      "group": "Group L",
+      "rank": 1,
+      "points": 7,
       "description": "Round of 32"
     },
     {
-      "team": "Iran",
-      "group": "Group Stage",
-      "rank": 9,
-      "points": 3,
-      "description": null
+      "team": "Croatia",
+      "group": "Group L",
+      "rank": 2,
+      "points": 6,
+      "description": "Round of 32"
     },
     {
-      "team": "South Korea",
-      "group": "Group Stage",
-      "rank": 10,
-      "points": 3,
-      "description": null
+      "team": "Ghana",
+      "group": "Group L",
+      "rank": 3,
+      "points": 4,
+      "description": "Round of 32"
     },
     {
-      "team": "Scotland",
-      "group": "Group Stage",
-      "rank": 11,
-      "points": 3,
-      "description": null
-    },
-    {
-      "team": "Uruguay",
-      "group": "Group Stage",
-      "rank": 12,
-      "points": 2,
+      "team": "Panama",
+      "group": "Group L",
+      "rank": 4,
+      "points": 0,
       "description": null
     },
     {
