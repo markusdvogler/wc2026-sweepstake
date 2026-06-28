@@ -4288,7 +4288,7 @@
       "matchday": 3,
       "stage": "GROUP_STAGE",
       "group": "GROUP_J",
-      "lastUpdated": "2026-06-28T02:29:07.490720+00:00",
+      "lastUpdated": "2026-06-28T02:46:11.066638+00:00",
       "homeTeam": {
         "id": 778,
         "name": "Algeria",
@@ -4307,7 +4307,7 @@
         "winner": null,
         "duration": "REGULAR",
         "fullTime": {
-          "home": 0,
+          "home": 1,
           "away": 1
         },
         "halfTime": {
@@ -6209,5 +6209,5 @@
       "referees": []
     }
   ],
-  "lastUpdated": "2026-06-28T02:45:15.614391+00:00"
+  "lastUpdated": "2026-06-28T02:46:11.066638+00:00"
 }
