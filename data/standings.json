@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-28T02:11:07.947134+00:00",
+  "lastUpdated": "2026-06-28T02:12:11.664502+00:00",
   "rows": [
     {
       "team": "Mexico",
@@ -285,22 +285,22 @@
       "team": "Colombia",
       "group": "Group K",
       "rank": 1,
-      "points": 6,
+      "points": 7,
       "description": "Round of 32"
     },
     {
       "team": "Portugal",
       "group": "Group K",
       "rank": 2,
-      "points": 4,
+      "points": 5,
       "description": "Round of 32"
     },
     {
       "team": "Congo DR",
       "group": "Group K",
       "rank": 3,
-      "points": 1,
-      "description": null
+      "points": 4,
+      "description": "Round of 32"
     },
     {
       "team": "Uzbekistan",
@@ -338,87 +338,87 @@
       "description": null
     },
     {
-      "team": "Sweden",
+      "team": "Congo DR",
       "group": "Group Stage",
       "rank": 1,
       "points": 4,
       "description": "Round of 32"
     },
     {
-      "team": "Ghana",
+      "team": "Sweden",
       "group": "Group Stage",
       "rank": 2,
       "points": 4,
       "description": "Round of 32"
     },
     {
-      "team": "Ecuador",
+      "team": "Ghana",
       "group": "Group Stage",
       "rank": 3,
       "points": 4,
       "description": "Round of 32"
     },
     {
-      "team": "Bosnia & Herzegovina",
+      "team": "Ecuador",
       "group": "Group Stage",
       "rank": 4,
       "points": 4,
       "description": "Round of 32"
     },
     {
-      "team": "Paraguay",
+      "team": "Bosnia & Herzegovina",
       "group": "Group Stage",
       "rank": 5,
       "points": 4,
       "description": "Round of 32"
     },
     {
-      "team": "Senegal",
+      "team": "Paraguay",
       "group": "Group Stage",
       "rank": 6,
-      "points": 3,
+      "points": 4,
       "description": "Round of 32"
     },
     {
-      "team": "Iran",
+      "team": "Senegal",
       "group": "Group Stage",
       "rank": 7,
       "points": 3,
       "description": "Round of 32"
     },
     {
-      "team": "South Korea",
+      "team": "Iran",
       "group": "Group Stage",
       "rank": 8,
       "points": 3,
       "description": "Round of 32"
     },
     {
-      "team": "Algeria",
+      "team": "South Korea",
       "group": "Group Stage",
       "rank": 9,
       "points": 3,
       "description": null
     },
     {
-      "team": "Scotland",
+      "team": "Algeria",
       "group": "Group Stage",
       "rank": 10,
       "points": 3,
       "description": null
     },
     {
-      "team": "Uruguay",
+      "team": "Scotland",
       "group": "Group Stage",
       "rank": 11,
-      "points": 2,
+      "points": 3,
       "description": null
     },
     {
-      "team": "Congo DR",
+      "team": "Uruguay",
       "group": "Group Stage",
       "rank": 12,
-      "points": 1,
+      "points": 2,
       "description": null
     }
   ]
