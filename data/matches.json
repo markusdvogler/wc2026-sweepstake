@@ -4170,7 +4170,7 @@
       "matchday": 3,
       "stage": "GROUP_STAGE",
       "group": "GROUP_K",
-      "lastUpdated": "2026-06-28T00:39:07.993137+00:00",
+      "lastUpdated": "2026-06-28T01:02:10.186149+00:00",
       "homeTeam": {
         "id": 1934,
         "name": "Congo DR",
@@ -4189,7 +4189,7 @@
         "winner": null,
         "duration": "REGULAR",
         "fullTime": {
-          "home": 0,
+          "home": 1,
           "away": 1
         },
         "halfTime": {
@@ -6209,5 +6209,5 @@
       "referees": []
     }
   ],
-  "lastUpdated": "2026-06-28T01:01:09.368669+00:00"
+  "lastUpdated": "2026-06-28T01:02:10.186149+00:00"
 }
