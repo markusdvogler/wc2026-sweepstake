@@ -4229,7 +4229,7 @@
       "matchday": 3,
       "stage": "GROUP_STAGE",
       "group": "GROUP_J",
-      "lastUpdated": "2026-06-28T02:20:14.637196+00:00",
+      "lastUpdated": "2026-06-28T02:32:09.688770+00:00",
       "homeTeam": {
         "id": 8049,
         "name": "Jordan",
@@ -4249,7 +4249,7 @@
         "duration": "REGULAR",
         "fullTime": {
           "home": 0,
-          "away": 1
+          "away": 2
         },
         "halfTime": {
           "home": null,
@@ -6209,5 +6209,5 @@
       "referees": []
     }
   ],
-  "lastUpdated": "2026-06-28T02:31:07.827941+00:00"
+  "lastUpdated": "2026-06-28T02:32:09.688770+00:00"
 }
