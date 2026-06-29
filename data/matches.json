@@ -4402,11 +4402,11 @@
       },
       "id": 537423,
       "utcDate": "2026-06-29T17:00:00Z",
-      "status": "IN_PLAY",
+      "status": "PAUSED",
       "matchday": null,
       "stage": "LAST_32",
       "group": null,
-      "lastUpdated": "2026-06-29T17:30:26.060191+00:00",
+      "lastUpdated": "2026-06-29T17:50:17.276344+00:00",
       "homeTeam": {
         "id": 6,
         "name": "Brazil",
@@ -6209,5 +6209,5 @@
       "referees": []
     }
   ],
-  "lastUpdated": "2026-06-29T17:49:09.498962+00:00"
+  "lastUpdated": "2026-06-29T17:50:17.276344+00:00"
 }
