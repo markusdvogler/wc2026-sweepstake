@@ -4579,11 +4579,11 @@
       },
       "id": 537424,
       "utcDate": "2026-06-30T17:00:00Z",
-      "status": "TIMED",
+      "status": "IN_PLAY",
       "matchday": null,
       "stage": "LAST_32",
       "group": null,
-      "lastUpdated": "2026-06-27T02:08:09.286761+00:00",
+      "lastUpdated": "2026-06-30T17:01:09.219275+00:00",
       "homeTeam": {
         "id": 1501,
         "name": "Ivory Coast",
@@ -4602,8 +4602,8 @@
         "winner": null,
         "duration": "REGULAR",
         "fullTime": {
-          "home": null,
-          "away": null
+          "home": 0,
+          "away": 0
         },
         "halfTime": {
           "home": null,
@@ -6209,5 +6209,5 @@
       "referees": []
     }
   ],
-  "lastUpdated": "2026-06-30T17:00:38.392787+00:00"
+  "lastUpdated": "2026-06-30T17:01:09.219275+00:00"
 }
