@@ -4642,7 +4642,7 @@
       "matchday": null,
       "stage": "LAST_32",
       "group": null,
-      "lastUpdated": "2026-06-30T22:12:09.052518+00:00",
+      "lastUpdated": "2026-06-30T22:33:09.976599+00:00",
       "homeTeam": {
         "id": 2,
         "name": "France",
@@ -4661,7 +4661,7 @@
         "winner": null,
         "duration": "REGULAR",
         "fullTime": {
-          "home": 2,
+          "home": 3,
           "away": 0
         },
         "halfTime": {
@@ -6209,5 +6209,5 @@
       "referees": []
     }
   ],
-  "lastUpdated": "2026-06-30T22:32:09.775841+00:00"
+  "lastUpdated": "2026-06-30T22:33:09.976599+00:00"
 }
