@@ -4583,7 +4583,7 @@
       "matchday": null,
       "stage": "LAST_32",
       "group": null,
-      "lastUpdated": "2026-06-30T18:34:10.509790+00:00",
+      "lastUpdated": "2026-06-30T18:46:10.060410+00:00",
       "homeTeam": {
         "id": 1501,
         "name": "Ivory Coast",
@@ -4603,7 +4603,7 @@
         "duration": "REGULAR",
         "fullTime": {
           "home": 1,
-          "away": 1
+          "away": 2
         },
         "halfTime": {
           "home": null,
@@ -6209,5 +6209,5 @@
       "referees": []
     }
   ],
-  "lastUpdated": "2026-06-30T18:45:17.424668+00:00"
+  "lastUpdated": "2026-06-30T18:46:10.060410+00:00"
 }
