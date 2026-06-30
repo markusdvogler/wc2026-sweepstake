@@ -5291,20 +5291,20 @@
       "matchday": null,
       "stage": "LAST_16",
       "group": null,
-      "lastUpdated": "2026-06-11T00:20:16Z",
+      "lastUpdated": "2026-06-30T04:53:08.030317+00:00",
       "homeTeam": {
-        "id": null,
-        "name": null,
-        "shortName": null,
-        "tla": null,
-        "crest": null
+        "id": 5529,
+        "name": "Canada",
+        "shortName": "Canada",
+        "tla": "CAN",
+        "crest": "https://media.api-sports.io/football/teams/5529.png"
       },
       "awayTeam": {
-        "id": null,
-        "name": null,
-        "shortName": null,
-        "tla": null,
-        "crest": null
+        "id": 31,
+        "name": "Morocco",
+        "shortName": "Morocco",
+        "tla": "MOR",
+        "crest": "https://media.api-sports.io/football/teams/31.png"
       },
       "score": {
         "winner": null,
@@ -6209,5 +6209,5 @@
       "referees": []
     }
   ],
-  "lastUpdated": "2026-06-30T04:52:09.418532+00:00"
+  "lastUpdated": "2026-06-30T04:53:08.030317+00:00"
 }
