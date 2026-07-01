@@ -4697,11 +4697,11 @@
       },
       "id": 537425,
       "utcDate": "2026-07-01T01:00:00Z",
-      "status": "PAUSED",
+      "status": "IN_PLAY",
       "matchday": null,
       "stage": "LAST_32",
       "group": null,
-      "lastUpdated": "2026-07-01T02:52:10.157621+00:00",
+      "lastUpdated": "2026-07-01T03:08:10.483795+00:00",
       "homeTeam": {
         "id": 16,
         "name": "Mexico",
@@ -6209,5 +6209,5 @@
       "referees": []
     }
   ],
-  "lastUpdated": "2026-07-01T03:07:09.451183+00:00"
+  "lastUpdated": "2026-07-01T03:08:10.483795+00:00"
 }
