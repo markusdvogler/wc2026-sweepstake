@@ -4347,20 +4347,20 @@
       "matchday": null,
       "stage": "LAST_32",
       "group": null,
-      "lastUpdated": "2026-06-28T20:58:09.591740+00:00",
+      "lastUpdated": "2026-07-01T19:10:17.908126+00:00",
       "homeTeam": {
-        "id": 1531,
+        "id": 774,
         "name": "South Africa",
         "shortName": "South Africa",
-        "tla": "SOU",
-        "crest": "https://media.api-sports.io/football/teams/1531.png"
+        "tla": "RSA",
+        "crest": "https://crests.football-data.org/9396.svg"
       },
       "awayTeam": {
-        "id": 5529,
+        "id": 828,
         "name": "Canada",
         "shortName": "Canada",
         "tla": "CAN",
-        "crest": "https://media.api-sports.io/football/teams/5529.png"
+        "crest": "https://crests.football-data.org/canada.svg"
       },
       "score": {
         "winner": null,
@@ -4406,20 +4406,20 @@
       "matchday": null,
       "stage": "LAST_32",
       "group": null,
-      "lastUpdated": "2026-06-29T19:03:11.339146+00:00",
+      "lastUpdated": "2026-07-01T19:10:17.908126+00:00",
       "homeTeam": {
-        "id": 6,
+        "id": 764,
         "name": "Brazil",
         "shortName": "Brazil",
         "tla": "BRA",
-        "crest": "https://media.api-sports.io/football/teams/6.png"
+        "crest": "https://crests.football-data.org/764.svg"
       },
       "awayTeam": {
-        "id": 12,
+        "id": 766,
         "name": "Japan",
         "shortName": "Japan",
-        "tla": "JAP",
-        "crest": "https://media.api-sports.io/football/teams/12.png"
+        "tla": "JPN",
+        "crest": "https://crests.football-data.org/766.svg"
       },
       "score": {
         "winner": null,
@@ -4465,20 +4465,20 @@
       "matchday": null,
       "stage": "LAST_32",
       "group": null,
-      "lastUpdated": "2026-06-29T23:30:31.945145+00:00",
+      "lastUpdated": "2026-07-01T19:10:17.908126+00:00",
       "homeTeam": {
-        "id": 25,
+        "id": 759,
         "name": "Germany",
         "shortName": "Germany",
         "tla": "GER",
-        "crest": "https://media.api-sports.io/football/teams/25.png"
+        "crest": "https://crests.football-data.org/759.svg"
       },
       "awayTeam": {
-        "id": 2380,
+        "id": 761,
         "name": "Paraguay",
         "shortName": "Paraguay",
         "tla": "PAR",
-        "crest": "https://media.api-sports.io/football/teams/2380.png"
+        "crest": "https://crests.football-data.org/761.svg"
       },
       "score": {
         "winner": null,
@@ -4524,20 +4524,20 @@
       "matchday": null,
       "stage": "LAST_32",
       "group": null,
-      "lastUpdated": "2026-06-30T03:54:09.003150+00:00",
+      "lastUpdated": "2026-07-01T19:10:17.908126+00:00",
       "homeTeam": {
-        "id": 1118,
+        "id": 8601,
         "name": "Netherlands",
         "shortName": "Netherlands",
-        "tla": "NET",
-        "crest": "https://media.api-sports.io/football/teams/1118.png"
+        "tla": "NED",
+        "crest": "https://crests.football-data.org/8601.svg"
       },
       "awayTeam": {
-        "id": 31,
+        "id": 815,
         "name": "Morocco",
         "shortName": "Morocco",
-        "tla": "MOR",
-        "crest": "https://media.api-sports.io/football/teams/31.png"
+        "tla": "MAR",
+        "crest": "https://crests.football-data.org/morocco.svg"
       },
       "score": {
         "winner": null,
@@ -4583,20 +4583,20 @@
       "matchday": null,
       "stage": "LAST_32",
       "group": null,
-      "lastUpdated": "2026-06-30T18:59:08.304994+00:00",
+      "lastUpdated": "2026-07-01T19:10:17.908126+00:00",
       "homeTeam": {
-        "id": 1501,
+        "id": 1935,
         "name": "Ivory Coast",
         "shortName": "Ivory Coast",
-        "tla": "IVO",
-        "crest": "https://media.api-sports.io/football/teams/1501.png"
+        "tla": "CIV",
+        "crest": "https://crests.football-data.org/787.svg"
       },
       "awayTeam": {
-        "id": 1090,
+        "id": 8872,
         "name": "Norway",
         "shortName": "Norway",
         "tla": "NOR",
-        "crest": "https://media.api-sports.io/football/teams/1090.png"
+        "crest": "https://crests.football-data.org/813.svg"
       },
       "score": {
         "winner": null,
@@ -4642,20 +4642,20 @@
       "matchday": null,
       "stage": "LAST_32",
       "group": null,
-      "lastUpdated": "2026-06-30T22:54:08.406209+00:00",
+      "lastUpdated": "2026-07-01T19:10:17.908126+00:00",
       "homeTeam": {
-        "id": 2,
+        "id": 773,
         "name": "France",
         "shortName": "France",
         "tla": "FRA",
-        "crest": "https://media.api-sports.io/football/teams/2.png"
+        "crest": "https://crests.football-data.org/773.svg"
       },
       "awayTeam": {
-        "id": 5,
+        "id": 792,
         "name": "Sweden",
         "shortName": "Sweden",
         "tla": "SWE",
-        "crest": "https://media.api-sports.io/football/teams/5.png"
+        "crest": "https://crests.football-data.org/792.svg"
       },
       "score": {
         "winner": null,
@@ -4701,20 +4701,20 @@
       "matchday": null,
       "stage": "LAST_32",
       "group": null,
-      "lastUpdated": "2026-07-01T04:02:09.898485+00:00",
+      "lastUpdated": "2026-07-01T19:10:17.908126+00:00",
       "homeTeam": {
-        "id": 16,
+        "id": 769,
         "name": "Mexico",
         "shortName": "Mexico",
         "tla": "MEX",
-        "crest": "https://media.api-sports.io/football/teams/16.png"
+        "crest": "https://crests.football-data.org/769.svg"
       },
       "awayTeam": {
-        "id": 2382,
+        "id": 791,
         "name": "Ecuador",
         "shortName": "Ecuador",
         "tla": "ECU",
-        "crest": "https://media.api-sports.io/football/teams/2382.png"
+        "crest": "https://crests.football-data.org/791.svg"
       },
       "score": {
         "winner": null,
@@ -4760,20 +4760,20 @@
       "matchday": null,
       "stage": "LAST_32",
       "group": null,
-      "lastUpdated": "2026-07-01T18:00:39.005797+00:00",
+      "lastUpdated": "2026-07-01T19:10:17.908126+00:00",
       "homeTeam": {
-        "id": 10,
+        "id": 770,
         "name": "England",
         "shortName": "England",
         "tla": "ENG",
-        "crest": "https://media.api-sports.io/football/teams/10.png"
+        "crest": "https://crests.football-data.org/770.svg"
       },
       "awayTeam": {
-        "id": 1508,
+        "id": 1934,
         "name": "Congo DR",
         "shortName": "Congo DR",
-        "tla": "CON",
-        "crest": "https://media.api-sports.io/football/teams/1508.png"
+        "tla": "COD",
+        "crest": "https://crests.football-data.org/congo_dr.svg"
       },
       "score": {
         "winner": null,
@@ -4819,20 +4819,20 @@
       "matchday": null,
       "stage": "LAST_32",
       "group": null,
-      "lastUpdated": "2026-06-28T01:47:09.562085+00:00",
+      "lastUpdated": "2026-07-01T19:10:17.908126+00:00",
       "homeTeam": {
-        "id": 1,
+        "id": 805,
         "name": "Belgium",
         "shortName": "Belgium",
         "tla": "BEL",
-        "crest": "https://media.api-sports.io/football/teams/1.png"
+        "crest": "https://crests.football-data.org/805.svg"
       },
       "awayTeam": {
-        "id": 13,
+        "id": 804,
         "name": "Senegal",
         "shortName": "Senegal",
         "tla": "SEN",
-        "crest": "https://media.api-sports.io/football/teams/13.png"
+        "crest": "https://crests.football-data.org/senegal.svg"
       },
       "score": {
         "winner": null,
@@ -4878,13 +4878,13 @@
       "matchday": null,
       "stage": "LAST_32",
       "group": null,
-      "lastUpdated": "2026-06-26T04:51:08.960606+00:00",
+      "lastUpdated": "2026-07-01T19:10:17.908126+00:00",
       "homeTeam": {
-        "id": 2384,
+        "id": 771,
         "name": "United States",
-        "shortName": "United States",
+        "shortName": "USA",
         "tla": "USA",
-        "crest": "https://media.api-sports.io/football/teams/2384.png"
+        "crest": "https://crests.football-data.org/usa.svg"
       },
       "awayTeam": {
         "id": 1113,
@@ -4937,20 +4937,20 @@
       "matchday": null,
       "stage": "LAST_32",
       "group": null,
-      "lastUpdated": "2026-06-28T05:54:35.462347+00:00",
+      "lastUpdated": "2026-07-01T19:10:17.908126+00:00",
       "homeTeam": {
-        "id": 9,
+        "id": 760,
         "name": "Spain",
         "shortName": "Spain",
-        "tla": "SPA",
-        "crest": "https://media.api-sports.io/football/teams/9.png"
+        "tla": "ESP",
+        "crest": "https://crests.football-data.org/760.svg"
       },
       "awayTeam": {
-        "id": 775,
+        "id": 816,
         "name": "Austria",
         "shortName": "Austria",
-        "tla": "AUS",
-        "crest": "https://media.api-sports.io/football/teams/775.png"
+        "tla": "AUT",
+        "crest": "https://crests.football-data.org/816.svg"
       },
       "score": {
         "winner": null,
@@ -4996,20 +4996,20 @@
       "matchday": null,
       "stage": "LAST_32",
       "group": null,
-      "lastUpdated": "2026-06-28T01:47:09.562085+00:00",
+      "lastUpdated": "2026-07-01T19:10:17.908126+00:00",
       "homeTeam": {
-        "id": 27,
+        "id": 765,
         "name": "Portugal",
         "shortName": "Portugal",
         "tla": "POR",
-        "crest": "https://media.api-sports.io/football/teams/27.png"
+        "crest": "https://crests.football-data.org/765.svg"
       },
       "awayTeam": {
-        "id": 3,
+        "id": 799,
         "name": "Croatia",
         "shortName": "Croatia",
         "tla": "CRO",
-        "crest": "https://media.api-sports.io/football/teams/3.png"
+        "crest": "https://crests.football-data.org/799.svg"
       },
       "score": {
         "winner": null,
@@ -5055,20 +5055,20 @@
       "matchday": null,
       "stage": "LAST_32",
       "group": null,
-      "lastUpdated": "2026-06-28T05:54:35.462347+00:00",
+      "lastUpdated": "2026-07-01T19:10:17.908126+00:00",
       "homeTeam": {
-        "id": 15,
+        "id": 788,
         "name": "Switzerland",
         "shortName": "Switzerland",
-        "tla": "SWI",
-        "crest": "https://media.api-sports.io/football/teams/15.png"
+        "tla": "SUI",
+        "crest": "https://crests.football-data.org/788.svg"
       },
       "awayTeam": {
-        "id": 1532,
+        "id": 778,
         "name": "Algeria",
         "shortName": "Algeria",
         "tla": "ALG",
-        "crest": "https://media.api-sports.io/football/teams/1532.png"
+        "crest": "https://crests.football-data.org/algeria.svg"
       },
       "score": {
         "winner": null,
@@ -5114,20 +5114,20 @@
       "matchday": null,
       "stage": "LAST_32",
       "group": null,
-      "lastUpdated": "2026-06-27T05:07:07.969077+00:00",
+      "lastUpdated": "2026-07-01T19:10:17.908126+00:00",
       "homeTeam": {
-        "id": 20,
+        "id": 779,
         "name": "Australia",
         "shortName": "Australia",
         "tla": "AUS",
-        "crest": "https://media.api-sports.io/football/teams/20.png"
+        "crest": "https://crests.football-data.org/779.svg"
       },
       "awayTeam": {
-        "id": 32,
+        "id": 825,
         "name": "Egypt",
         "shortName": "Egypt",
         "tla": "EGY",
-        "crest": "https://media.api-sports.io/football/teams/32.png"
+        "crest": "https://crests.football-data.org/825.svg"
       },
       "score": {
         "winner": null,
@@ -5173,20 +5173,20 @@
       "matchday": null,
       "stage": "LAST_32",
       "group": null,
-      "lastUpdated": "2026-06-27T05:07:07.969077+00:00",
+      "lastUpdated": "2026-07-01T19:10:17.908126+00:00",
       "homeTeam": {
-        "id": 26,
+        "id": 762,
         "name": "Argentina",
         "shortName": "Argentina",
         "tla": "ARG",
-        "crest": "https://media.api-sports.io/football/teams/26.png"
+        "crest": "https://crests.football-data.org/762.png"
       },
       "awayTeam": {
-        "id": 1533,
+        "id": 1930,
         "name": "Cape Verde Islands",
-        "shortName": "Cape Verde Islands",
-        "tla": "CAP",
-        "crest": "https://media.api-sports.io/football/teams/1533.png"
+        "shortName": "Cape Verde",
+        "tla": "CPV",
+        "crest": "https://crests.football-data.org/cape_verde.svg"
       },
       "score": {
         "winner": null,
@@ -5232,20 +5232,20 @@
       "matchday": null,
       "stage": "LAST_32",
       "group": null,
-      "lastUpdated": "2026-06-28T01:47:09.562085+00:00",
+      "lastUpdated": "2026-07-01T19:10:17.908126+00:00",
       "homeTeam": {
-        "id": 8,
+        "id": 818,
         "name": "Colombia",
         "shortName": "Colombia",
         "tla": "COL",
-        "crest": "https://media.api-sports.io/football/teams/8.png"
+        "crest": "https://crests.football-data.org/818.svg"
       },
       "awayTeam": {
-        "id": 1504,
+        "id": 763,
         "name": "Ghana",
         "shortName": "Ghana",
         "tla": "GHA",
-        "crest": "https://media.api-sports.io/football/teams/1504.png"
+        "crest": "https://crests.football-data.org/ghana.svg"
       },
       "score": {
         "winner": null,
@@ -5291,20 +5291,20 @@
       "matchday": null,
       "stage": "LAST_16",
       "group": null,
-      "lastUpdated": "2026-06-30T04:53:08.030317+00:00",
+      "lastUpdated": "2026-07-01T19:10:17.908126+00:00",
       "homeTeam": {
-        "id": 5529,
+        "id": 828,
         "name": "Canada",
         "shortName": "Canada",
         "tla": "CAN",
-        "crest": "https://media.api-sports.io/football/teams/5529.png"
+        "crest": "https://crests.football-data.org/canada.svg"
       },
       "awayTeam": {
-        "id": 31,
+        "id": 815,
         "name": "Morocco",
         "shortName": "Morocco",
-        "tla": "MOR",
-        "crest": "https://media.api-sports.io/football/teams/31.png"
+        "tla": "MAR",
+        "crest": "https://crests.football-data.org/morocco.svg"
       },
       "score": {
         "winner": null,
@@ -5350,20 +5350,20 @@
       "matchday": null,
       "stage": "LAST_16",
       "group": null,
-      "lastUpdated": "2026-07-01T05:09:10.820339+00:00",
+      "lastUpdated": "2026-07-01T19:10:17.908126+00:00",
       "homeTeam": {
-        "id": 2380,
+        "id": 761,
         "name": "Paraguay",
         "shortName": "Paraguay",
         "tla": "PAR",
-        "crest": "https://media.api-sports.io/football/teams/2380.png"
+        "crest": "https://crests.football-data.org/761.svg"
       },
       "awayTeam": {
-        "id": 2,
+        "id": 773,
         "name": "France",
         "shortName": "France",
         "tla": "FRA",
-        "crest": "https://media.api-sports.io/football/teams/2.png"
+        "crest": "https://crests.football-data.org/773.svg"
       },
       "score": {
         "winner": null,
@@ -5409,20 +5409,20 @@
       "matchday": null,
       "stage": "LAST_16",
       "group": null,
-      "lastUpdated": "2026-06-30T19:03:08.586152+00:00",
+      "lastUpdated": "2026-07-01T19:10:17.908126+00:00",
       "homeTeam": {
-        "id": 6,
+        "id": 764,
         "name": "Brazil",
         "shortName": "Brazil",
         "tla": "BRA",
-        "crest": "https://media.api-sports.io/football/teams/6.png"
+        "crest": "https://crests.football-data.org/764.svg"
       },
       "awayTeam": {
-        "id": 1090,
+        "id": 8872,
         "name": "Norway",
         "shortName": "Norway",
         "tla": "NOR",
-        "crest": "https://media.api-sports.io/football/teams/1090.png"
+        "crest": "https://crests.football-data.org/813.svg"
       },
       "score": {
         "winner": null,
@@ -6209,5 +6209,5 @@
       "referees": []
     }
   ],
-  "lastUpdated": "2026-07-01T19:09:08.348596+00:00"
+  "lastUpdated": "2026-07-01T19:10:17.908126+00:00"
 }
