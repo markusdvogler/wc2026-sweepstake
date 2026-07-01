@@ -4815,11 +4815,11 @@
       },
       "id": 537422,
       "utcDate": "2026-07-01T20:00:00Z",
-      "status": "IN_PLAY",
+      "status": "PAUSED",
       "matchday": null,
       "stage": "LAST_32",
       "group": null,
-      "lastUpdated": "2026-07-01T20:26:09.046033+00:00",
+      "lastUpdated": "2026-07-01T20:52:08.991773+00:00",
       "homeTeam": {
         "id": 805,
         "name": "Belgium",
@@ -6209,5 +6209,5 @@
       "referees": []
     }
   ],
-  "lastUpdated": "2026-07-01T20:51:09.562284+00:00"
+  "lastUpdated": "2026-07-01T20:52:08.991773+00:00"
 }
