@@ -450,7 +450,25 @@ def ensure_team(name):
             'fouls': 0, 'ownGoals': 0, 'lateGoals': 0
         }
 
+# Group-stage-only aggregation. All Prize Tracker prizes are for group
+# stage only — knockout stats (cards, fouls, own goals, late goals)
+# must NOT roll up into team totals.
+fixture_stages = stats_data.get('fixtureStages', {})
+# Update fixture_stages from this run's ra_fixtures (backfill = full list,
+# normal = today/yesterday).
+for fx in ra_fixtures:
+    fxid = str((fx.get('fixture') or {}).get('id') or '')
+    if not fxid:
+        continue
+    round_str = ((fx.get('league') or {}).get('round') or '').lower()
+    if 'group stage' in round_str:
+        fixture_stages[fxid] = 'GROUP_STAGE'
+    elif round_str in ROUND_TO_STAGE:
+        fixture_stages[fxid] = ROUND_TO_STAGE[round_str]
+
 for fxid, by_team in match_stats.items():
+    if fixture_stages.get(fxid) != 'GROUP_STAGE':
+        continue   # skip knockout / unknown-stage fixtures
     for tname, vals in by_team.items():
         ensure_team(tname)
         for k in team_totals[tname]:
@@ -493,6 +511,7 @@ stats_data['matchStats']      = match_stats
 stats_data['lastEventsFetch'] = last_events
 stats_data['lastStatsFetch']  = last_stats
 stats_data['finishedFully']   = sorted(finished_fully)
+stats_data['fixtureStages']   = fixture_stages
 stats_data['teams']           = team_totals
 stats_data['lastUpdated']     = now_utc.isoformat()
 with open(stats_path, 'w', encoding='utf-8') as f:

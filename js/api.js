@@ -52,6 +52,9 @@ const API = {
     }
 
     for (const m of matches) {
+      // All Prize Tracker prizes are group-stage-only; knockout results
+      // must not contribute to goals/points/cards/etc totals.
+      if (m.stage !== 'GROUP_STAGE') continue;
       const isFinished = m.status === 'FINISHED';
       const isLive     = m.status === 'IN_PLAY' || m.status === 'PAUSED';
       if (!isFinished && !isLive) continue;
