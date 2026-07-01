@@ -235,6 +235,16 @@ ROUND_TO_STAGE = {
     '3rd place final': 'THIRD_PLACE',
     'final':           'FINAL',
 }
+# Build name → fdorg team object lookup from group stage. Preserves fdorg
+# team IDs across group + knockout so getTeamStats aggregates correctly.
+fd_team_by_name = {}
+for m in fd_matches:
+    for side in ('homeTeam', 'awayTeam'):
+        t = m.get(side) or {}
+        n = t.get('name')
+        if n and n not in fd_team_by_name:
+            fd_team_by_name[n] = t
+
 ko_filled = 0
 for fx in ra_fixtures:
     teams = fx.get('teams') or {}
@@ -248,29 +258,41 @@ for fx in ra_fixtures:
         continue       # not a knockout round
     fx_date = (fx.get('fixture') or {}).get('date', '')[:19]
 
+    hname_norm = normalize(hname_raw)
+    aname_norm = normalize(aname_raw)
+    # Prefer fdorg team object (preserves id/tla/crest) if we know this team
+    fd_home = fd_team_by_name.get(hname_norm)
+    fd_away = fd_team_by_name.get(aname_norm)
+
     for m in fd_matches:
         if m.get('stage') != stage:
             continue
-        if (m.get('homeTeam') or {}).get('name'):
-            continue   # already populated, don't clobber
         m_date = (m.get('utcDate') or '')[:19].replace('Z', '')
         if fx_date != m_date:
             continue
-        # Populate the placeholder
-        m['homeTeam'] = {
+        # Populate/correct the placeholder, preferring fdorg team info so
+        # team IDs stay consistent across group and knockout stages.
+        desired_home = fd_home or {
             'id':        h.get('id'),
-            'name':      normalize(hname_raw),
-            'shortName': normalize(hname_raw),
+            'name':      hname_norm,
+            'shortName': hname_norm,
             'tla':       (h.get('name') or '')[:3].upper(),
             'crest':     h.get('logo'),
         }
-        m['awayTeam'] = {
+        desired_away = fd_away or {
             'id':        a.get('id'),
-            'name':      normalize(aname_raw),
-            'shortName': normalize(aname_raw),
+            'name':      aname_norm,
+            'shortName': aname_norm,
             'tla':       (a.get('name') or '')[:3].upper(),
             'crest':     a.get('logo'),
         }
+        cur_home = m.get('homeTeam') or {}
+        cur_away = m.get('awayTeam') or {}
+        if (cur_home.get('id') == desired_home.get('id')
+                and cur_away.get('id') == desired_away.get('id')):
+            break   # already correct, no update needed
+        m['homeTeam'] = desired_home
+        m['awayTeam'] = desired_away
         m['lastUpdated'] = now_utc.isoformat()
         ko_filled += 1
         break
