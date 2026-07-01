@@ -235,10 +235,13 @@ ROUND_TO_STAGE = {
     '3rd place final': 'THIRD_PLACE',
     'final':           'FINAL',
 }
-# Build name → fdorg team object lookup from group stage. Preserves fdorg
-# team IDs across group + knockout so getTeamStats aggregates correctly.
+# Build name → fdorg team object lookup ONLY from group stage matches.
+# If we include knockout matches, any prior buggy population that used
+# api-sports IDs would poison the lookup on subsequent runs.
 fd_team_by_name = {}
 for m in fd_matches:
+    if m.get('stage') != 'GROUP_STAGE':
+        continue
     for side in ('homeTeam', 'awayTeam'):
         t = m.get(side) or {}
         n = t.get('name')
