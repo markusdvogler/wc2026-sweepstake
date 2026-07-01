@@ -4815,11 +4815,11 @@
       },
       "id": 537422,
       "utcDate": "2026-07-01T20:00:00Z",
-      "status": "TIMED",
+      "status": "IN_PLAY",
       "matchday": null,
       "stage": "LAST_32",
       "group": null,
-      "lastUpdated": "2026-07-01T19:10:17.908126+00:00",
+      "lastUpdated": "2026-07-01T20:01:11.810567+00:00",
       "homeTeam": {
         "id": 805,
         "name": "Belgium",
@@ -4838,8 +4838,8 @@
         "winner": null,
         "duration": "REGULAR",
         "fullTime": {
-          "home": null,
-          "away": null
+          "home": 0,
+          "away": 0
         },
         "halfTime": {
           "home": null,
@@ -6209,5 +6209,5 @@
       "referees": []
     }
   ],
-  "lastUpdated": "2026-07-01T20:00:34.633452+00:00"
+  "lastUpdated": "2026-07-01T20:01:11.810567+00:00"
 }
