@@ -4,14 +4,14 @@
     "Mexico": {
       "yellowCards": 2,
       "redCards": 1,
-      "fouls": 44,
+      "fouls": 34,
       "ownGoals": 0,
       "lateGoals": 1
     },
     "South Africa": {
       "yellowCards": 5,
       "redCards": 2,
-      "fouls": 37,
+      "fouls": 28,
       "ownGoals": 0,
       "lateGoals": 0
     },
@@ -30,11 +30,11 @@
       "lateGoals": 0
     },
     "Canada": {
-      "yellowCards": 7,
+      "yellowCards": 5,
       "redCards": 0,
-      "fouls": 46,
+      "fouls": 30,
       "ownGoals": 0,
-      "lateGoals": 2
+      "lateGoals": 1
     },
     "Bosnia-Herzegovina": {
       "yellowCards": 6,
@@ -51,11 +51,11 @@
       "lateGoals": 1
     },
     "Paraguay": {
-      "yellowCards": 10,
+      "yellowCards": 7,
       "redCards": 1,
-      "fouls": 52,
+      "fouls": 40,
       "ownGoals": 1,
-      "lateGoals": 6
+      "lateGoals": 0
     },
     "Qatar": {
       "yellowCards": 4,
@@ -72,18 +72,18 @@
       "lateGoals": 2
     },
     "Brazil": {
-      "yellowCards": 7,
+      "yellowCards": 5,
       "redCards": 0,
-      "fouls": 41,
+      "fouls": 37,
       "ownGoals": 0,
-      "lateGoals": 1
+      "lateGoals": 0
     },
     "Morocco": {
-      "yellowCards": 2,
+      "yellowCards": 1,
       "redCards": 0,
-      "fouls": 47,
+      "fouls": 32,
       "ownGoals": 1,
-      "lateGoals": 7
+      "lateGoals": 1
     },
     "Haiti": {
       "yellowCards": 7,
@@ -114,11 +114,11 @@
       "lateGoals": 1
     },
     "Germany": {
-      "yellowCards": 4,
+      "yellowCards": 1,
       "redCards": 0,
-      "fouls": 51,
+      "fouls": 33,
       "ownGoals": 0,
-      "lateGoals": 8
+      "lateGoals": 2
     },
     "Curaçao": {
       "yellowCards": 7,
@@ -130,35 +130,35 @@
     "Netherlands": {
       "yellowCards": 3,
       "redCards": 0,
-      "fouls": 44,
+      "fouls": 26,
       "ownGoals": 0,
-      "lateGoals": 6
+      "lateGoals": 1
     },
     "Japan": {
-      "yellowCards": 4,
+      "yellowCards": 1,
       "redCards": 0,
-      "fouls": 54,
+      "fouls": 42,
       "ownGoals": 0,
       "lateGoals": 1
     },
     "Ivory Coast": {
       "yellowCards": 4,
       "redCards": 0,
-      "fouls": 29,
+      "fouls": 23,
       "ownGoals": 0,
       "lateGoals": 1
     },
     "Ecuador": {
-      "yellowCards": 8,
-      "redCards": 1,
-      "fouls": 48,
+      "yellowCards": 5,
+      "redCards": 0,
+      "fouls": 35,
       "ownGoals": 0,
       "lateGoals": 0
     },
     "Sweden": {
       "yellowCards": 5,
       "redCards": 0,
-      "fouls": 43,
+      "fouls": 33,
       "ownGoals": 0,
       "lateGoals": 1
     },
@@ -228,7 +228,7 @@
     "France": {
       "yellowCards": 1,
       "redCards": 0,
-      "fouls": 36,
+      "fouls": 23,
       "ownGoals": 0,
       "lateGoals": 2
     },
@@ -247,11 +247,11 @@
       "lateGoals": 0
     },
     "Norway": {
-      "yellowCards": 2,
+      "yellowCards": 1,
       "redCards": 0,
-      "fouls": 41,
+      "fouls": 35,
       "ownGoals": 0,
-      "lateGoals": 2
+      "lateGoals": 1
     },
     "Argentina": {
       "yellowCards": 2,
@@ -289,18 +289,18 @@
       "lateGoals": 1
     },
     "Congo DR": {
-      "yellowCards": 6,
+      "yellowCards": 5,
       "redCards": 0,
-      "fouls": 44,
+      "fouls": 32,
       "ownGoals": 0,
       "lateGoals": 1
     },
     "England": {
-      "yellowCards": 3,
+      "yellowCards": 2,
       "redCards": 0,
-      "fouls": 44,
+      "fouls": 34,
       "ownGoals": 0,
-      "lateGoals": 2
+      "lateGoals": 1
     },
     "Croatia": {
       "yellowCards": 2,
@@ -338,7 +338,7 @@
       "lateGoals": 1
     }
   },
-  "lastUpdated": "2026-07-01T19:22:09.798654+00:00",
+  "lastUpdated": "2026-07-01T19:22:52.797780+00:00",
   "matchStats": {
     "1489369": {
       "Mexico": {
@@ -1866,5 +1866,98 @@
     "1565177",
     "1567306",
     "1567307"
-  ]
+  ],
+  "fixtureStages": {
+    "1489369": "GROUP_STAGE",
+    "1538999": "GROUP_STAGE",
+    "1539000": "GROUP_STAGE",
+    "1489370": "GROUP_STAGE",
+    "1489373": "GROUP_STAGE",
+    "1489371": "GROUP_STAGE",
+    "1489372": "GROUP_STAGE",
+    "1539001": "GROUP_STAGE",
+    "1489374": "GROUP_STAGE",
+    "1489376": "GROUP_STAGE",
+    "1489375": "GROUP_STAGE",
+    "1539002": "GROUP_STAGE",
+    "1489380": "GROUP_STAGE",
+    "1489377": "GROUP_STAGE",
+    "1489379": "GROUP_STAGE",
+    "1489378": "GROUP_STAGE",
+    "1489383": "GROUP_STAGE",
+    "1539016": "GROUP_STAGE",
+    "1489381": "GROUP_STAGE",
+    "1489382": "GROUP_STAGE",
+    "1539003": "GROUP_STAGE",
+    "1489384": "GROUP_STAGE",
+    "1489385": "GROUP_STAGE",
+    "1489386": "GROUP_STAGE",
+    "1539004": "GROUP_STAGE",
+    "1539005": "GROUP_STAGE",
+    "1489387": "GROUP_STAGE",
+    "1489388": "GROUP_STAGE",
+    "1489391": "GROUP_STAGE",
+    "1489390": "GROUP_STAGE",
+    "1489389": "GROUP_STAGE",
+    "1539006": "GROUP_STAGE",
+    "1539007": "GROUP_STAGE",
+    "1489393": "GROUP_STAGE",
+    "1489392": "GROUP_STAGE",
+    "1489394": "GROUP_STAGE",
+    "1489397": "GROUP_STAGE",
+    "1489395": "GROUP_STAGE",
+    "1489398": "GROUP_STAGE",
+    "1489396": "GROUP_STAGE",
+    "1489399": "GROUP_STAGE",
+    "1539017": "GROUP_STAGE",
+    "1489401": "GROUP_STAGE",
+    "1489400": "GROUP_STAGE",
+    "1489404": "GROUP_STAGE",
+    "1489402": "GROUP_STAGE",
+    "1489403": "GROUP_STAGE",
+    "1539008": "GROUP_STAGE",
+    "1489408": "GROUP_STAGE",
+    "1539009": "GROUP_STAGE",
+    "1489405": "GROUP_STAGE",
+    "1489406": "GROUP_STAGE",
+    "1539010": "GROUP_STAGE",
+    "1489407": "GROUP_STAGE",
+    "1489410": "GROUP_STAGE",
+    "1489409": "GROUP_STAGE",
+    "1539011": "GROUP_STAGE",
+    "1489412": "GROUP_STAGE",
+    "1539012": "GROUP_STAGE",
+    "1489411": "GROUP_STAGE",
+    "1539074": "GROUP_STAGE",
+    "1489416": "GROUP_STAGE",
+    "1489417": "GROUP_STAGE",
+    "1489413": "GROUP_STAGE",
+    "1489414": "GROUP_STAGE",
+    "1489415": "GROUP_STAGE",
+    "1489420": "GROUP_STAGE",
+    "1489422": "GROUP_STAGE",
+    "1489419": "GROUP_STAGE",
+    "1539013": "GROUP_STAGE",
+    "1489418": "GROUP_STAGE",
+    "1489421": "GROUP_STAGE",
+    "1561329": "LAST_32",
+    "1562344": "LAST_32",
+    "1565176": "LAST_32",
+    "1562345": "LAST_32",
+    "1564789": "LAST_32",
+    "1565177": "LAST_32",
+    "1567306": "LAST_32",
+    "1567307": "LAST_32",
+    "1567308": "LAST_32",
+    "1562586": "LAST_32",
+    "1567311": "LAST_32",
+    "1567309": "LAST_32",
+    "1567312": "LAST_32",
+    "1565178": "LAST_32",
+    "1565179": "LAST_32",
+    "1567310": "LAST_32",
+    "1567824": "LAST_16",
+    "1569870": "LAST_16",
+    "1568100": "LAST_16"
+  }
 }
