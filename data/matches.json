@@ -4992,11 +4992,11 @@
       },
       "id": 537419,
       "utcDate": "2026-07-02T23:00:00Z",
-      "status": "PAUSED",
+      "status": "IN_PLAY",
       "matchday": null,
       "stage": "LAST_32",
       "group": null,
-      "lastUpdated": "2026-07-02T23:50:21.782697+00:00",
+      "lastUpdated": "2026-07-03T00:06:11.158578+00:00",
       "homeTeam": {
         "id": 765,
         "name": "Portugal",
@@ -6209,5 +6209,5 @@
       "referees": []
     }
   ],
-  "lastUpdated": "2026-07-03T00:05:11.601617+00:00"
+  "lastUpdated": "2026-07-03T00:06:11.158578+00:00"
 }
