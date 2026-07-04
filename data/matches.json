@@ -5350,7 +5350,7 @@
       "matchday": null,
       "stage": "LAST_16",
       "group": null,
-      "lastUpdated": "2026-07-04T22:10:34.298962+00:00",
+      "lastUpdated": "2026-07-04T22:34:11.457532+00:00",
       "homeTeam": {
         "id": 761,
         "name": "Paraguay",
@@ -5370,7 +5370,7 @@
         "duration": "REGULAR",
         "fullTime": {
           "home": 0,
-          "away": 0
+          "away": 1
         },
         "halfTime": {
           "home": null,
@@ -6209,5 +6209,5 @@
       "referees": []
     }
   ],
-  "lastUpdated": "2026-07-04T22:33:08.819028+00:00"
+  "lastUpdated": "2026-07-04T22:34:11.457532+00:00"
 }
