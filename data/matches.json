@@ -5232,7 +5232,7 @@
       "matchday": null,
       "stage": "LAST_32",
       "group": null,
-      "lastUpdated": "2026-07-04T01:31:08.870145+00:00",
+      "lastUpdated": "2026-07-04T01:45:16.781856+00:00",
       "homeTeam": {
         "id": 818,
         "name": "Colombia",
@@ -5251,7 +5251,7 @@
         "winner": null,
         "duration": "REGULAR",
         "fullTime": {
-          "home": 0,
+          "home": 1,
           "away": 0
         },
         "halfTime": {
@@ -6209,5 +6209,5 @@
       "referees": []
     }
   ],
-  "lastUpdated": "2026-07-04T01:44:09.072349+00:00"
+  "lastUpdated": "2026-07-04T01:45:16.781856+00:00"
 }
