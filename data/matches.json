@@ -5287,11 +5287,11 @@
       },
       "id": 537376,
       "utcDate": "2026-07-04T17:00:00Z",
-      "status": "IN_PLAY",
+      "status": "FINISHED",
       "matchday": null,
       "stage": "LAST_16",
       "group": null,
-      "lastUpdated": "2026-07-04T19:04:09.424643+00:00",
+      "lastUpdated": "2026-07-04T19:05:12.791611+00:00",
       "homeTeam": {
         "id": 828,
         "name": "Canada",
@@ -6209,5 +6209,5 @@
       "referees": []
     }
   ],
-  "lastUpdated": "2026-07-04T19:04:09.424643+00:00"
+  "lastUpdated": "2026-07-04T19:05:12.791611+00:00"
 }
