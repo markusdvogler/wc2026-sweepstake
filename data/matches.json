@@ -5228,11 +5228,11 @@
       },
       "id": 537430,
       "utcDate": "2026-07-04T01:30:00Z",
-      "status": "IN_PLAY",
+      "status": "PAUSED",
       "matchday": null,
       "stage": "LAST_32",
       "group": null,
-      "lastUpdated": "2026-07-04T01:45:16.781856+00:00",
+      "lastUpdated": "2026-07-04T02:23:07.898228+00:00",
       "homeTeam": {
         "id": 818,
         "name": "Colombia",
@@ -6209,5 +6209,5 @@
       "referees": []
     }
   ],
-  "lastUpdated": "2026-07-04T02:22:08.709693+00:00"
+  "lastUpdated": "2026-07-04T02:23:07.898228+00:00"
 }
