@@ -5405,11 +5405,11 @@
       },
       "id": 537377,
       "utcDate": "2026-07-05T20:00:00Z",
-      "status": "IN_PLAY",
+      "status": "FINISHED",
       "matchday": null,
       "stage": "LAST_16",
       "group": null,
-      "lastUpdated": "2026-07-05T22:03:10.303517+00:00",
+      "lastUpdated": "2026-07-05T22:05:12.038735+00:00",
       "homeTeam": {
         "id": 764,
         "name": "Brazil",
@@ -6209,5 +6209,5 @@
       "referees": []
     }
   ],
-  "lastUpdated": "2026-07-05T22:04:10.271605+00:00"
+  "lastUpdated": "2026-07-05T22:05:12.038735+00:00"
 }
