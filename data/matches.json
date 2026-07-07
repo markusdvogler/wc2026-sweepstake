@@ -5641,11 +5641,11 @@
       },
       "id": 537381,
       "utcDate": "2026-07-07T16:00:00Z",
-      "status": "TIMED",
+      "status": "IN_PLAY",
       "matchday": null,
       "stage": "LAST_16",
       "group": null,
-      "lastUpdated": "2026-07-04T05:22:10.176714+00:00",
+      "lastUpdated": "2026-07-07T16:03:10.388354+00:00",
       "homeTeam": {
         "id": 762,
         "name": "Argentina",
@@ -5664,8 +5664,8 @@
         "winner": null,
         "duration": "REGULAR",
         "fullTime": {
-          "home": null,
-          "away": null
+          "home": 0,
+          "away": 0
         },
         "halfTime": {
           "home": null,
@@ -6209,5 +6209,5 @@
       "referees": []
     }
   ],
-  "lastUpdated": "2026-07-07T16:02:10.881179+00:00"
+  "lastUpdated": "2026-07-07T16:03:10.388354+00:00"
 }
