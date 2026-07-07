@@ -338,7 +338,7 @@
       "lateGoals": 1
     }
   },
-  "lastUpdated": "2026-07-07T02:05:12.451795+00:00",
+  "lastUpdated": "2026-07-07T02:06:09.831665+00:00",
   "matchStats": {
     "1489369": {
       "Mexico": {
@@ -2231,6 +2231,7 @@
     "1576804": "LAST_16",
     "1576805": "LAST_16",
     "1578539": "QUARTER_FINALS",
-    "1581037": "QUARTER_FINALS"
+    "1581037": "QUARTER_FINALS",
+    "1581821": "QUARTER_FINALS"
   }
 }
