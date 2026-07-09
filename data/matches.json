@@ -5759,11 +5759,11 @@
       },
       "id": 537383,
       "utcDate": "2026-07-09T20:00:00Z",
-      "status": "IN_PLAY",
+      "status": "PAUSED",
       "matchday": null,
       "stage": "QUARTER_FINALS",
       "group": null,
-      "lastUpdated": "2026-07-09T20:01:08.530548+00:00",
+      "lastUpdated": "2026-07-09T20:52:09.758430+00:00",
       "homeTeam": {
         "id": 773,
         "name": "France",
@@ -6209,5 +6209,5 @@
       "referees": []
     }
   ],
-  "lastUpdated": "2026-07-09T20:51:08.881573+00:00"
+  "lastUpdated": "2026-07-09T20:52:09.758430+00:00"
 }
