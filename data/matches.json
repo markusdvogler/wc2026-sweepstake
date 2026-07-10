@@ -5818,11 +5818,11 @@
       },
       "id": 537384,
       "utcDate": "2026-07-10T19:00:00Z",
-      "status": "PAUSED",
+      "status": "IN_PLAY",
       "matchday": null,
       "stage": "QUARTER_FINALS",
       "group": null,
-      "lastUpdated": "2026-07-10T19:52:09.521368+00:00",
+      "lastUpdated": "2026-07-10T20:08:10.505209+00:00",
       "homeTeam": {
         "id": 760,
         "name": "Spain",
@@ -6209,5 +6209,5 @@
       "referees": []
     }
   ],
-  "lastUpdated": "2026-07-10T20:07:08.900893+00:00"
+  "lastUpdated": "2026-07-10T20:08:10.505209+00:00"
 }
