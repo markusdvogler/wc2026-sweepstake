@@ -5818,11 +5818,11 @@
       },
       "id": 537384,
       "utcDate": "2026-07-10T19:00:00Z",
-      "status": "TIMED",
+      "status": "IN_PLAY",
       "matchday": null,
       "stage": "QUARTER_FINALS",
       "group": null,
-      "lastUpdated": "2026-07-07T02:06:09.831665+00:00",
+      "lastUpdated": "2026-07-10T19:01:11.539249+00:00",
       "homeTeam": {
         "id": 760,
         "name": "Spain",
@@ -5841,8 +5841,8 @@
         "winner": null,
         "duration": "REGULAR",
         "fullTime": {
-          "home": null,
-          "away": null
+          "home": 0,
+          "away": 0
         },
         "halfTime": {
           "home": null,
@@ -6209,5 +6209,5 @@
       "referees": []
     }
   ],
-  "lastUpdated": "2026-07-10T19:00:46.576528+00:00"
+  "lastUpdated": "2026-07-10T19:01:11.539249+00:00"
 }
